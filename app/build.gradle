@@ -12,7 +12,21 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        def propsFile = rootProject.file('config.properties')
+
+        debug {
+            if (propsFile.exists()) {
+                def props = new Properties()
+                props.load(new FileInputStream(propsFile))
+                buildConfigField "String", "BACKEND_URL", "\"" + props['backendUrlDebug'] + "\""
+            }
+        }
         release {
+            if (propsFile.exists()) {
+                def props = new Properties()
+                props.load(new FileInputStream(propsFile))
+                buildConfigField "String", "BACKEND_URL", "\"" + props['backendUrlRelease'] + "\""
+            }
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
