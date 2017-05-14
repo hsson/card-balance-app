@@ -47,24 +47,8 @@ public class GlobalState extends Application {
         }
     }
 
-    /**
-     * Determines if the application was started normally, was just upgraded, or if it's the
-     * first time the app is ran.
-     * @return The run state of the application
-     */
-    private RunState getRunState() {
-        int currentVersionCode = BuildConfig.VERSION_CODE;
-        SharedPreferences preferences = getSharedPreferences(Constants.PREFS_FILE_NAME, MODE_PRIVATE);
-        int savedVersionCode = preferences.getInt(Constants.PREFS_VERSION_CODE_KEY, Constants.PREFS_VERSION_CODE_NONEXISTING);
-        preferences.edit().putInt(Constants.PREFS_VERSION_CODE_KEY, currentVersionCode).apply();
-
-        if (savedVersionCode == Constants.PREFS_VERSION_CODE_NONEXISTING) {
-            return RunState.FIRST;
-        } else if (currentVersionCode > savedVersionCode) {
-            return RunState.UPGRADED;
-        } else {
-            return RunState.NORMAL;
-        }
+    public IModel getModel() {
+        return this.model;
     }
 
     /**
@@ -110,6 +94,32 @@ public class GlobalState extends Application {
         editor.apply();
     }
 
+    /**
+     * Determines if the application was started normally, was just upgraded, or if it's the
+     * first time the app is ran.
+     * @return The run state of the application
+     */
+    private RunState getRunState() {
+        int currentVersionCode = BuildConfig.VERSION_CODE;
+        SharedPreferences preferences = getSharedPreferences(Constants.PREFS_FILE_NAME, MODE_PRIVATE);
+        int savedVersionCode = preferences.getInt(Constants.PREFS_VERSION_CODE_KEY, Constants.PREFS_VERSION_CODE_NONEXISTING);
+        preferences.edit().putInt(Constants.PREFS_VERSION_CODE_KEY, currentVersionCode).apply();
+
+        if (savedVersionCode == Constants.PREFS_VERSION_CODE_NONEXISTING) {
+            return RunState.FIRST;
+        } else if (currentVersionCode > savedVersionCode) {
+            return RunState.UPGRADED;
+        } else {
+            return RunState.NORMAL;
+        }
+    }
+
+    /**
+     * Determine which language to default to. If the users is running one of
+     * the supported languages, use that one.
+     *
+     * @return One of the supported languages
+     */
     private String determineSystemLanguage() {
         String defaultLanguage = Locale.getDefault().getLanguage();
         switch (defaultLanguage) {

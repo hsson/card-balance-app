@@ -11,7 +11,9 @@ import android.widget.Toast;
 
 import se.creotec.chscardbalance2.BuildConfig;
 import se.creotec.chscardbalance2.Constants;
+import se.creotec.chscardbalance2.GlobalState;
 import se.creotec.chscardbalance2.R;
+import se.creotec.chscardbalance2.model.CardData;
 import se.creotec.chscardbalance2.service.BalanceService;
 import se.creotec.chscardbalance2.service.MenuService;
 
@@ -21,7 +23,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toast.makeText(this, BuildConfig.BACKEND_URL, Toast.LENGTH_LONG).show();
+        GlobalState global = ((GlobalState) getApplication());
+
+        String name = global.getModel().getCardData().getOwnerName();
+        Toast.makeText(this, name, Toast.LENGTH_LONG).show();
+
         Intent updateBalanceIntent = new Intent(this, BalanceService.class);
         updateBalanceIntent.setAction(Constants.ACTION_UPDATE_BALANCE);
         System.out.println("Starting balance service");
@@ -31,5 +37,10 @@ public class MainActivity extends AppCompatActivity {
         updateMenuIntent.setAction(Constants.ACTION_UPDATE_MENU);
         System.out.println("Starting menu service");
         this.startService(updateMenuIntent);
+
+        CardData card = global.getModel().getCardData();
+        card.setOwnerName("John Doe");
+        global.getModel().setCardData(card);
+        global.saveCardData();
     }
 }
