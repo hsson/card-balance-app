@@ -9,17 +9,23 @@ import android.support.annotation.NonNull;
 import java.util.HashSet;
 import java.util.Set;
 
+import se.creotec.chscardbalance2.Constants;
+
 public final class Model implements IModel {
     private CardData cardData;
     private MenuData menuData;
     private Set<OnCardDataChangedListener> cardDataChangedListeners;
     private Set<OnMenuDataChangedListener> menuDataChangedListeners;
 
+    private long cardLastTimeUpdated;
+    private String preferredMenuLanguage;
+
     public Model() {
         this.cardDataChangedListeners = new HashSet<>();
         this.menuDataChangedListeners = new HashSet<>();
         this.cardData = new CardData();
         this.menuData = new MenuData();
+        this.cardLastTimeUpdated = -1;
     }
 
     @Override
@@ -46,6 +52,18 @@ public final class Model implements IModel {
     }
 
     @Override
+    public void setCardLastTimeUpdated(long lastUpdated) {
+        if (lastUpdated >= 0) {
+            this.cardLastTimeUpdated = lastUpdated;
+        }
+    }
+
+    @Override
+    public long getCardLastTimeUpdate() {
+        return this.cardLastTimeUpdated;
+    }
+
+    @Override
     public void setMenuData(final MenuData data) {
         this.menuData = data;
         notifyMenuDataChangedListeners();
@@ -66,6 +84,25 @@ public final class Model implements IModel {
         for (OnMenuDataChangedListener listener : this.menuDataChangedListeners) {
             listener.notify(this.menuData);
         }
+    }
+
+    @Override
+    public void setPreferredMenuLanguage(String language) {
+        if (language != null) {
+            switch (language) {
+                case Constants.ENDPOINT_MENU_LANG_EN:
+                case Constants.ENDPOINT_MENU_LANG_SV:
+                    this.preferredMenuLanguage = language;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public String getPreferredMenuLanguage() {
+        return this.preferredMenuLanguage;
     }
 
 }

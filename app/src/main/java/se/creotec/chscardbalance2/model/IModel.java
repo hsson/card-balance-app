@@ -11,10 +11,14 @@ public interface IModel {
     CardData getCardData();
     void addCardDataListener(@NonNull OnCardDataChangedListener listener);
     void notifyCardDataChangedListeners();
+    void setCardLastTimeUpdated(long lastUpdated);
+    long getCardLastTimeUpdate();
 
     void setMenuData(final MenuData data);
     MenuData getMenuData();
     void addMenuDataListener(@NonNull OnMenuDataChangedListener listener);
     void notifyMenuDataChangedListeners();
+    void setPreferredMenuLanguage(String language);
+    String getPreferredMenuLanguage();
 
 }
