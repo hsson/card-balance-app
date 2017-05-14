@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import se.creotec.chscardbalance2.BuildConfig;
 import se.creotec.chscardbalance2.Constants;
 import se.creotec.chscardbalance2.GlobalState;
 import se.creotec.chscardbalance2.R;
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, name, Toast.LENGTH_LONG).show();
 
         Intent updateBalanceIntent = new Intent(this, BalanceService.class);
-        updateBalanceIntent.setAction(Constants.ACTION_UPDATE_BALANCE);
+        updateBalanceIntent.setAction(Constants.ACTION_UPDATE_CARD);
         System.out.println("Starting balance service");
         this.startService(updateBalanceIntent);
 

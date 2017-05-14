@@ -15,8 +15,9 @@ public final class Constants {
 
     public static final int CARD_NUMBER_LENGTH = 16;
 
-    public static final String ACTION_UPDATE_BALANCE = BuildConfig.APPLICATION_ID + ".ACTION_UPDATE_BALANCE";
+    public static final String ACTION_UPDATE_CARD = BuildConfig.APPLICATION_ID + ".ACTION_UPDATE_CARD";
     public static final String ACTION_UPDATE_MENU = BuildConfig.APPLICATION_ID + ".ACTION_UPDATE_MENU";
+    public static final String ACTION_BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED";
 
     public static final String PREFS_FILE_NAME = "PreferenceConfig";
     public static final String PREFS_VERSION_CODE_KEY = "version_code";

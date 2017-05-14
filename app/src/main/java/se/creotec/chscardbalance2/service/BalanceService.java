@@ -32,7 +32,7 @@ public class BalanceService extends AbstractBackendService<CardData> {
         if (intent == null || intent.getAction() == null) {
             return;
         }
-        if (intent.getAction().equals(Constants.ACTION_UPDATE_BALANCE)) {
+        if (intent.getAction().equals(Constants.ACTION_UPDATE_CARD)) {
             try {
                 GlobalState global = (GlobalState) getApplication();
                 String cardNumber = global.getModel().getCardData().getCardNumber();
