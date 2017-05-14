@@ -21,4 +21,5 @@ public final class Constants {
     public static final String PREFS_FILE_NAME = "PreferenceConfig";
     public static final String PREFS_VERSION_CODE_KEY = "version_code";
     public static final int PREFS_VERSION_CODE_NONEXISTING = -1;
+    public static final String PREFS_CARD_DATA_KEY = "card_data";
 }

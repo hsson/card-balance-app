@@ -14,12 +14,12 @@ import java.lang.reflect.Type;
 
 import se.creotec.chscardbalance2.Constants;
 import se.creotec.chscardbalance2.model.BackendResponse;
-import se.creotec.chscardbalance2.model.BalanceData;
+import se.creotec.chscardbalance2.model.CardData;
 
-public class BalanceService extends AbstractBackendService<BalanceData> {
+public class BalanceService extends AbstractBackendService<CardData> {
 
     public static final String LOG_TAG = BalanceService.class.getName();
-    private final Type responseType = new TypeToken<BackendResponse<BalanceData>>() {}.getType();
+    private final Type responseType = new TypeToken<BackendResponse<CardData>>() {}.getType();
 
     public BalanceService() {
         super(BalanceService.class.getName());
@@ -33,7 +33,7 @@ public class BalanceService extends AbstractBackendService<BalanceData> {
         }
         if (intent.getAction().equals(Constants.ACTION_UPDATE_BALANCE)) {
             try {
-                BackendResponse<BalanceData> response = getBackendData(Constants.ENDPOINT_BALANCE, "1111222233334444");
+                BackendResponse<CardData> response = getBackendData(Constants.ENDPOINT_BALANCE, "1111222233334444");
                 Log.i(LOG_TAG, "Got response: " + response.getData().toString());
             } catch (BackendFetchException e) {
                 Log.e(LOG_TAG, e.getMessage());

@@ -6,7 +6,7 @@ package se.creotec.chscardbalance2.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class BalanceData {
+public class CardData {
     @SerializedName("card_number")
     private String cardNumber;
     @SerializedName("full_name")
@@ -16,7 +16,7 @@ public class BalanceData {
     @SerializedName("balance")
     private double cardBalance;
 
-    public BalanceData() {
+    public CardData() {
         super();
     }
 
@@ -57,7 +57,7 @@ public class BalanceData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BalanceData that = (BalanceData) o;
+        CardData that = (CardData) o;
 
         if (Double.compare(that.cardBalance, cardBalance) != 0) return false;
         if (!cardNumber.equals(that.cardNumber)) return false;
@@ -81,7 +81,7 @@ public class BalanceData {
 
     @Override
     public String toString() {
-        return "BalanceData{" +
+        return "CardData{" +
                 "cardNumber='" + cardNumber + '\'' +
                 ", ownerName='" + ownerName + '\'' +
                 ", ownerEmail='" + ownerEmail + '\'' +
