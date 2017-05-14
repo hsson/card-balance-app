@@ -8,6 +8,10 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+
 import se.creotec.chscardbalance2.Constants;
 import se.creotec.chscardbalance2.model.BackendResponse;
 import se.creotec.chscardbalance2.model.BalanceData;
@@ -15,6 +19,7 @@ import se.creotec.chscardbalance2.model.BalanceData;
 public class BalanceService extends BackendService<BalanceData> {
 
     public static final String LOG_TAG = BalanceService.class.getName();
+    private final Type responseType = new TypeToken<BackendResponse<BalanceData>>() {}.getType();
 
     public BalanceService() {
         super(BalanceService.class.getName());
@@ -25,6 +30,7 @@ public class BalanceService extends BackendService<BalanceData> {
         if (intent != null && intent.getAction().equals(Constants.ACTION_UPDATE_BALANCE)) {
             try {
                 BackendResponse<BalanceData> response = getBackendData(Constants.ENDPOINT_BALANCE, "1111222233334444");
+                Log.i(LOG_TAG, "Got response: " + response.getData().toString());
             } catch (BackendFetchException e) {
                 Log.e(LOG_TAG, e.getMessage());
             }
@@ -42,7 +48,9 @@ public class BalanceService extends BackendService<BalanceData> {
     }
 
     @Override
-    protected BackendResponse<BalanceData> parseResponse(String rawResponse) throws BackendFetchException {
-        return null;
+    protected Type getResponseType() {
+        return responseType;
     }
+
+
 }
