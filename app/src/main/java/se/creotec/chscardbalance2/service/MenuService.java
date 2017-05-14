@@ -13,6 +13,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 
 import se.creotec.chscardbalance2.Constants;
+import se.creotec.chscardbalance2.GlobalState;
 import se.creotec.chscardbalance2.model.BackendResponse;
 import se.creotec.chscardbalance2.model.MenuData;
 
@@ -34,7 +35,11 @@ public class MenuService extends AbstractBackendService<MenuData> {
         }
         if (intent.getAction().equals(Constants.ACTION_UPDATE_MENU)) {
             try {
-                BackendResponse<MenuData> response = getBackendData(Constants.ENDPOINT_MENU, Constants.ENDPOINT_MENU_LANG_EN);
+                GlobalState global = (GlobalState) getApplication();
+                String language = global.getModel().getPreferredMenuLanguage();
+                BackendResponse<MenuData> response = getBackendData(Constants.ENDPOINT_MENU, language);
+                global.getModel().setMenuData(response.getData());
+                global.saveMenuData();
                 Log.i(LOG_TAG, "Got response: " + response.getData().toString());
             } catch (BackendFetchException e) {
                 Log.e(LOG_TAG, e.getMessage());
