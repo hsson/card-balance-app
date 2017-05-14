@@ -16,7 +16,7 @@ import se.creotec.chscardbalance2.Constants;
 import se.creotec.chscardbalance2.model.BackendResponse;
 import se.creotec.chscardbalance2.model.MenuData;
 
-public class MenuService extends BackendService<MenuData> {
+public class MenuService extends AbstractBackendService<MenuData> {
 
     private static final String LOG_TAG = MenuService.class.getName();
     private final Type responseType = new TypeToken<BackendResponse<MenuData>>() {}.getType();

@@ -16,7 +16,7 @@ import se.creotec.chscardbalance2.Constants;
 import se.creotec.chscardbalance2.model.BackendResponse;
 import se.creotec.chscardbalance2.model.BalanceData;
 
-public class BalanceService extends BackendService<BalanceData> {
+public class BalanceService extends AbstractBackendService<BalanceData> {
 
     public static final String LOG_TAG = BalanceService.class.getName();
     private final Type responseType = new TypeToken<BackendResponse<BalanceData>>() {}.getType();

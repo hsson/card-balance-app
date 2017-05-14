@@ -20,9 +20,9 @@ import se.creotec.chscardbalance2.BuildConfig;
 import se.creotec.chscardbalance2.Constants;
 import se.creotec.chscardbalance2.model.BackendResponse;
 
-public abstract class BackendService<T> extends IntentService {
+public abstract class AbstractBackendService<T> extends IntentService {
 
-    public BackendService(String name) {
+    public AbstractBackendService(String name) {
         super(name);
     }
 
@@ -86,6 +86,5 @@ public abstract class BackendService<T> extends IntentService {
     }
 
     protected abstract void validateVariable(String variable) throws BackendFetchException;
-    //protected abstract BackendResponse<T> parseResponse(String rawResponse) throws BackendFetchException;
     protected abstract Type getResponseType();
 }
