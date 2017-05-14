@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import se.creotec.chscardbalance2.service.BalanceService;
+import se.creotec.chscardbalance2.service.MenuService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +21,12 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, BuildConfig.BACKEND_URL, Toast.LENGTH_LONG).show();
         Intent updateBalanceIntent = new Intent(this, BalanceService.class);
         updateBalanceIntent.setAction(Constants.ACTION_UPDATE_BALANCE);
-        System.out.println("Starting service");
+        System.out.println("Starting balance service");
         this.startService(updateBalanceIntent);
+
+        Intent updateMenuIntent = new Intent(this, MenuService.class);
+        updateMenuIntent.setAction(Constants.ACTION_UPDATE_MENU);
+        System.out.println("Starting menu service");
+        this.startService(updateMenuIntent);
     }
 }

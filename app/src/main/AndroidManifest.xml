@@ -21,6 +21,8 @@
 
         <service android:name=".service.BalanceService"
             android:exported="false" />
+        <service android:name=".service.MenuService"
+            android:exported="false" />
     </application>
 
 </manifest>

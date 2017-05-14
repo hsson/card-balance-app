@@ -14,15 +14,16 @@ import java.lang.reflect.Type;
 
 import se.creotec.chscardbalance2.Constants;
 import se.creotec.chscardbalance2.model.BackendResponse;
-import se.creotec.chscardbalance2.model.BalanceData;
+import se.creotec.chscardbalance2.model.MenuData;
 
-public class BalanceService extends BackendService<BalanceData> {
+public class MenuService extends BackendService<MenuData> {
 
-    public static final String LOG_TAG = BalanceService.class.getName();
-    private final Type responseType = new TypeToken<BackendResponse<BalanceData>>() {}.getType();
+    private static final String LOG_TAG = MenuService.class.getName();
+    private final Type responseType = new TypeToken<BackendResponse<MenuData>>() {}.getType();
 
-    public BalanceService() {
-        super(BalanceService.class.getName());
+
+    public MenuService() {
+        super(MenuService.class.getName());
     }
 
     @Override
@@ -31,9 +32,9 @@ public class BalanceService extends BackendService<BalanceData> {
         if (intent == null || intent.getAction() == null) {
             return;
         }
-        if (intent.getAction().equals(Constants.ACTION_UPDATE_BALANCE)) {
+        if (intent.getAction().equals(Constants.ACTION_UPDATE_MENU)) {
             try {
-                BackendResponse<BalanceData> response = getBackendData(Constants.ENDPOINT_BALANCE, "1111222233334444");
+                BackendResponse<MenuData> response = getBackendData(Constants.ENDPOINT_MENU, Constants.ENDPOINT_MENU_LANG_EN);
                 Log.i(LOG_TAG, "Got response: " + response.getData().toString());
             } catch (BackendFetchException e) {
                 Log.e(LOG_TAG, e.getMessage());
@@ -43,11 +44,12 @@ public class BalanceService extends BackendService<BalanceData> {
 
     @Override
     protected void validateVariable(String variable) throws BackendFetchException {
-        if (variable.length() != Constants.CARD_NUMBER_LENGTH) {
-            throw new BackendFetchException("Card number has incorrect length");
-        }
-        if (!variable.matches("[0-9]+")) {
-            throw new BackendFetchException("Card number contains invalid characters");
+        switch (variable) {
+            case Constants.ENDPOINT_MENU_LANG_EN:
+            case Constants.ENDPOINT_MENU_LANG_SV:
+                break;
+            default:
+                throw new BackendFetchException("Unsupported language: " + variable);
         }
     }
 
@@ -55,6 +57,4 @@ public class BalanceService extends BackendService<BalanceData> {
     protected Type getResponseType() {
         return responseType;
     }
-
-
 }

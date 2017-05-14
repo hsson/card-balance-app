@@ -7,7 +7,6 @@ package se.creotec.chscardbalance2.service;
 import android.app.IntentService;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +19,6 @@ import java.net.URL;
 import se.creotec.chscardbalance2.BuildConfig;
 import se.creotec.chscardbalance2.Constants;
 import se.creotec.chscardbalance2.model.BackendResponse;
-import se.creotec.chscardbalance2.model.BalanceData;
 
 public abstract class BackendService<T> extends IntentService {
 
