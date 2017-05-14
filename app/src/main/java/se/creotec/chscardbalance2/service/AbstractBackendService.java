@@ -5,6 +5,8 @@
 package se.creotec.chscardbalance2.service;
 
 import android.app.IntentService;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 
@@ -26,8 +28,23 @@ public abstract class AbstractBackendService<T> extends IntentService {
         super(name);
     }
 
-    protected BackendResponse<T> getBackendData(String endpoint, String variable) throws BackendFetchException {
-        validateVariable(variable);
+    /**
+     * HTTP GETs data from the backend given some endpoint and some optional
+     * variable to that endpoint. The data is retrieved by performing an
+     * HTTP GET request to <backend-url><endpoint>/<variable>
+     *
+     * @param endpoint The endpoint to GET from, starting with a '/'
+     * @param variable An optional variable to pass to the endpoint
+     * @return Returns the parsed response from the backend
+     * @throws BackendFetchException If some error occurred when making the request or parsing the response
+     */
+    protected BackendResponse<T> getBackendData(@NonNull String endpoint, @Nullable String variable) throws BackendFetchException {
+        if (variable != null) {
+            validateVariable(variable);
+        }
+        if (variable == null) {
+            variable = "";
+        }
         HttpURLConnection conn;
         int responseCode;
         try {
@@ -77,7 +94,7 @@ public abstract class AbstractBackendService<T> extends IntentService {
         return connection;
     }
 
-    protected BackendResponse<T> parseResponse(String rawResponse) throws BackendFetchException {
+    private BackendResponse<T> parseResponse(String rawResponse) throws BackendFetchException {
         BackendResponse<T> response =  new Gson().fromJson(rawResponse, getResponseType());
         if (!response.isSuccess()) {
             throw new BackendFetchException(response.getErrorMessage());
@@ -85,6 +102,21 @@ public abstract class AbstractBackendService<T> extends IntentService {
         return response;
     }
 
+    /**
+     * Performs validation on the passed variable. The validation is performed
+     * before any attempt is made to connect to the endpoint. If a validation doesn't pass,
+     * the BackendFetchException should be thrown to cancel the request.
+     *
+     * @param variable The variable to validate
+     * @throws BackendFetchException If some validation failed
+     */
     protected abstract void validateVariable(String variable) throws BackendFetchException;
+
+    /**
+     * A method for getting the type of the expected response. The method is used when
+     * the parsing from JSON to a Java Object is performed.
+     *
+     * @return The type of the expected backend response
+     */
     protected abstract Type getResponseType();
 }

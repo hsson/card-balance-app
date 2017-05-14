@@ -46,6 +46,7 @@ public class BalanceService extends AbstractBackendService<BalanceData> {
         if (variable.length() != Constants.CARD_NUMBER_LENGTH) {
             throw new BackendFetchException("Card number has incorrect length");
         }
+        // Make sure card number only contains numbers and has no blank spaces
         if (!variable.matches("[0-9]+")) {
             throw new BackendFetchException("Card number contains invalid characters");
         }

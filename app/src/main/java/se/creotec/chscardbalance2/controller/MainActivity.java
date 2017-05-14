@@ -2,13 +2,16 @@
 //
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
-package se.creotec.chscardbalance2;
+package se.creotec.chscardbalance2.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import se.creotec.chscardbalance2.BuildConfig;
+import se.creotec.chscardbalance2.Constants;
+import se.creotec.chscardbalance2.R;
 import se.creotec.chscardbalance2.service.BalanceService;
 import se.creotec.chscardbalance2.service.MenuService;
 
