@@ -5,6 +5,7 @@
 package se.creotec.chscardbalance2;
 
 import android.app.Application;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
@@ -14,6 +15,8 @@ import java.util.Locale;
 import se.creotec.chscardbalance2.model.CardData;
 import se.creotec.chscardbalance2.model.IModel;
 import se.creotec.chscardbalance2.model.Model;
+import se.creotec.chscardbalance2.service.BalanceService;
+import se.creotec.chscardbalance2.util.AlarmScheduler;
 
 public class GlobalState extends Application {
 
@@ -34,6 +37,7 @@ public class GlobalState extends Application {
         this.preferences = getSharedPreferences(Constants.PREFS_FILE_NAME, MODE_PRIVATE);
         loadCardData();
         loadMenuData();
+        scheduleUpdating();
         switch (getRunState()) {
             case NORMAL:
                 // Do nothing special
@@ -128,6 +132,15 @@ public class GlobalState extends Application {
                 return defaultLanguage;
             default:
                 return Constants.PREFS_MENU_LANGUAGE_DEFAULT;
+        }
+    }
+
+    private void scheduleUpdating() {
+        Intent updateIntent = new Intent(this, BalanceService.class);
+        updateIntent.setAction(Constants.ACTION_UPDATE_CARD);
+
+        if (!AlarmScheduler.isAlarmExistingForIntent(this, updateIntent)) {
+            AlarmScheduler.scheduleAlarm(this, updateIntent, 0);
         }
     }
 }
