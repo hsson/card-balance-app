@@ -81,6 +81,11 @@ public class BalanceData {
 
     @Override
     public String toString() {
-        return cardNumber + ", " + ownerName + ", " + ownerEmail + ", " + cardBalance;
+        return "BalanceData{" +
+                "cardNumber='" + cardNumber + '\'' +
+                ", ownerName='" + ownerName + '\'' +
+                ", ownerEmail='" + ownerEmail + '\'' +
+                ", cardBalance=" + cardBalance +
+                '}';
     }
 }
