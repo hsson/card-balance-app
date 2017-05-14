@@ -4,10 +4,16 @@
 // https://opensource.org/licenses/MIT
 package se.creotec.chscardbalance2.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class BalanceData {
+    @SerializedName("card_number")
     private String cardNumber;
+    @SerializedName("full_name")
     private String ownerName;
+    @SerializedName("email")
     private String ownerEmail;
+    @SerializedName("balance")
     private double cardBalance;
 
     public BalanceData() {
@@ -71,5 +77,10 @@ public class BalanceData {
         temp = Double.doubleToLongBits(cardBalance);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return cardNumber + ", " + ownerName + ", " + ownerEmail + ", " + cardBalance;
     }
 }
