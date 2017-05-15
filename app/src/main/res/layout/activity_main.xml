@@ -56,7 +56,7 @@
         android:layout_margin="8dp"
         app:fabSize="normal"
         app:borderWidth="0dp"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@drawable/coin_icon"
         app:layout_anchor="@id/app_bar_layout"
         app:layout_anchorGravity="bottom|end"/>
 
