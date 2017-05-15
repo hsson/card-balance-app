@@ -16,18 +16,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import se.creotec.chscardbalance2.BuildConfig;
 import se.creotec.chscardbalance2.Constants;
 import se.creotec.chscardbalance2.GlobalState;
 import se.creotec.chscardbalance2.R;
+import se.creotec.chscardbalance2.controller.dummy.DummyContent;
 import se.creotec.chscardbalance2.model.CardData;
 import se.creotec.chscardbalance2.service.BalanceService;
 import se.creotec.chscardbalance2.service.MenuService;
 import se.creotec.chscardbalance2.util.Util;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FoodMenuFragment.OnListFragmentInteractionListener {
 
     private Toolbar toolbar;
     private AppBarLayout appBarLayout;
@@ -99,5 +98,10 @@ public class MainActivity extends AppCompatActivity {
                 customTabsIntent.launchUrl(context, Uri.parse(global.getModel().getQuickChargeURL()));
             }
         });
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
     }
 }
