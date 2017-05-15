@@ -8,23 +8,18 @@ import android.widget.TextView;
 
 import se.creotec.chscardbalance2.R;
 import se.creotec.chscardbalance2.controller.FoodMenuFragment.OnListFragmentInteractionListener;
-import se.creotec.chscardbalance2.controller.dummy.DummyContent.DummyItem;
+import se.creotec.chscardbalance2.model.Restaurant;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class FoodMenuRecyclerViewAdapter extends RecyclerView.Adapter<FoodMenuRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final List<Restaurant> restaurants;
+    private final OnListFragmentInteractionListener listener;
 
-    public FoodMenuRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
-        mListener = listener;
+    public FoodMenuRecyclerViewAdapter(List<Restaurant> items, OnListFragmentInteractionListener listener) {
+        this.restaurants = items;
+        this.listener = listener;
     }
 
     @Override
@@ -36,17 +31,15 @@ public class FoodMenuRecyclerViewAdapter extends RecyclerView.Adapter<FoodMenuRe
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.restaurant = restaurants.get(position);
+        holder.mIdView.setText(restaurants.get(position).getName());
+        holder.mContentView.setText(restaurants.get(position).getDishes().size()+"");
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                if (listener != null) {
+                    listener.onListFragmentInteraction(holder.restaurant);
                 }
             }
         });
@@ -54,14 +47,14 @@ public class FoodMenuRecyclerViewAdapter extends RecyclerView.Adapter<FoodMenuRe
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return restaurants.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public Restaurant restaurant;
 
         public ViewHolder(View view) {
             super(view);

@@ -28,5 +28,7 @@ public final class Constants {
     public static final String PREFS_CARD_LAST_UPDATED_KEY = "card_last_updated";
     public static final String PREFS_MENU_LANGUAGE_KEY = "menu_preferred_language";
     public static final String PREFS_MENU_LANGUAGE_DEFAULT = ENDPOINT_MENU_LANG_EN;
+    public static final String PREFS_MENU_DATA_KEY = "menu_data";
+    public static final String PREFS_MENU_LAST_UPDATED_KEY = "menu_last_updated";
 
 }

@@ -14,6 +14,7 @@ import java.util.Locale;
 
 import se.creotec.chscardbalance2.model.CardData;
 import se.creotec.chscardbalance2.model.IModel;
+import se.creotec.chscardbalance2.model.MenuData;
 import se.creotec.chscardbalance2.model.Model;
 import se.creotec.chscardbalance2.service.BalanceService;
 import se.creotec.chscardbalance2.util.AlarmScheduler;
@@ -43,7 +44,20 @@ public class GlobalState extends Application {
      */
     public void loadMenuData() {
         String lang = this.preferences.getString(Constants.PREFS_MENU_LANGUAGE_KEY, determineSystemLanguage());
+        long menuLastUpdated = this.preferences.getLong(Constants.PREFS_MENU_LAST_UPDATED_KEY, -1);
+        String menuDataJSON = this.preferences.getString(Constants.PREFS_MENU_DATA_KEY, "");
+
+        MenuData menu;
+        if (!menuDataJSON.equals("")) {
+            menu = gson.fromJson(menuDataJSON, MenuData.class);
+        } else {
+            menu = new MenuData();
+        }
+
         this.model.setPreferredMenuLanguage(lang);
+        this.model.setMenuData(menu);
+        this.model.setMenuLastTimeUpdated(menuLastUpdated);
+
     }
 
     /**
@@ -51,6 +65,13 @@ public class GlobalState extends Application {
      */
     public synchronized void saveMenuData() {
         this.preferences.edit().putString(Constants.PREFS_MENU_LANGUAGE_KEY, this.model.getPreferredMenuLanguage()).apply();
+
+        MenuData menu = this.model.getMenuData();
+        String menuDataJSON = gson.toJson(menu, MenuData.class);
+        SharedPreferences.Editor editor = this.preferences.edit();
+        editor.putString(Constants.PREFS_MENU_DATA_KEY, menuDataJSON);
+        editor.putLong(Constants.PREFS_MENU_LAST_UPDATED_KEY, this.model.getMenuLastTimeUpdated());
+        editor.apply();
     }
 
     /**
@@ -77,7 +98,7 @@ public class GlobalState extends Application {
         String cardJson = gson.toJson(data, CardData.class);
         SharedPreferences.Editor editor = this.preferences.edit();
         editor.putString(Constants.PREFS_CARD_DATA_KEY, cardJson);
-        editor.putLong(Constants.PREFS_CARD_LAST_UPDATED_KEY, this.model.getCardLastTimeUpdate());
+        editor.putLong(Constants.PREFS_CARD_LAST_UPDATED_KEY, this.model.getCardLastTimeUpdated());
         editor.apply();
     }
 

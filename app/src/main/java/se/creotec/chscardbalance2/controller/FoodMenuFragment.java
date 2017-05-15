@@ -1,8 +1,8 @@
 package se.creotec.chscardbalance2.controller;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,34 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import se.creotec.chscardbalance2.GlobalState;
 import se.creotec.chscardbalance2.R;
-import se.creotec.chscardbalance2.controller.dummy.DummyContent;
-import se.creotec.chscardbalance2.controller.dummy.DummyContent.DummyItem;
+import se.creotec.chscardbalance2.model.IModel;
+import se.creotec.chscardbalance2.model.Restaurant;
 
-import java.util.List;
-
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
 public class FoodMenuFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+    private static final String ARG_COLUMN_COUNT = "column_count";
+    private int listColumnCount = 1;
+    private OnListFragmentInteractionListener listener;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public FoodMenuFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static FoodMenuFragment newInstance(int columnCount) {
         FoodMenuFragment fragment = new FoodMenuFragment();
@@ -52,7 +38,7 @@ public class FoodMenuFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            listColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
 
@@ -65,12 +51,13 @@ public class FoodMenuFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
+            if (listColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                recyclerView.setLayoutManager(new GridLayoutManager(context, listColumnCount));
             }
-            recyclerView.setAdapter(new FoodMenuRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            IModel model = ((GlobalState) getActivity().getApplication()).getModel();
+            recyclerView.setAdapter(new FoodMenuRecyclerViewAdapter(model.getMenuData().getMenu(), listener));
         }
         return view;
     }
@@ -80,7 +67,7 @@ public class FoodMenuFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+            listener = (OnListFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
@@ -90,21 +77,10 @@ public class FoodMenuFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Restaurant item);
     }
 }

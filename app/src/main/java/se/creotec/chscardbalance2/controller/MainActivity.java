@@ -20,8 +20,8 @@ import android.widget.TextView;
 import se.creotec.chscardbalance2.Constants;
 import se.creotec.chscardbalance2.GlobalState;
 import se.creotec.chscardbalance2.R;
-import se.creotec.chscardbalance2.controller.dummy.DummyContent;
 import se.creotec.chscardbalance2.model.CardData;
+import se.creotec.chscardbalance2.model.Restaurant;
 import se.creotec.chscardbalance2.service.BalanceService;
 import se.creotec.chscardbalance2.service.MenuService;
 import se.creotec.chscardbalance2.util.Util;
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements FoodMenuFragment.
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
-
+    public void onListFragmentInteraction(Restaurant item) {
+        System.out.println(item.getName());
     }
 }

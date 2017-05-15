@@ -12,7 +12,7 @@ public interface IModel {
     void addCardDataListener(@NonNull OnCardDataChangedListener listener);
     void notifyCardDataChangedListeners();
     void setCardLastTimeUpdated(long lastUpdated);
-    long getCardLastTimeUpdate();
+    long getCardLastTimeUpdated();
 
     void setMenuData(final MenuData data);
     MenuData getMenuData();
@@ -20,6 +20,8 @@ public interface IModel {
     void notifyMenuDataChangedListeners();
     void setPreferredMenuLanguage(String language);
     String getPreferredMenuLanguage();
+    void setMenuLastTimeUpdated(long lastTimeUpdated);
+    long getMenuLastTimeUpdated();
 
     String getQuickChargeURL();
 

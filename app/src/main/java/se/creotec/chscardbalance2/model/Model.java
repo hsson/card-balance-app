@@ -19,6 +19,7 @@ public final class Model implements IModel {
     private Set<OnMenuDataChangedListener> menuDataChangedListeners;
 
     private long cardLastTimeUpdated;
+    private long menuLastTimeUpdated;
     private String preferredMenuLanguage;
 
     public Model() {
@@ -27,6 +28,7 @@ public final class Model implements IModel {
         this.cardData = new CardData();
         this.menuData = new MenuData();
         this.cardLastTimeUpdated = -1;
+        this.menuLastTimeUpdated = -1;
     }
 
     @Override
@@ -60,7 +62,7 @@ public final class Model implements IModel {
     }
 
     @Override
-    public long getCardLastTimeUpdate() {
+    public long getCardLastTimeUpdated() {
         return this.cardLastTimeUpdated;
     }
 
@@ -104,6 +106,18 @@ public final class Model implements IModel {
     @Override
     public String getPreferredMenuLanguage() {
         return this.preferredMenuLanguage;
+    }
+
+    @Override
+    public void setMenuLastTimeUpdated(long lastTimeUpdated) {
+        if (lastTimeUpdated >= 0) {
+            this.menuLastTimeUpdated = lastTimeUpdated;
+        }
+    }
+
+    @Override
+    public long getMenuLastTimeUpdated() {
+        return this.menuLastTimeUpdated;
     }
 
     @Override
