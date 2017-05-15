@@ -24,12 +24,6 @@ public class GlobalState extends Application {
     private SharedPreferences preferences;
     private final Gson gson = new Gson();
 
-    private enum RunState {
-        NORMAL,
-        FIRST,
-        UPGRADED
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -38,17 +32,6 @@ public class GlobalState extends Application {
         loadCardData();
         loadMenuData();
         scheduleUpdating();
-        switch (getRunState()) {
-            case NORMAL:
-                // Do nothing special
-                break;
-            case FIRST:
-                // TODO: Prompt card details
-                break;
-            case UPGRADED:
-                // Do something special
-                break;
-        }
     }
 
     public IModel getModel() {
@@ -96,26 +79,6 @@ public class GlobalState extends Application {
         editor.putString(Constants.PREFS_CARD_DATA_KEY, cardJson);
         editor.putLong(Constants.PREFS_CARD_LAST_UPDATED_KEY, this.model.getCardLastTimeUpdate());
         editor.apply();
-    }
-
-    /**
-     * Determines if the application was started normally, was just upgraded, or if it's the
-     * first time the app is ran.
-     * @return The run state of the application
-     */
-    private RunState getRunState() {
-        int currentVersionCode = BuildConfig.VERSION_CODE;
-        SharedPreferences preferences = getSharedPreferences(Constants.PREFS_FILE_NAME, MODE_PRIVATE);
-        int savedVersionCode = preferences.getInt(Constants.PREFS_VERSION_CODE_KEY, Constants.PREFS_VERSION_CODE_NONEXISTING);
-        preferences.edit().putInt(Constants.PREFS_VERSION_CODE_KEY, currentVersionCode).apply();
-
-        if (savedVersionCode == Constants.PREFS_VERSION_CODE_NONEXISTING) {
-            return RunState.FIRST;
-        } else if (currentVersionCode > savedVersionCode) {
-            return RunState.UPGRADED;
-        } else {
-            return RunState.NORMAL;
-        }
     }
 
     /**
