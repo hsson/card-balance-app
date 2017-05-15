@@ -21,4 +21,6 @@ public interface IModel {
     void setPreferredMenuLanguage(String language);
     String getPreferredMenuLanguage();
 
+    String getQuickChargeURL();
+
 }

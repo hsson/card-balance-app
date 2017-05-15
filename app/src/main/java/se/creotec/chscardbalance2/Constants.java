@@ -9,11 +9,13 @@ public final class Constants {
 
     public static final String ENDPOINT_BALANCE = "/balance";
     public static final String ENDPOINT_MENU = "/menu";
+    public static final String ENDPOINT_CHARGE = "/charge";
     public static final String ENDPOINT_MENU_LANG_EN = "en";
     public static final String ENDPOINT_MENU_LANG_SV = "sv";
     public static final int ENDPOINT_TIMEOUT = 10 * 1000; // Miliseconds
 
     public static final int CARD_NUMBER_LENGTH = 16;
+    public static final String CARD_CURRENCY_SUFFIX = "SEK";
 
     public static final String ACTION_UPDATE_CARD = BuildConfig.APPLICATION_ID + ".ACTION_UPDATE_CARD";
     public static final String ACTION_UPDATE_MENU = BuildConfig.APPLICATION_ID + ".ACTION_UPDATE_MENU";

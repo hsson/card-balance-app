@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import java.util.HashSet;
 import java.util.Set;
 
+import se.creotec.chscardbalance2.BuildConfig;
 import se.creotec.chscardbalance2.Constants;
 
 public final class Model implements IModel {
@@ -103,6 +104,11 @@ public final class Model implements IModel {
     @Override
     public String getPreferredMenuLanguage() {
         return this.preferredMenuLanguage;
+    }
+
+    @Override
+    public String getQuickChargeURL() {
+        return BuildConfig.BACKEND_URL + Constants.ENDPOINT_CHARGE;
     }
 
 }
