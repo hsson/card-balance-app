@@ -25,6 +25,7 @@ import se.creotec.chscardbalance2.R;
 import se.creotec.chscardbalance2.model.CardData;
 import se.creotec.chscardbalance2.service.BalanceService;
 import se.creotec.chscardbalance2.service.MenuService;
+import se.creotec.chscardbalance2.util.Util;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private AppBarLayout appBarLayout;
     CollapsingToolbarLayout collapsingToolbarLayout;
     private FloatingActionButton quickChargeFAB;
+
     private TextView cardOwnerName;
+    private TextView cardNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         global.getModel().setCardData(card);
         global.saveCardData();
         cardOwnerName.setText(global.getModel().getCardData().getOwnerName());
+        cardNumber.setText(Util.formatCardNumber(global.getModel().getCardData().getCardNumber()));
         collapsingToolbarLayout.setTitle(global.getModel().getCardData().getCardBalance() + " " + Constants.CARD_CURRENCY_SUFFIX);
     }
 
@@ -66,14 +70,17 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         collapsingToolbarLayout =  (CollapsingToolbarLayout) findViewById(R.id.toolbar_collapsing_layout);
         cardOwnerName = (TextView) findViewById(R.id.toolbar_card_name);
+        cardNumber = (TextView) findViewById(R.id.toolbar_card_number);
         appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
 
-        // Fade out name when app bar is collapsed
+        // Fade out name and card number when app bar is being collapsed
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 float percentage = ((float)Math.abs(verticalOffset)/appBarLayout.getTotalScrollRange());
-                cardOwnerName.setAlpha(1-percentage*2);
+                float alpha = 1 - percentage * 2;
+                cardOwnerName.setAlpha(alpha);
+                cardNumber.setAlpha(alpha);
             }
         });
     }

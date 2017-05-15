@@ -1,3 +1,4 @@
 <resources>
+    <string name="dummy_text">Dummy text</string>
     <string name="app_name">card-balance-app</string>
 </resources>

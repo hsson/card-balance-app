@@ -20,11 +20,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/toolbar_card_number"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="112dp"
+                android:text="@string/dummy_text" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/toolbar_card_name"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="106dp"
+                android:layout_marginTop="90dp"
                 android:textSize="18sp"
-                app:layout_collapseMode="none" />
+                android:text="@string/dummy_text" />
             <android.support.v7.widget.Toolbar
                 android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
