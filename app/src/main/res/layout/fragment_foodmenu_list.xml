@@ -11,4 +11,7 @@
     android:overScrollMode="always"
     app:layoutManager="LinearLayoutManager"
     tools:context="se.creotec.chscardbalance2.controller.FoodMenuFragment"
-    tools:listitem="@layout/fragment_foodmenu" />
+    tools:listitem="@layout/fragment_foodmenu"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp"
+    android:clipToPadding="false"/>

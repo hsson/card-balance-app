@@ -4,13 +4,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.List;
 
 import se.creotec.chscardbalance2.R;
 import se.creotec.chscardbalance2.controller.FoodMenuFragment.OnListFragmentInteractionListener;
 import se.creotec.chscardbalance2.model.Restaurant;
-
-import java.util.List;
 
 public class FoodMenuRecyclerViewAdapter extends RecyclerView.Adapter<FoodMenuRecyclerViewAdapter.ViewHolder> {
 
@@ -31,11 +34,23 @@ public class FoodMenuRecyclerViewAdapter extends RecyclerView.Adapter<FoodMenuRe
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.restaurant = restaurants.get(position);
-        holder.mIdView.setText(restaurants.get(position).getName());
-        holder.mContentView.setText(restaurants.get(position).getDishes().size()+"");
+        Restaurant restaurant = restaurants.get(position);
+        holder.restaurant = restaurant;
+        ImageLoader.getInstance().displayImage(restaurant.getImageUrl(), holder.restaurantHeader);
+        holder.restaurantName.setText(restaurant.getName());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        if (restaurant.getDishes().size() > 0) {
+            holder.restaurantClosed.setVisibility(View.GONE);
+            holder.restaurantHeaderTint.setVisibility(View.GONE);
+            holder.restaurantHeaderGradient.setVisibility(View.VISIBLE);
+            holder.setDishesCount(restaurant.getDishes().size());
+        } else {
+            holder.restaurantClosed.setVisibility(View.VISIBLE);
+            holder.restaurantHeaderTint.setVisibility(View.VISIBLE);
+            holder.restaurantHeaderGradient.setVisibility(View.GONE);
+        }
+
+        holder.holderView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
@@ -51,21 +66,35 @@ public class FoodMenuRecyclerViewAdapter extends RecyclerView.Adapter<FoodMenuRe
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final View holderView;
+        public final ImageView restaurantHeader;
+        public final ImageView restaurantHeaderGradient;
+        public final ImageView restaurantHeaderTint;
+        public final TextView restaurantName;
+        public final TextView restaurantDishCount;
+        public final TextView restaurantClosed;
+
         public Restaurant restaurant;
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            holderView = view;
+            restaurantHeader = (ImageView) holderView.findViewById(R.id.restaurant_image);
+            restaurantHeaderGradient = (ImageView) holderView.findViewById(R.id.restaurant_image_gradient);
+            restaurantHeaderTint = (ImageView) holderView.findViewById(R.id.restaurant_image_tint);
+            restaurantName = (TextView) holderView.findViewById(R.id.restaurant_name);
+            restaurantDishCount = (TextView) holderView.findViewById(R.id.restaurant_dishes_count);
+            restaurantClosed = (TextView) holderView.findViewById(R.id.restaurant_closed_today);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + restaurant.getName() + "'";
+        }
+
+        void setDishesCount(int count) {
+            String suffix = holderView.getResources().getString(R.string.restaurant_dishes_count_suffix);
+            restaurantDishCount.setText(count + " " + suffix);
         }
     }
 }

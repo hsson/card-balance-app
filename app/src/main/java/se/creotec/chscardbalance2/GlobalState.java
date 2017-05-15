@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.Locale;
 
@@ -33,6 +36,7 @@ public class GlobalState extends Application {
         loadCardData();
         loadMenuData();
         scheduleUpdating();
+        setupImageLoader();
     }
 
     public IModel getModel() {
@@ -126,5 +130,20 @@ public class GlobalState extends Application {
         if (!AlarmScheduler.isAlarmExistingForIntent(this, updateIntent)) {
             AlarmScheduler.scheduleAlarm(this, updateIntent, 0);
         }
+    }
+
+    private void setupImageLoader() {
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .showImageOnFail(R.drawable.default_food) //TODO
+                .showImageOnLoading(R.drawable.default_food) //TODO
+                .showImageForEmptyUri(R.drawable.default_food) //TODO
+                .build();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .defaultDisplayImageOptions(defaultOptions)
+                .build();
+        ImageLoader.getInstance().init(config);
     }
 }

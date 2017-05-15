@@ -1,4 +1,7 @@
 <resources>
     <string name="dummy_text">Dummy text</string>
     <string name="app_name">card-balance-app</string>
+    <string name="restaurant_image_desc">Restaurant\'s Image</string>
+    <string name="restaurant_closed_today">Closed Today</string>
+    <string name="restaurant_dishes_count_suffix">dishes to choose from</string>
 </resources>

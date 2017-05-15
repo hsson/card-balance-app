@@ -55,6 +55,7 @@
         android:id="@+id/fab_charge_card"
         android:layout_margin="8dp"
         app:fabSize="normal"
+        app:borderWidth="0dp"
         android:src="@mipmap/ic_launcher_round"
         app:layout_anchor="@id/app_bar_layout"
         app:layout_anchorGravity="bottom|end"/>
