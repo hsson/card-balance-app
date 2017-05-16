@@ -21,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.MainActivity"></activity>
+        <activity android:name=".controller.MainActivity"
+            android:theme="@style/AppTheme" />
 
         <receiver
             android:name=".receiver.BootReceiver"
@@ -38,7 +39,8 @@
             android:name=".service.MenuService"
             android:exported="false" />
 
-        <activity android:name=".controller.RestaurantPageActivity"></activity>
+        <activity android:name=".controller.RestaurantPageActivity"
+            android:theme="@style/AppTheme.Transparent.StatusBar" />
     </application>
 
 </manifest>

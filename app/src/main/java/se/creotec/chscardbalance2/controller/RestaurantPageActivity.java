@@ -1,9 +1,9 @@
 package se.creotec.chscardbalance2.controller;
 
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,7 +16,6 @@ import se.creotec.chscardbalance2.R;
 import se.creotec.chscardbalance2.model.Restaurant;
 
 public class RestaurantPageActivity extends AppCompatActivity {
-
     private Toolbar toolbar;
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
