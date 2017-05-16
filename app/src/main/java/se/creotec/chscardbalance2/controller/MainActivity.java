@@ -17,6 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import se.creotec.chscardbalance2.Constants;
 import se.creotec.chscardbalance2.GlobalState;
 import se.creotec.chscardbalance2.R;
@@ -102,6 +104,11 @@ public class MainActivity extends AppCompatActivity implements FoodMenuFragment.
 
     @Override
     public void onListFragmentInteraction(Restaurant item) {
-        System.out.println(item.getName());
+        if (item != null) {
+            Intent restaurantIntent = new Intent(this, RestaurantPageActivity.class);
+            String restaurantJSON = new Gson().toJson(item, Restaurant.class);
+            restaurantIntent.putExtra(Constants.INTENT_RESTAURANT_DATA_KEY, restaurantJSON);
+            startActivity(restaurantIntent);
+        }
     }
 }

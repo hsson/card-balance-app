@@ -31,4 +31,6 @@ public final class Constants {
     public static final String PREFS_MENU_DATA_KEY = "menu_data";
     public static final String PREFS_MENU_LAST_UPDATED_KEY = "menu_last_updated";
 
+    public static final String INTENT_RESTAURANT_DATA_KEY = BuildConfig.APPLICATION_ID + ".RESTAURANT_DATA";
+
 }
