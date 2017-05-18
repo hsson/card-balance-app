@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/toolbar_collapsing_layout"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways|snap">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <fragment
-        android:name="se.creotec.chscardbalance2.controller.FoodMenuFragment"
+        android:name="se.creotec.chscardbalance2.controller.FoodRestaurantFragment"
         android:id="@+id/main_food_menu_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

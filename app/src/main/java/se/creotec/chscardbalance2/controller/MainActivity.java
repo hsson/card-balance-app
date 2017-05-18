@@ -4,7 +4,6 @@
 // https://opensource.org/licenses/MIT
 package se.creotec.chscardbalance2.controller;
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -29,7 +28,7 @@ import se.creotec.chscardbalance2.service.BalanceService;
 import se.creotec.chscardbalance2.service.MenuService;
 import se.creotec.chscardbalance2.util.Util;
 
-public class MainActivity extends AppCompatActivity implements FoodMenuFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements FoodRestaurantFragment.OnListFragmentInteractionListener {
 
     private Toolbar toolbar;
     private AppBarLayout appBarLayout;

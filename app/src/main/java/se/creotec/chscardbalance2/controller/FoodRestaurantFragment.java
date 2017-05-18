@@ -15,18 +15,18 @@ import se.creotec.chscardbalance2.R;
 import se.creotec.chscardbalance2.model.IModel;
 import se.creotec.chscardbalance2.model.Restaurant;
 
-public class FoodMenuFragment extends Fragment {
+public class FoodRestaurantFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column_count";
     private int listColumnCount = 1;
     private OnListFragmentInteractionListener listener;
 
-    public FoodMenuFragment() {
+    public FoodRestaurantFragment() {
     }
 
     @SuppressWarnings("unused")
-    public static FoodMenuFragment newInstance(int columnCount) {
-        FoodMenuFragment fragment = new FoodMenuFragment();
+    public static FoodRestaurantFragment newInstance(int columnCount) {
+        FoodRestaurantFragment fragment = new FoodRestaurantFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -57,7 +57,7 @@ public class FoodMenuFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, listColumnCount));
             }
             IModel model = ((GlobalState) getActivity().getApplication()).getModel();
-            recyclerView.setAdapter(new FoodMenuRecyclerViewAdapter(model.getMenuData().getMenu(), listener));
+            recyclerView.setAdapter(new FoodRestaurantRecyclerViewAdapter(model.getMenuData().getMenu(), listener));
         }
         return view;
     }

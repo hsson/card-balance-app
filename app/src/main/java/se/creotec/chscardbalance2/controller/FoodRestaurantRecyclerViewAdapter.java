@@ -12,15 +12,15 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.List;
 
 import se.creotec.chscardbalance2.R;
-import se.creotec.chscardbalance2.controller.FoodMenuFragment.OnListFragmentInteractionListener;
+import se.creotec.chscardbalance2.controller.FoodRestaurantFragment.OnListFragmentInteractionListener;
 import se.creotec.chscardbalance2.model.Restaurant;
 
-public class FoodMenuRecyclerViewAdapter extends RecyclerView.Adapter<FoodMenuRecyclerViewAdapter.ViewHolder> {
+public class FoodRestaurantRecyclerViewAdapter extends RecyclerView.Adapter<FoodRestaurantRecyclerViewAdapter.ViewHolder> {
 
     private final List<Restaurant> restaurants;
     private final OnListFragmentInteractionListener listener;
 
-    public FoodMenuRecyclerViewAdapter(List<Restaurant> items, OnListFragmentInteractionListener listener) {
+    public FoodRestaurantRecyclerViewAdapter(List<Restaurant> items, OnListFragmentInteractionListener listener) {
         this.restaurants = items;
         this.listener = listener;
     }
