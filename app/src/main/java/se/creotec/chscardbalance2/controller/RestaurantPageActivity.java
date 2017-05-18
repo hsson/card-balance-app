@@ -1,8 +1,6 @@
 package se.creotec.chscardbalance2.controller;
 
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,13 +12,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import se.creotec.chscardbalance2.Constants;
 import se.creotec.chscardbalance2.R;
-import se.creotec.chscardbalance2.controller.dummy.DummyContent;
+import se.creotec.chscardbalance2.model.Dish;
 import se.creotec.chscardbalance2.model.Restaurant;
 
 public class RestaurantPageActivity extends AppCompatActivity implements DishFragment.OnListFragmentInteractionListener {
     private Toolbar toolbar;
-    private AppBarLayout appBarLayout;
-    private CollapsingToolbarLayout collapsingToolbarLayout;
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
@@ -32,21 +28,6 @@ public class RestaurantPageActivity extends AppCompatActivity implements DishFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_page);
-
-        restaurantImageHeader = (ImageView) findViewById(R.id.toolbar_image);
-        toolbar = (Toolbar) findViewById(R.id.toolbar_main);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
-        viewPager = (ViewPager) findViewById(R.id.restaurant_viewpager);
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_collapsing_layout);
-        DishFragment dishFragment = new DishFragment();
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(dishFragment, getString(R.string.restaurant_todays_menu));
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout = (TabLayout) findViewById(R.id.restaurant_tablayout);
-        tabLayout.setupWithViewPager(viewPager);
 
         String restaurantJSON;
         if (savedInstanceState == null) {
@@ -62,7 +43,12 @@ public class RestaurantPageActivity extends AppCompatActivity implements DishFra
             loadRestaurant(restaurantJSON);
         }
 
-        getSupportActionBar().setTitle(restaurant.getName());
+        setupToolbar();
+        setupViewPager();
+
+        if (getSupportActionBar() != null) { // Should not be null
+            getSupportActionBar().setTitle(restaurant.getName());
+        }
         ImageLoader.getInstance().displayImage(restaurant.getImageUrl(), restaurantImageHeader);
     }
 
@@ -79,6 +65,11 @@ public class RestaurantPageActivity extends AppCompatActivity implements DishFra
         return true;
     }
 
+    @Override
+    public void onListFragmentInteraction(Dish item) {
+
+    }
+
     private void loadRestaurant(String restaurantJSON) {
         if (restaurantJSON != null) {
             restaurant = new Gson().fromJson(restaurantJSON, Restaurant.class);
@@ -87,8 +78,23 @@ public class RestaurantPageActivity extends AppCompatActivity implements DishFra
         }
     }
 
-    @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    private void setupToolbar() {
+        restaurantImageHeader = (ImageView) findViewById(R.id.toolbar_image);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) { // Should never be null
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+    }
 
+    private void setupViewPager() {
+        viewPager = (ViewPager) findViewById(R.id.restaurant_viewpager);
+        DishFragment dishFragment = DishFragment.newInstance(1, restaurant);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragment(dishFragment, getString(R.string.restaurant_todays_menu));
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout = (TabLayout) findViewById(R.id.restaurant_tablayout);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

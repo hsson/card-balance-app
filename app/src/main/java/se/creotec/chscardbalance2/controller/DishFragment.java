@@ -3,6 +3,7 @@ package se.creotec.chscardbalance2.controller;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,39 +11,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+
 import se.creotec.chscardbalance2.R;
-import se.creotec.chscardbalance2.controller.dummy.DummyContent;
-import se.creotec.chscardbalance2.controller.dummy.DummyContent.DummyItem;
+import se.creotec.chscardbalance2.model.Dish;
+import se.creotec.chscardbalance2.model.Restaurant;
 
-import java.util.List;
-
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
 public class DishFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+    private static final String ARG_COLUMN_COUNT = "dish_column_count";
+    private static final String ARG_RESTAURANT = "dish_restaurant";
+    private int columnCount = 1;
+    private Restaurant restaurant;
+    private OnListFragmentInteractionListener dishListener;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public DishFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static DishFragment newInstance(int columnCount) {
+    public static DishFragment newInstance(int columnCount, Restaurant restaurant) {
         DishFragment fragment = new DishFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
+        String restaurantJSON = new Gson().toJson(restaurant, Restaurant.class);
+        args.putString(ARG_RESTAURANT, restaurantJSON);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,7 +44,8 @@ public class DishFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            columnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            restaurant = new Gson().fromJson(getArguments().getString(ARG_RESTAURANT), Restaurant.class);
         }
     }
 
@@ -65,12 +58,20 @@ public class DishFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            if (columnCount <= 1) {
+                LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+                recyclerView.setLayoutManager(layoutManager);
+                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                        layoutManager.getOrientation());
+                recyclerView.addItemDecoration(dividerItemDecoration);
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                GridLayoutManager layoutManager = new GridLayoutManager(context, columnCount);
+                recyclerView.setLayoutManager(layoutManager);
+                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                        layoutManager.getOrientation());
+                recyclerView.addItemDecoration(dividerItemDecoration);
             }
-            recyclerView.setAdapter(new FoodDishRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new FoodDishRecyclerViewAdapter(restaurant.getDishes(), dishListener));
         }
         return view;
     }
@@ -80,7 +81,7 @@ public class DishFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+            dishListener = (OnListFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
@@ -90,21 +91,10 @@ public class DishFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        dishListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Dish item);
     }
 }

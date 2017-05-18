@@ -6,24 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import se.creotec.chscardbalance2.R;
-import se.creotec.chscardbalance2.controller.DishFragment.OnListFragmentInteractionListener;
-import se.creotec.chscardbalance2.controller.dummy.DummyContent.DummyItem;
-
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
+import se.creotec.chscardbalance2.R;
+import se.creotec.chscardbalance2.controller.DishFragment.OnListFragmentInteractionListener;
+import se.creotec.chscardbalance2.model.Dish;
+
 public class FoodDishRecyclerViewAdapter extends RecyclerView.Adapter<FoodDishRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Dish> dishes;
     private final OnListFragmentInteractionListener mListener;
 
-    public FoodDishRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public FoodDishRecyclerViewAdapter(List<Dish> items, OnListFragmentInteractionListener listener) {
+        dishes = items;
         mListener = listener;
     }
 
@@ -36,17 +31,15 @@ public class FoodDishRecyclerViewAdapter extends RecyclerView.Adapter<FoodDishRe
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.dish = dishes.get(position);
+        holder.dishTitle.setText(dishes.get(position).getTitle());
+        holder.dishDesc.setText(dishes.get(position).getDescription());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(holder.dish);
                 }
             }
         });
@@ -54,25 +47,25 @@ public class FoodDishRecyclerViewAdapter extends RecyclerView.Adapter<FoodDishRe
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return dishes.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView dishTitle;
+        public final TextView dishDesc;
+        public Dish dish;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            dishTitle = (TextView) view.findViewById(R.id.dish_title);
+            dishDesc= (TextView) view.findViewById(R.id.dish_desc);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + dish.toString() + "'";
         }
     }
 }
