@@ -21,8 +21,7 @@ class MenuService : AbstractBackendService<MenuData>(MenuService::class.java.nam
         Log.i(LOG_TAG, "Received intent")
         if (intent == null || intent.action == null) {
             return
-        }
-        if (intent.action == Constants.ACTION_UPDATE_MENU) {
+        } else if (intent.action == Constants.ACTION_UPDATE_MENU) {
             try {
                 val global = application as GlobalState
                 val language = global.model.preferredMenuLanguage
