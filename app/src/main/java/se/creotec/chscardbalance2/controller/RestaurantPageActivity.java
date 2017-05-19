@@ -44,11 +44,11 @@ public class RestaurantPageActivity extends AppCompatActivity implements DishFra
             if (extras == null) {
                 finish();
             } else {
-                restaurantJSON = extras.getString(Constants.INTENT_RESTAURANT_DATA_KEY);
+                restaurantJSON = extras.getString(Constants.INSTANCE.getINTENT_RESTAURANT_DATA_KEY());
                 loadRestaurant(restaurantJSON);
             }
         } else {
-            restaurantJSON = (String) savedInstanceState.getSerializable(Constants.INTENT_RESTAURANT_DATA_KEY);
+            restaurantJSON = (String) savedInstanceState.getSerializable(Constants.INSTANCE.getINTENT_RESTAURANT_DATA_KEY());
             loadRestaurant(restaurantJSON);
         }
 
@@ -65,7 +65,7 @@ public class RestaurantPageActivity extends AppCompatActivity implements DishFra
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         String restaurantJSON = new Gson().toJson(restaurant, Restaurant.class);
-        outState.putString(Constants.INTENT_RESTAURANT_DATA_KEY, restaurantJSON);
+        outState.putString(Constants.INSTANCE.getINTENT_RESTAURANT_DATA_KEY(), restaurantJSON);
     }
 
     @Override

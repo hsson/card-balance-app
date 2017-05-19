@@ -45,14 +45,13 @@ public class MainActivity extends AppCompatActivity implements FoodRestaurantFra
         GlobalState global = ((GlobalState) getApplication());
         setupAppBar();
         setupFAB(global);
-
         Intent updateBalanceIntent = new Intent(this, BalanceService.class);
-        updateBalanceIntent.setAction(Constants.ACTION_UPDATE_CARD);
+        updateBalanceIntent.setAction(Constants.INSTANCE.getACTION_UPDATE_CARD());
         System.out.println("Starting balance service");
         this.startService(updateBalanceIntent);
 
         Intent updateMenuIntent = new Intent(this, MenuService.class);
-        updateMenuIntent.setAction(Constants.ACTION_UPDATE_MENU);
+        updateMenuIntent.setAction(Constants.INSTANCE.getACTION_UPDATE_MENU());
         System.out.println("Starting menu service");
         this.startService(updateMenuIntent);
 
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements FoodRestaurantFra
         global.saveCardData();
         cardOwnerName.setText(global.getModel().getCardData().getOwnerName());
         cardNumber.setText(Util.formatCardNumber(global.getModel().getCardData().getCardNumber()));
-        collapsingToolbarLayout.setTitle(global.getModel().getCardData().getCardBalance() + " " + Constants.CARD_CURRENCY_SUFFIX);
+        collapsingToolbarLayout.setTitle(global.getModel().getCardData().getCardBalance() + " " + Constants.INSTANCE.getCARD_CURRENCY_SUFFIX());
     }
 
     // Sets up the appbar
@@ -107,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements FoodRestaurantFra
         if (item != null) {
             Intent restaurantIntent = new Intent(this, RestaurantPageActivity.class);
             String restaurantJSON = new Gson().toJson(item, Restaurant.class);
-            restaurantIntent.putExtra(Constants.INTENT_RESTAURANT_DATA_KEY, restaurantJSON);
+            restaurantIntent.putExtra(Constants.INSTANCE.getINTENT_RESTAURANT_DATA_KEY(), restaurantJSON);
             startActivity(restaurantIntent);
         }
     }

@@ -54,11 +54,11 @@ public class SplashActivity extends AppCompatActivity {
      */
     private RunState getRunState() {
         int currentVersionCode = BuildConfig.VERSION_CODE;
-        SharedPreferences preferences = getSharedPreferences(Constants.PREFS_FILE_NAME, MODE_PRIVATE);
-        int savedVersionCode = preferences.getInt(Constants.PREFS_VERSION_CODE_KEY, Constants.PREFS_VERSION_CODE_NONEXISTING);
-        preferences.edit().putInt(Constants.PREFS_VERSION_CODE_KEY, currentVersionCode).apply();
+        SharedPreferences preferences = getSharedPreferences(Constants.INSTANCE.getPREFS_FILE_NAME(), MODE_PRIVATE);
+        int savedVersionCode = preferences.getInt(Constants.INSTANCE.getPREFS_VERSION_CODE_KEY(), Constants.INSTANCE.getPREFS_VERSION_CODE_NONEXISTING());
+        preferences.edit().putInt(Constants.INSTANCE.getPREFS_VERSION_CODE_KEY(), currentVersionCode).apply();
 
-        if (savedVersionCode == Constants.PREFS_VERSION_CODE_NONEXISTING) {
+        if (savedVersionCode == Constants.INSTANCE.getPREFS_VERSION_CODE_NONEXISTING()) {
             return RunState.FIRST;
         } else if (currentVersionCode > savedVersionCode) {
             return RunState.UPGRADED;

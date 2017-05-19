@@ -32,11 +32,11 @@ public class BalanceService extends AbstractBackendService<CardData> {
         if (intent == null || intent.getAction() == null) {
             return;
         }
-        if (intent.getAction().equals(Constants.ACTION_UPDATE_CARD)) {
+        if (intent.getAction().equals(Constants.INSTANCE.getACTION_UPDATE_CARD())) {
             try {
                 GlobalState global = (GlobalState) getApplication();
                 String cardNumber = global.getModel().getCardData().getCardNumber();
-                BackendResponse<CardData> response = getBackendData(Constants.ENDPOINT_BALANCE, cardNumber);
+                BackendResponse<CardData> response = getBackendData(Constants.INSTANCE.getENDPOINT_BALANCE(), cardNumber);
                 global.getModel().setCardLastTimeUpdated(System.currentTimeMillis());
                 global.getModel().setCardData(response.getData());
                 global.saveCardData();
@@ -49,7 +49,7 @@ public class BalanceService extends AbstractBackendService<CardData> {
 
     @Override
     protected void validateVariable(String variable) throws BackendFetchException {
-        if (variable.length() != Constants.CARD_NUMBER_LENGTH) {
+        if (variable.length() != Constants.INSTANCE.getCARD_NUMBER_LENGTH()) {
             throw new BackendFetchException("Card number has incorrect length");
         }
         // Make sure card number only contains numbers and has no blank spaces

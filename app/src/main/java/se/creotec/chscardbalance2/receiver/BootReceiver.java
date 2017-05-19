@@ -24,9 +24,9 @@ public class BootReceiver extends BroadcastReceiver{
         if (intent == null || intent.getAction() == null) {
             return;
         }
-        if (intent.getAction().equals(Constants.ACTION_BOOT_COMPLETED)) {
+        if (intent.getAction().equals(Constants.INSTANCE.getACTION_BOOT_COMPLETED())) {
             Intent updateCardIntent = new Intent(context, BalanceService.class);
-            updateCardIntent.setAction(Constants.ACTION_UPDATE_CARD);
+            updateCardIntent.setAction(Constants.INSTANCE.getACTION_UPDATE_CARD());
             Log.d(LOG_TAG, "Scheduling card update after boot");
             AlarmScheduler.scheduleAlarm(context, updateCardIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         }

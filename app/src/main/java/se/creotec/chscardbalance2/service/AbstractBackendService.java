@@ -87,8 +87,8 @@ public abstract class AbstractBackendService<T> extends IntentService {
     private HttpURLConnection prepareConnection(String endpoint, String variable) throws IOException {
         URL formattedURL = new URL(BuildConfig.BACKEND_URL + endpoint + "/" + variable);
         HttpURLConnection connection = (HttpURLConnection) formattedURL.openConnection();
-        connection.setReadTimeout(Constants.ENDPOINT_TIMEOUT);
-        connection.setConnectTimeout(Constants.ENDPOINT_TIMEOUT);
+        connection.setReadTimeout(Constants.INSTANCE.getENDPOINT_TIMEOUT());
+        connection.setConnectTimeout(Constants.INSTANCE.getENDPOINT_TIMEOUT());
         connection.setDoInput(true);
         connection.setRequestMethod("GET");
         return connection;
