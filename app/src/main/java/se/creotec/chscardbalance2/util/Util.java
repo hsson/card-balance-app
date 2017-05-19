@@ -4,8 +4,6 @@
 // https://opensource.org/licenses/MIT
 package se.creotec.chscardbalance2.util;
 
-import android.support.annotation.NonNull;
-
 public final class Util {
     private Util() {}
 
@@ -29,5 +27,23 @@ public final class Util {
         }
 
         return sb.toString();
+    }
+
+    public static String capitalizeAllWords(String in) {
+        if (in == null  || in.equals("")) {
+            return in;
+        }
+
+        StringBuilder res = new StringBuilder();
+
+        String[] strArr = in.split(" ");
+        for (String str : strArr) {
+            char[] stringArray = str.trim().toCharArray();
+            stringArray[0] = Character.toUpperCase(stringArray[0]);
+            str = new String(stringArray);
+
+            res.append(str).append(" ");
+        }
+        return res.toString().trim();
     }
 }

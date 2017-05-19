@@ -11,6 +11,7 @@ import java.util.List;
 import se.creotec.chscardbalance2.R;
 import se.creotec.chscardbalance2.controller.DishFragment.OnListFragmentInteractionListener;
 import se.creotec.chscardbalance2.model.Dish;
+import se.creotec.chscardbalance2.util.Util;
 
 public class FoodDishRecyclerViewAdapter extends RecyclerView.Adapter<FoodDishRecyclerViewAdapter.ViewHolder> {
 
@@ -32,8 +33,8 @@ public class FoodDishRecyclerViewAdapter extends RecyclerView.Adapter<FoodDishRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.dish = dishes.get(position);
-        holder.dishTitle.setText(dishes.get(position).getTitle());
-        holder.dishDesc.setText(dishes.get(position).getDescription());
+        holder.dishTitle.setText(Util.capitalizeAllWords(dishes.get(position).getTitle()));
+        holder.dishDesc.setText(Util.capitalizeAllWords(dishes.get(position).getDescription()));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
