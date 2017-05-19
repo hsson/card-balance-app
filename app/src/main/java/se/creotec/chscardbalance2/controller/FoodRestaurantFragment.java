@@ -2,6 +2,7 @@ package se.creotec.chscardbalance2.controller;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,8 +18,6 @@ import se.creotec.chscardbalance2.model.Restaurant;
 
 public class FoodRestaurantFragment extends Fragment {
 
-    private static final String ARG_COLUMN_COUNT = "column_count";
-    private int listColumnCount = 1;
     private OnListFragmentInteractionListener listener;
 
     public FoodRestaurantFragment() {
@@ -28,7 +27,6 @@ public class FoodRestaurantFragment extends Fragment {
     public static FoodRestaurantFragment newInstance(int columnCount) {
         FoodRestaurantFragment fragment = new FoodRestaurantFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
@@ -36,10 +34,6 @@ public class FoodRestaurantFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            listColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
@@ -51,10 +45,10 @@ public class FoodRestaurantFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (listColumnCount <= 1) {
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, listColumnCount));
+                recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
             }
             IModel model = ((GlobalState) getActivity().getApplication()).getModel();
             recyclerView.setAdapter(new FoodRestaurantRecyclerViewAdapter(model.getMenuData().getMenu(), listener));
