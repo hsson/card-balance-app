@@ -10,5 +10,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="se.creotec.chscardbalance2.controller.DishFragment"
+    tools:context="se.creotec.chscardbalance2.controller.FoodDishFragment"
     tools:listitem="@layout/fragment_dish" />

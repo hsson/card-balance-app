@@ -59,7 +59,7 @@ class FoodRestaurantRecyclerViewAdapter(private val restaurants: List<Restaurant
         var restaurant: Restaurant? = null
 
         override fun toString(): String {
-            return super.toString() + " '" + (restaurant?.name ?: "<restaurant>")+ "'"
+            return super.toString() + " '" + restaurant?.toString() + "'"
         }
 
         internal fun setDishesCount(count: Int) {
