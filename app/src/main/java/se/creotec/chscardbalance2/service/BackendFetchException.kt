@@ -2,8 +2,6 @@
 //
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
-package se.creotec.chscardbalance2.model;
+package se.creotec.chscardbalance2.service
 
-public interface OnMenuDataChangedListener {
-    void notify(final MenuData newData);
-}
+class BackendFetchException(message: String) : Exception(message)

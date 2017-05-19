@@ -2,8 +2,8 @@
 //
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
-package se.creotec.chscardbalance2.model;
+package se.creotec.chscardbalance2.model
 
-public interface OnCardDataChangedListener {
-    void notify(final CardData newData);
+interface OnCardDataChangedListener {
+    fun notify(newData: CardData)
 }

@@ -40,17 +40,19 @@ class GlobalState : Application() {
      * Load data about the food menu from persistent storage
      */
     fun loadMenuData() {
-        val lang = preferences!!.getString(Constants.PREFS_MENU_LANGUAGE_KEY, determineSystemLanguage())
-        val menuLastUpdated = preferences!!.getLong(Constants.PREFS_MENU_LAST_UPDATED_KEY, -1)
-        val menuDataJSON = preferences!!.getString(Constants.PREFS_MENU_DATA_KEY, "")
+        preferences?.let {
+            val lang = it.getString(Constants.PREFS_MENU_LANGUAGE_KEY, determineSystemLanguage())
+            val menuLastUpdated = it.getLong(Constants.PREFS_MENU_LAST_UPDATED_KEY, -1)
+            val menuDataJSON = it.getString(Constants.PREFS_MENU_DATA_KEY, "")
 
-        if (menuDataJSON != "") {
-            val menu = gson.fromJson(menuDataJSON, MenuData::class.java)
-            model.menuData = menu
+            if (menuDataJSON != "") {
+                val menu = gson.fromJson(menuDataJSON, MenuData::class.java)
+                model.menuData = menu
+            }
+
+            model.preferredMenuLanguage = lang
+            model.menuLastTimeUpdated = menuLastUpdated
         }
-
-        model.preferredMenuLanguage = lang
-        model.menuLastTimeUpdated = menuLastUpdated
 
     }
 
@@ -61,26 +63,30 @@ class GlobalState : Application() {
         val menu = model.menuData
         val menuDataJSON = gson.toJson(menu, MenuData::class.java)
 
-        val editor = preferences!!.edit()
-        editor.putString(Constants.PREFS_MENU_LANGUAGE_KEY, model.preferredMenuLanguage)
-        editor.putString(Constants.PREFS_MENU_DATA_KEY, menuDataJSON)
-        editor.putLong(Constants.PREFS_MENU_LAST_UPDATED_KEY, model.menuLastTimeUpdated)
-        editor.apply()
+        preferences?.let {
+            val editor = it.edit()
+            editor.putString(Constants.PREFS_MENU_LANGUAGE_KEY, model.preferredMenuLanguage)
+            editor.putString(Constants.PREFS_MENU_DATA_KEY, menuDataJSON)
+            editor.putLong(Constants.PREFS_MENU_LAST_UPDATED_KEY, model.menuLastTimeUpdated)
+            editor.apply()
+        }
     }
 
     /**
      * Load data about the card from persistent storage
      */
     fun loadCardData() {
-        val cardJson = preferences!!.getString(Constants.PREFS_CARD_DATA_KEY, "")
-        val lastUpdated = preferences!!.getLong(Constants.PREFS_CARD_LAST_UPDATED_KEY, -1)
-        model.cardLastTimeUpdated = lastUpdated
+        preferences?.let {
+            val cardJson = it.getString(Constants.PREFS_CARD_DATA_KEY, "")
+            val lastUpdated = it.getLong(Constants.PREFS_CARD_LAST_UPDATED_KEY, -1)
+            model.cardLastTimeUpdated = lastUpdated
 
-        if (cardJson != "") {
-            val data = gson.fromJson(cardJson, CardData::class.java)
-            model.cardData = data
-        } else {
-            // TODO: Prompt for card details, maybe
+            if (cardJson != "") {
+                val data = gson.fromJson(cardJson, CardData::class.java)
+                model.cardData = data
+            } else {
+                // TODO: Prompt for card details, maybe
+            }
         }
     }
 
@@ -91,10 +97,12 @@ class GlobalState : Application() {
         val data = model.cardData
         val cardJson = gson.toJson(data, CardData::class.java)
 
-        val editor = preferences!!.edit()
-        editor.putString(Constants.PREFS_CARD_DATA_KEY, cardJson)
-        editor.putLong(Constants.PREFS_CARD_LAST_UPDATED_KEY, model.cardLastTimeUpdated)
-        editor.apply()
+        preferences?.let {
+            val editor = it.edit()
+            editor.putString(Constants.PREFS_CARD_DATA_KEY, cardJson)
+            editor.putLong(Constants.PREFS_CARD_LAST_UPDATED_KEY, model.cardLastTimeUpdated)
+            editor.apply()
+        }
     }
 
      // Determine which language to default to. If the users is running one of
