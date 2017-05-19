@@ -35,13 +35,14 @@ public class FoodDishRecyclerViewAdapter extends RecyclerView.Adapter<FoodDishRe
         holder.dish = dishes.get(position);
         holder.dishTitle.setText(Util.capitalizeAllWords(dishes.get(position).getTitle()));
         holder.dishDesc.setText(Util.capitalizeAllWords(dishes.get(position).getDescription()));
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.dishContainer.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View view) {
                 if (null != mListener) {
                     mListener.onListFragmentInteraction(holder.dish);
+                    return true;
                 }
+                return false;
             }
         });
     }
@@ -52,14 +53,14 @@ public class FoodDishRecyclerViewAdapter extends RecyclerView.Adapter<FoodDishRe
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
+        public final View dishContainer;
         public final TextView dishTitle;
         public final TextView dishDesc;
         public Dish dish;
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
+            dishContainer = view;
             dishTitle = (TextView) view.findViewById(R.id.dish_title);
             dishDesc= (TextView) view.findViewById(R.id.dish_desc);
         }

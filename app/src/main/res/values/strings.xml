@@ -5,4 +5,5 @@
     <string name="restaurant_closed_today">Closed Today</string>
     <string name="restaurant_todays_menu">Today\'s menu</string>
     <string name="restaurant_dishes_count_suffix">dishes to choose from</string>
+    <string name="dish_copied">has been copied</string>
 </resources>

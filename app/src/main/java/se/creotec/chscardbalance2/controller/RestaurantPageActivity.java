@@ -1,11 +1,17 @@
 package se.creotec.chscardbalance2.controller;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -14,11 +20,13 @@ import se.creotec.chscardbalance2.Constants;
 import se.creotec.chscardbalance2.R;
 import se.creotec.chscardbalance2.model.Dish;
 import se.creotec.chscardbalance2.model.Restaurant;
+import se.creotec.chscardbalance2.util.Util;
 
 public class RestaurantPageActivity extends AppCompatActivity implements DishFragment.OnListFragmentInteractionListener {
     private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private View parentView;
 
     private ImageView restaurantImageHeader;
 
@@ -28,6 +36,7 @@ public class RestaurantPageActivity extends AppCompatActivity implements DishFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_page);
+        parentView = findViewById(R.id.parent_view);
 
         String restaurantJSON;
         if (savedInstanceState == null) {
@@ -67,6 +76,14 @@ public class RestaurantPageActivity extends AppCompatActivity implements DishFra
 
     @Override
     public void onListFragmentInteraction(Dish item) {
+        ClipboardManager clipboard = (ClipboardManager)
+                getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clipData = ClipData.newPlainText("dish", Util.capitalizeAllWords(item.getDescription()));
+        clipboard.setPrimaryClip(clipData);
+        String copied = getString(R.string.dish_copied);
+        Snackbar
+                .make(parentView, item.getTitle() + " " + copied, Snackbar.LENGTH_LONG)
+                .show();
 
     }
 
