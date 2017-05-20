@@ -5,5 +5,5 @@
 package se.creotec.chscardbalance2.model
 
 interface OnMenuDataChangedListener {
-    fun notify(newData: MenuData)
+    fun menuDataChanged(newData: MenuData)
 }

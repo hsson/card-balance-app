@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.google.gson.Gson
@@ -16,10 +17,12 @@ import com.nostra13.universalimageloader.core.ImageLoader
 import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.R
 import se.creotec.chscardbalance2.model.Dish
+import se.creotec.chscardbalance2.model.MenuData
+import se.creotec.chscardbalance2.model.OnMenuDataChangedListener
 import se.creotec.chscardbalance2.model.Restaurant
 import se.creotec.chscardbalance2.util.Util
 
-class RestaurantPageActivity : AppCompatActivity(), FoodDishFragment.OnListFragmentInteractionListener {
+class RestaurantPageActivity : AppCompatActivity(), FoodDishFragment.OnListFragmentInteractionListener, OnMenuDataChangedListener {
     private var toolbar: Toolbar? = null
     private var viewPager: ViewPager? = null
     private var tabLayout: TabLayout? = null
@@ -72,6 +75,11 @@ class RestaurantPageActivity : AppCompatActivity(), FoodDishFragment.OnListFragm
         parentView?.let { Snackbar.make(it, copied, Snackbar.LENGTH_LONG).show() }
     }
 
+    override fun menuDataChanged(newData: MenuData) {
+        Log.i(LOG_TAG, "Menu data was updated")
+        //TODO: Update menu list
+    }
+
     private fun loadRestaurant(restaurantJSON: String): Restaurant {
         return Gson().fromJson(restaurantJSON, Restaurant::class.java)
     }
@@ -103,6 +111,7 @@ class RestaurantPageActivity : AppCompatActivity(), FoodDishFragment.OnListFragm
     }
 
     companion object {
+        private val LOG_TAG = RestaurantPageActivity::class.java.name
         private val POS_TODAYS_MENU = 0
         private val POS_ABOUT = 1
     }

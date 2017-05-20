@@ -45,7 +45,7 @@ class Model : IModel {
 
     override fun notifyCardDataChangedListeners() {
         for (listener in cardDataChangedListeners) {
-            listener.notify(this.cardData)
+            listener.cardDataChanged(this.cardData)
         }
     }
 
@@ -55,7 +55,7 @@ class Model : IModel {
 
     override fun notifyMenuDataChangedListeners() {
         for (listener in this.menuDataChangedListeners) {
-            listener.notify(this.menuData)
+            listener.menuDataChanged(this.menuData)
         }
     }
 

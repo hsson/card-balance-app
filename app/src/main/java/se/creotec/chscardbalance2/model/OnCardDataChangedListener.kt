@@ -5,5 +5,5 @@
 package se.creotec.chscardbalance2.model
 
 interface OnCardDataChangedListener {
-    fun notify(newData: CardData)
+    fun cardDataChanged(newData: CardData)
 }

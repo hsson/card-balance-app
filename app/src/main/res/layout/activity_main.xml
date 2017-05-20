@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/toolbar_collapsing_layout"
+            app:collapsedTitleGravity="center"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways|snap">
             <TextView
                 android:layout_width="wrap_content"
