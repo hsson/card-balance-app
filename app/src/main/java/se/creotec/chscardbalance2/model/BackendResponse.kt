@@ -4,10 +4,15 @@
 // https://opensource.org/licenses/MIT
 package se.creotec.chscardbalance2.model
 
+import com.google.gson.annotations.SerializedName
+
 class BackendResponse<T> {
 
+    @SerializedName("success")
     var isSuccess: Boolean = false
+    @SerializedName("error")
     var errorMessage: String = UNKNOWN_ERROR
+    @SerializedName("data")
     var data: T? = null
 
     override fun equals(other: Any?): Boolean {
