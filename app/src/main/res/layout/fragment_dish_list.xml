@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/dish_list"
-    android:name="se.creotec.chscardbalance2.controller.DishFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    app:layoutManager="LinearLayoutManager"
-    tools:context="se.creotec.chscardbalance2.controller.FoodDishFragment"
-    tools:listitem="@layout/fragment_dish" />
+    android:animateLayoutChanges="true">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/dish_list"
+        android:name="se.creotec.chscardbalance2.controller.DishFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager"
+        tools:context="se.creotec.chscardbalance2.controller.FoodDishFragment"
+        tools:listitem="@layout/fragment_dish" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/restaurant_closed_view"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/restaurant_closed_view_image"
+            android:contentDescription="@string/restaurant_closed_today"
+            android:src="@mipmap/ic_launcher"
+            android:alpha="0.5"
+            android:layout_marginTop="32dp"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@id/restaurant_closed_view_image"
+            android:text="@string/restaurant_closed_today_detailed"/>
+    </RelativeLayout>
+</RelativeLayout>

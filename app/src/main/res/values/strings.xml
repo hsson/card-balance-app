@@ -3,7 +3,9 @@
     <string name="app_name">Chalmers Card Balance</string>
     <string name="restaurant_image_desc">Restaurant\'s Image</string>
     <string name="restaurant_closed_today">Closed Today</string>
+    <string name="restaurant_closed_today_detailed">This restaurant is closed today</string>
     <string name="restaurant_todays_menu">Today\'s menu</string>
+    <string name="restaurant_about">About Restaurant</string>
     <string name="restaurant_dishes_count">%1$s to choose from</string>
     <string name="dish_copied">%1$s has been copied</string>
 

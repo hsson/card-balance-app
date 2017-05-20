@@ -89,11 +89,21 @@ class RestaurantPageActivity : AppCompatActivity(), FoodDishFragment.OnListFragm
         tabLayout = findViewById(R.id.restaurant_tablayout) as TabLayout
 
         val dishFragment = FoodDishFragment.newInstance(restaurant)
+        val aboutFragment = FoodAboutFragment.newInstance(restaurant)
         val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         viewPagerAdapter.addFragment(dishFragment, getString(R.string.restaurant_todays_menu))
+        viewPagerAdapter.addFragment(aboutFragment, getString(R.string.restaurant_about))
         viewPager?.let {
             it.adapter = viewPagerAdapter
+            if (restaurant.isClosed()) {
+                it.currentItem = POS_ABOUT
+            }
             tabLayout?.setupWithViewPager(it)
         }
+    }
+
+    companion object {
+        private val POS_TODAYS_MENU = 0
+        private val POS_ABOUT = 1
     }
 }
