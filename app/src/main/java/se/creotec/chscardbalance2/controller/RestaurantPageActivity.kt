@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
@@ -27,6 +28,7 @@ class RestaurantPageActivity : AppCompatActivity(), FoodDishFragment.OnListFragm
     private var viewPager: ViewPager? = null
     private var tabLayout: TabLayout? = null
     private var parentView: View? = null
+    private var collapsingToolbar: CollapsingToolbarLayout? = null
 
     private var restaurantImageHeader: ImageView? = null
     private var restaurant: Restaurant = Restaurant("")
@@ -50,7 +52,8 @@ class RestaurantPageActivity : AppCompatActivity(), FoodDishFragment.OnListFragm
         setupToolbar()
         setupViewPager(restaurant)
 
-        supportActionBar?.title = restaurant.name
+        //supportActionBar?.title = restaurant.name
+        collapsingToolbar?.title = restaurant.name
         restaurantImageHeader?.let {
             ImageLoader.getInstance().displayImage(restaurant.imageUrl, it)
         }
@@ -90,6 +93,7 @@ class RestaurantPageActivity : AppCompatActivity(), FoodDishFragment.OnListFragm
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+        collapsingToolbar = findViewById(R.id.toolbar_collapsing_layout) as CollapsingToolbarLayout
     }
 
     private fun setupViewPager(restaurant: Restaurant) {
