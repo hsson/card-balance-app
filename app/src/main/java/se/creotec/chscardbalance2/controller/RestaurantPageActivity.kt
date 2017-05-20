@@ -52,8 +52,7 @@ class RestaurantPageActivity : AppCompatActivity(), FoodDishFragment.OnListFragm
         setupToolbar()
         setupViewPager(restaurant)
 
-        //supportActionBar?.title = restaurant.name
-        collapsingToolbar?.title = restaurant.name
+        collapsingToolbar?.title = restaurant.name.toUpperCase()
         restaurantImageHeader?.let {
             ImageLoader.getInstance().displayImage(restaurant.imageUrl, it)
         }
@@ -90,10 +89,10 @@ class RestaurantPageActivity : AppCompatActivity(), FoodDishFragment.OnListFragm
     private fun setupToolbar() {
         restaurantImageHeader = findViewById(R.id.toolbar_image) as ImageView
         toolbar = findViewById(R.id.toolbar_main) as Toolbar
+        collapsingToolbar = findViewById(R.id.toolbar_collapsing_layout) as CollapsingToolbarLayout
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        collapsingToolbar = findViewById(R.id.toolbar_collapsing_layout) as CollapsingToolbarLayout
     }
 
     private fun setupViewPager(restaurant: Restaurant) {

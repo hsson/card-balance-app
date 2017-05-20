@@ -17,7 +17,6 @@
 
     <style name="AppTheme.Restaurant.Title" parent="AppTheme">
         <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textSize">48sp</item>
     </style>
 
 </resources>
