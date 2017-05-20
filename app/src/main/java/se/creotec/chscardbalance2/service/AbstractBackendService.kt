@@ -50,9 +50,18 @@ abstract class AbstractBackendService<T>(name: String) : IntentService(name) {
                 val response = readResponse(conn)
                 return parseResponse(response)
             }
-            HttpURLConnection.HTTP_INTERNAL_ERROR -> throw BackendFetchException("The backend encountered an error")
-            HttpURLConnection.HTTP_NOT_FOUND -> throw BackendFetchException("The requested endpoint was not found")
-            else -> throw BackendFetchException("Backend responded with unknown error")
+            HttpURLConnection.HTTP_INTERNAL_ERROR -> {
+                conn.disconnect()
+                throw BackendFetchException("The backend encountered an error")
+            }
+            HttpURLConnection.HTTP_NOT_FOUND -> {
+                conn.disconnect()
+                throw BackendFetchException("The requested endpoint was not found")
+            }
+            else -> {
+                conn.disconnect()
+                throw BackendFetchException("Backend responded with unknown error")
+            }
         }
     }
 
