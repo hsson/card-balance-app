@@ -9,11 +9,13 @@ import com.google.gson.annotations.SerializedName
 import java.util.ArrayList
 
 class Restaurant(@SerializedName("name")
-                 var name: String) {
+                 var name: String) : Comparable<Restaurant> {
     @SerializedName("image_url")
     var imageUrl: String? = null
     @SerializedName("dishes")
     var dishes: List<Dish> = ArrayList()
+
+    override fun compareTo(other: Restaurant) = compareValuesBy(this, other, {-it.dishes.size})
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

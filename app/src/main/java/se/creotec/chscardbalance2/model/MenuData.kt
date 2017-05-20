@@ -12,6 +12,7 @@ class MenuData {
     var language: String = Constants.PREFS_MENU_LANGUAGE_DEFAULT
     @SerializedName("menu")
     var menu: List<Restaurant> = ArrayList()
+        get() = field.sorted()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
