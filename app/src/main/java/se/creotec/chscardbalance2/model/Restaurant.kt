@@ -15,7 +15,11 @@ class Restaurant(@SerializedName("name")
     @SerializedName("dishes")
     var dishes: List<Dish> = ArrayList()
 
-    override fun compareTo(other: Restaurant) = compareValuesBy(this, other, {-it.dishes.size})
+    fun isClosed(): Boolean {
+        return dishes.isEmpty()
+    }
+
+    override fun compareTo(other: Restaurant) = compareValuesBy(this, other, {it.isClosed()})
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

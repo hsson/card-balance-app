@@ -28,7 +28,7 @@ class FoodRestaurantRecyclerViewAdapter(private val restaurants: List<Restaurant
         holder.restaurantName.text = restaurant.name
 
         // Show restaurant as closed if it has no dishes
-        if (restaurant.dishes.isNotEmpty()) {
+        if (!restaurant.isClosed()) {
             holder.restaurantClosed.visibility = View.GONE
             holder.restaurantHeaderTint.visibility = View.GONE
             holder.restaurantHeaderGradient.visibility = View.VISIBLE
