@@ -26,13 +26,13 @@ class FoodRestaurantRecyclerViewAdapter(private val restaurants: List<Restaurant
         holder.restaurant = restaurant
         ImageLoader.getInstance().displayImage(restaurant.imageUrl, holder.restaurantHeader)
         holder.restaurantName.text = restaurant.name
+        holder.setDishesCount(restaurant.dishes.size)
 
         // Show restaurant as closed if it has no dishes
         if (!restaurant.isClosed()) {
             holder.restaurantClosed.visibility = View.GONE
             holder.restaurantHeaderTint.visibility = View.GONE
             holder.restaurantHeaderGradient.visibility = View.VISIBLE
-            holder.setDishesCount(restaurant.dishes.size)
         } else {
             holder.restaurantClosed.visibility = View.VISIBLE
             holder.restaurantHeaderTint.visibility = View.VISIBLE
@@ -63,7 +63,8 @@ class FoodRestaurantRecyclerViewAdapter(private val restaurants: List<Restaurant
         }
 
         internal fun setDishesCount(count: Int) {
-            restaurantDishCount.text = holderView.resources.getString(R.string.restaurant_dishes_count, count)
+            val dishQuantity = holderView.resources.getQuantityString(R.plurals.dish, count, count)
+            restaurantDishCount.text = holderView.resources.getString(R.string.restaurant_dishes_count, dishQuantity)
         }
     }
 }
