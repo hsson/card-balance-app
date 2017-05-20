@@ -6,4 +6,11 @@
     <string name="restaurant_todays_menu">Today\'s menu</string>
     <string name="restaurant_dishes_count">%1$s to choose from</string>
     <string name="dish_copied">%1$s has been copied</string>
+
+    <string name="upgraded_slide_1_title">Welcome Back</string>
+    <string name="upgraded_slide_1_desc">We have made some nice changes for you!</string>
+    <string name="upgraded_slide_2_title">Updated UI</string>
+    <string name="upgraded_slide_2_desc">A fresh new UI suitable for a modern Android experience!"</string>
+    <string name="upgraded_slide_3_title">New Features</string>
+    <string name="upgraded_slide_3_desc">More detailed information about restaurants!</string>
 </resources>

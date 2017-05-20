@@ -5,6 +5,10 @@
 package se.creotec.chscardbalance2
 
 object Constants {
+    // Set to true to show upgrade screen. Useful when making big changes.
+    // Don't forget to set to false again for next release.
+    val VERSION_SHOULD_SHOW_UPGRADE_INTRO = false
+
     val ENDPOINT_BALANCE = "/balance"
     val ENDPOINT_MENU = "/menu"
     val ENDPOINT_CHARGE = "/charge"
@@ -28,6 +32,8 @@ object Constants {
     val PREFS_MENU_LANGUAGE_DEFAULT = ENDPOINT_MENU_LANG_EN
     val PREFS_MENU_DATA_KEY = "menu_data"
     val PREFS_MENU_LAST_UPDATED_KEY = "menu_last_updated"
+    val PREFS_CARD_NUMBER_LEGACY_KEY = "se.creotec.chscardbalance.PREFS_CARD_NUMBER"
+    val PREFS_FILE_NAME_LEGACY = "se.creotec.chscardbalance.SHARED_PREFS_NAME"
 
     val INTENT_RESTAURANT_DATA_KEY = BuildConfig.APPLICATION_ID + ".RESTAURANT_DATA"
 }

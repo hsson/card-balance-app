@@ -23,6 +23,10 @@
         </activity>
         <activity android:name=".controller.MainActivity"
             android:theme="@style/AppTheme" />
+        <activity android:name=".controller.RestaurantPageActivity"
+            android:theme="@style/AppTheme.Transparent.StatusBar" />
+        <activity android:name=".controller.AppUpgradedFromLegacyActivity"
+            android:theme="@style/AppTheme" />
 
         <receiver
             android:name=".receiver.BootReceiver"
@@ -38,9 +42,6 @@
         <service
             android:name=".service.MenuService"
             android:exported="false" />
-
-        <activity android:name=".controller.RestaurantPageActivity"
-            android:theme="@style/AppTheme.Transparent.StatusBar" />
     </application>
 
 </manifest>

@@ -52,10 +52,6 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
 
         // TODO: Remove debug
         val global = application as GlobalState
-        val card = global.model.cardData
-        card.ownerName = "John Doe"
-        global.model.cardData = card
-        global.saveCardData()
         cardOwnerName?.let { it.text = global.model.cardData.ownerName }
         cardNumber?.let { it.text = Util.formatCardNumber(global.model.cardData.cardNumber) }
         collapsingToolbarLayout?.let {
