@@ -9,7 +9,9 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.github.paolorotolo.appintro.AppIntro
 import com.github.paolorotolo.appintro.AppIntroFragment
+import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.R
+import se.creotec.chscardbalance2.service.BalanceService
 
 class AppFirstRunActivity : AppIntro() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,9 +19,9 @@ class AppFirstRunActivity : AppIntro() {
         val bkgColor = getColor(R.color.color_primary_dark)
 
         // TODO: Smiley face image
-        addSlide(AppIntroFragment.newInstance("Welcome", "This app lets you quickly charge your card. But first, you must add your card number", R.mipmap.ic_launcher, bkgColor))
+        addSlide(AppIntroFragment.newInstance(getString(R.string.first_time_tite), getString(R.string.first_time_desc), R.mipmap.ic_launcher, bkgColor))
 
-        addSlide(AppFirstRunAddCardFragment.newInstance())
+        addSlide(AppFirstRunAddCardFragment())
 
         skipButtonEnabled = false
         setSeparatorColor(bkgColor)
@@ -27,7 +29,20 @@ class AppFirstRunActivity : AppIntro() {
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
+        val updateCardIntent = Intent(this, BalanceService::class.java)
+        updateCardIntent.action = Constants.ACTION_UPDATE_CARD
+        startService(updateCardIntent)
         goToMain()
+    }
+
+    override fun onSlideChanged(oldFragment: Fragment?, newFragment: Fragment?) {
+        super.onSlideChanged(oldFragment, newFragment)
+        if (oldFragment != null && newFragment != null) {
+            // Prevent going back to start page
+            if (oldFragment is AppIntroFragment && newFragment is AppFirstRunAddCardFragment) {
+                setSwipeLock(true)
+            }
+        }
     }
 
     private fun goToMain() {

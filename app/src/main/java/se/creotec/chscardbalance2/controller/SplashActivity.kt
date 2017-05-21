@@ -26,10 +26,6 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val firstRunIntent = Intent(this, AppFirstRunActivity::class.java)
-        startActivity(firstRunIntent)
-        finish()
-        return
         when (runState) {
             SplashActivity.RunState.NORMAL -> {
                 // Do nothing special
@@ -46,8 +42,9 @@ class SplashActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 } else {
-                    // TODO: Prompt card details
-                    startMain()
+                    val firstRunIntent = Intent(this, AppFirstRunActivity::class.java)
+                    startActivity(firstRunIntent)
+                    finish()
                 }
             }
             SplashActivity.RunState.UPGRADED -> {

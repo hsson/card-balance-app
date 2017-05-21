@@ -4,12 +4,10 @@
 // https://opensource.org/licenses/MIT
 package se.creotec.chscardbalance2.model
 
-import java.util.HashSet
-
 import se.creotec.chscardbalance2.BuildConfig
 import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.service.AbstractBackendService
-import kotlin.reflect.KClass
+import java.util.*
 
 class Model : IModel {
 
