@@ -43,12 +43,17 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <fragment
-        android:name="se.creotec.chscardbalance2.controller.FoodRestaurantFragment"
-        android:id="@+id/main_food_menu_fragment"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <fragment
+            android:name="se.creotec.chscardbalance2.controller.FoodRestaurantFragment"
+            android:id="@+id/main_food_menu_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

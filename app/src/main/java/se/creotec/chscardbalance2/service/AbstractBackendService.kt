@@ -5,6 +5,8 @@
 package se.creotec.chscardbalance2.service
 
 import android.app.IntentService
+import android.content.Context
+import android.net.ConnectivityManager
 import com.google.gson.Gson
 import se.creotec.chscardbalance2.BuildConfig
 import se.creotec.chscardbalance2.Constants
@@ -103,6 +105,12 @@ abstract class AbstractBackendService<T>(name: String) : IntentService(name) {
             throw BackendFetchException(response.errorMessage)
         }
         return response
+    }
+
+    protected fun hasInternet(): Boolean {
+        val connManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = connManager.activeNetworkInfo
+        return netInfo != null && netInfo.isConnected
     }
 
     /**

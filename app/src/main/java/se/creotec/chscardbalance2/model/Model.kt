@@ -8,11 +8,15 @@ import java.util.HashSet
 
 import se.creotec.chscardbalance2.BuildConfig
 import se.creotec.chscardbalance2.Constants
+import se.creotec.chscardbalance2.service.AbstractBackendService
+import kotlin.reflect.KClass
 
 class Model : IModel {
+
     override val quickChargeURL: String
     private val cardDataChangedListeners: MutableSet<OnCardDataChangedListener>
     private val menuDataChangedListeners: MutableSet<OnMenuDataChangedListener>
+    private val serviceFailedListeners: MutableSet<IModel.OnServiceFailedListener>
 
     override var cardData: CardData = CardData()
         set(value) {
@@ -36,6 +40,7 @@ class Model : IModel {
     init {
         cardDataChangedListeners = HashSet<OnCardDataChangedListener>()
         menuDataChangedListeners = HashSet<OnMenuDataChangedListener>()
+        serviceFailedListeners = HashSet<IModel.OnServiceFailedListener>()
         quickChargeURL = BuildConfig.BACKEND_URL + Constants.ENDPOINT_CHARGE
     }
 
@@ -56,6 +61,16 @@ class Model : IModel {
     override fun notifyMenuDataChangedListeners() {
         for (listener in this.menuDataChangedListeners) {
             listener.menuDataChanged(this.menuData)
+        }
+    }
+
+    override fun addServiceFailedListener(listener: IModel.OnServiceFailedListener) {
+        serviceFailedListeners.add(listener)
+    }
+
+    override fun notifyServiceFailed(service: AbstractBackendService<*>, error: String) {
+        for (listener in serviceFailedListeners) {
+            listener.serviceFailed(service, error)
         }
     }
 

@@ -1,6 +1,7 @@
 <resources>
     <string name="dummy_text">Dummy text</string>
     <string name="app_name">Chalmers Card Balance</string>
+
     <string name="restaurant_image_desc">Restaurant\'s Image</string>
     <string name="restaurant_closed_today">Closed Today</string>
     <string name="restaurant_closed_today_detailed">This restaurant is closed today</string>
@@ -15,4 +16,10 @@
     <string name="upgraded_slide_2_desc">A fresh new UI suitable for a modern Android experience!"</string>
     <string name="upgraded_slide_3_title">New Features</string>
     <string name="upgraded_slide_3_desc">More detailed information about restaurants!</string>
+
+    <string name="action_connect">Connect</string>
+    <string name="action_retry">Retry</string>
+    <string name="error_no_internet">Not connected to the internet</string>
+    <string name="error_card_failed">Updating the card failed</string>
+    <string name="error_menu_failed">Updating the food menu failed</string>
 </resources>
