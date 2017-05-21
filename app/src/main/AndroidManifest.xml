@@ -16,6 +16,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".controller.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,8 +29,10 @@
         <activity android:name=".controller.RestaurantPageActivity"
             android:theme="@style/AppTheme.Transparent.StatusBar" />
         <activity android:name=".controller.AppUpgradedFromLegacyActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity android:name=".controller.AppFirstRunActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
         <receiver
