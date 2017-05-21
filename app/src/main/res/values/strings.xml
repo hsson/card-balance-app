@@ -17,8 +17,16 @@
     <string name="upgraded_slide_3_title">New Features</string>
     <string name="upgraded_slide_3_desc">More detailed information about restaurants!</string>
 
+    <string name="first_time_tite">Welcome</string>
+    <string name="first_time_desc">This app lets you quickly charge your card. But first, you must add your card number.</string>
+
+    <string name="card_number_hint" translatable="false">3819 1234 1234 1234</string>
+    <string name="card_number_prompt">Enter card number</string>
+
+    <string name="action_clear">Clear</string>
     <string name="action_connect">Connect</string>
     <string name="action_retry">Retry</string>
+    <string name="error_not_valid_number">Not a valid card number</string>
     <string name="error_no_internet">Not connected to the internet</string>
     <string name="error_card_failed">Updating the card failed</string>
     <string name="error_menu_failed">Updating the food menu failed</string>

@@ -42,8 +42,9 @@ class SplashActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 } else {
-                    // TODO: Prompt card details
-                    startMain()
+                    val firstRunIntent = Intent(this, AppFirstRunActivity::class.java)
+                    startActivity(firstRunIntent)
+                    finish()
                 }
             }
             SplashActivity.RunState.UPGRADED -> {
