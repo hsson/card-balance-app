@@ -64,6 +64,7 @@ class AppFirstRunAddCardFragment : Fragment(), ISlidePolicy {
             val global = activity.application as GlobalState
             global.model.cardData = cardData
             global.saveCardData()
+            global.scheduleUpdating()
             return true
         }
         return false

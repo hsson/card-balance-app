@@ -55,8 +55,6 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
         setupFAB()
 
         setCardData(global.model.cardData)
-
-        maybeUpdate()
     }
 
     override fun onResume() {

@@ -33,7 +33,11 @@ class GlobalState : Application() {
         preferences = getSharedPreferences(Constants.PREFS_FILE_NAME, Context.MODE_PRIVATE)
         loadCardData()
         loadMenuData()
-        scheduleUpdating()
+        model.cardData.cardNumber?.let {
+            if (it != "") {
+                scheduleUpdating()
+            }
+        }
         setupImageLoader()
     }
 
@@ -118,7 +122,7 @@ class GlobalState : Application() {
     }
 
     // Sets up scheduling of balance updating
-    private fun scheduleUpdating() {
+    fun scheduleUpdating() {
         val updateIntent = Intent(this, BalanceService::class.java)
         updateIntent.action = Constants.ACTION_UPDATE_CARD
 
