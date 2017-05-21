@@ -26,6 +26,10 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val firstRunIntent = Intent(this, AppFirstRunActivity::class.java)
+        startActivity(firstRunIntent)
+        finish()
+        return
         when (runState) {
             SplashActivity.RunState.NORMAL -> {
                 // Do nothing special

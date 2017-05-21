@@ -17,9 +17,15 @@
     <string name="upgraded_slide_3_title">New Features</string>
     <string name="upgraded_slide_3_desc">More detailed information about restaurants!</string>
 
+    <string name="card_number_hint" translatable="false">3819 1234 1234 1234</string>
+    <string name="card_number_prompt">Enter card number</string>
+
     <string name="action_connect">Connect</string>
     <string name="action_retry">Retry</string>
     <string name="error_no_internet">Not connected to the internet</string>
     <string name="error_card_failed">Updating the card failed</string>
     <string name="error_menu_failed">Updating the food menu failed</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

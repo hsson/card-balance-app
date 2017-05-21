@@ -29,6 +29,8 @@
             android:theme="@style/AppTheme.Transparent.StatusBar" />
         <activity android:name=".controller.AppUpgradedFromLegacyActivity"
             android:theme="@style/AppTheme" />
+        <activity android:name=".controller.AppFirstRunActivity"
+            android:theme="@style/AppTheme" />
 
         <receiver
             android:name=".receiver.BootReceiver"
