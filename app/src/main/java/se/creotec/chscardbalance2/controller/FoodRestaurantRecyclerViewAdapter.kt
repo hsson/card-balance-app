@@ -13,7 +13,13 @@ import se.creotec.chscardbalance2.R
 import se.creotec.chscardbalance2.controller.FoodRestaurantFragment.OnListFragmentInteractionListener
 import se.creotec.chscardbalance2.model.Restaurant
 
-class FoodRestaurantRecyclerViewAdapter(private val restaurants: List<Restaurant>, private val listener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<FoodRestaurantRecyclerViewAdapter.ViewHolder>() {
+class FoodRestaurantRecyclerViewAdapter(restaurants: List<Restaurant>, private val listener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<FoodRestaurantRecyclerViewAdapter.ViewHolder>() {
+
+    private val restaurants: MutableList<Restaurant>
+
+    init {
+        this.restaurants = ArrayList(restaurants)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -46,6 +52,19 @@ class FoodRestaurantRecyclerViewAdapter(private val restaurants: List<Restaurant
 
     override fun getItemCount(): Int {
         return restaurants.size
+    }
+
+    fun newData(newData: List<Restaurant>) {
+        println("New menu data")
+        if (restaurants != newData) {
+            val beforeSize = restaurants.size
+            restaurants.clear()
+            notifyItemRangeRemoved(0, beforeSize)
+            for (res in newData) {
+                restaurants.add(res)
+                notifyItemInserted(restaurants.size - 1)
+            }
+        }
     }
 
     inner class ViewHolder(val holderView: View) : RecyclerView.ViewHolder(holderView) {

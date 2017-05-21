@@ -14,14 +14,18 @@ import android.view.ViewGroup
 import se.creotec.chscardbalance2.GlobalState
 import se.creotec.chscardbalance2.R
 import se.creotec.chscardbalance2.model.IModel
+import se.creotec.chscardbalance2.model.MenuData
+import se.creotec.chscardbalance2.model.OnMenuDataChangedListener
 import se.creotec.chscardbalance2.model.Restaurant
 
-class FoodRestaurantFragment : Fragment() {
-
+class FoodRestaurantFragment : Fragment(), OnMenuDataChangedListener {
     private var listener: OnListFragmentInteractionListener? = null
+    private var recyclerView: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val global = activity.application as GlobalState
+        global.model.addMenuDataListener(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +34,7 @@ class FoodRestaurantFragment : Fragment() {
 
         // Set the adapter
         if (view is RecyclerView) {
+            recyclerView = view
             if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
                 view.layoutManager = LinearLayoutManager(view.context)
             } else {
@@ -53,6 +58,16 @@ class FoodRestaurantFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+    override fun menuDataChanged(newData: MenuData) {
+        activity.runOnUiThread {
+            recyclerView?.let {
+                if (it.adapter is FoodRestaurantRecyclerViewAdapter) {
+                    (it.adapter as FoodRestaurantRecyclerViewAdapter).newData(newData.menu)
+                }
+            }
+        }
     }
 
     interface OnListFragmentInteractionListener {
