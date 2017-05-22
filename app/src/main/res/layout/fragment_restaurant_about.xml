@@ -16,6 +16,7 @@
         android:stepSize="0.1" />
 
     <android.support.v7.widget.CardView
+        android:id="@+id/restaurant_detailed_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/restaurant_rating_bar"
@@ -97,4 +98,19 @@
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
+    <Button
+        android:id="@+id/restaurant_visit_website"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/restaurant_detailed_container"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="@color/color_accent"
+        android:padding="4dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="@string/action_visit_website"/>
 </RelativeLayout>
