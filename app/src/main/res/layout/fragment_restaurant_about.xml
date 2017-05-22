@@ -1,10 +1,12 @@
-<RelativeLayout
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="se.creotec.chscardbalance2.controller.FoodAboutFragment">
-
     <RatingBar
         android:id="@+id/restaurant_rating_bar"
         android:layout_width="wrap_content"
@@ -114,3 +116,4 @@
         android:minHeight="0dp"
         android:text="@string/action_visit_website"/>
 </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>
