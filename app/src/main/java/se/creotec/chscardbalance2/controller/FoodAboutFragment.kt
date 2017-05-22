@@ -5,14 +5,23 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.RatingBar
 import com.google.gson.Gson
 
 import se.creotec.chscardbalance2.R
 import se.creotec.chscardbalance2.model.Restaurant
+import java.util.*
 
 class FoodAboutFragment : Fragment() {
 
     private var restaurant: Restaurant = Restaurant("")
+
+    private var rating: RatingBar? = null
+    private var openNow: EditText? = null
+    private var openHours: EditText? = null
+    private var address: EditText? = null
+    private var priceEstimate: EditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +33,10 @@ class FoodAboutFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_food_restaurant_about, container, false)
+        val view = inflater.inflate(R.layout.fragment_restaurant_about, container, false)
+        rating = view.findViewById(R.id.restaurant_rating_bar) as RatingBar
+        rating?.rating = Random().nextInt(10)/2.0f // TODO: Mock
+        return view
     }
 
     companion object {
