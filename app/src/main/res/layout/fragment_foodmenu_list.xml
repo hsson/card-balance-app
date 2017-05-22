@@ -12,6 +12,6 @@
     app:layoutManager="LinearLayoutManager"
     tools:context="se.creotec.chscardbalance2.controller.FoodRestaurantFragment"
     tools:listitem="@layout/fragment_foodmenu"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp"
+    android:paddingBottom="4dp"
+    android:paddingTop="4dp"
     android:clipToPadding="false"/>

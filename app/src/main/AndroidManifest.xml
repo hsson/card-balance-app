@@ -3,6 +3,8 @@
     package="se.creotec.chscardbalance2">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".GlobalState"
@@ -14,6 +16,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".controller.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +25,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".controller.MainActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".controller.RestaurantPageActivity"
+            android:theme="@style/AppTheme.Transparent.StatusBar" />
+        <activity android:name=".controller.AppUpgradedFromLegacyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".controller.AppFirstRunActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
         <receiver
@@ -38,9 +49,6 @@
         <service
             android:name=".service.MenuService"
             android:exported="false" />
-
-        <activity android:name=".controller.RestaurantPageActivity"
-            android:theme="@style/AppTheme.Transparent.StatusBar" />
     </application>
 
 </manifest>

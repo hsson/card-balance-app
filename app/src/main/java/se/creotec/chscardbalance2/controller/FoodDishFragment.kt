@@ -4,15 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.google.gson.Gson
-
 import se.creotec.chscardbalance2.R
 import se.creotec.chscardbalance2.model.Dish
 import se.creotec.chscardbalance2.model.Restaurant
@@ -32,16 +29,18 @@ class FoodDishFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_dish_list, container, false)
+        val recyclerView = view.findViewById(R.id.dish_list) as RecyclerView
 
         // Set the adapter
-        if (view is RecyclerView) {
-            val context = view.getContext()
-            val recyclerView = view
-            val layoutManager = LinearLayoutManager(context)
-            recyclerView.layoutManager = layoutManager
-            val dividerLine = DividerItemDecoration(recyclerView.context, layoutManager.orientation)
-            recyclerView.addItemDecoration(dividerLine)
-            recyclerView.adapter = FoodDishRecyclerViewAdapter(restaurant.dishes, dishListener)
+        val layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = layoutManager
+        val dividerLine = DividerItemDecoration(recyclerView.context, layoutManager.orientation)
+        recyclerView.addItemDecoration(dividerLine)
+        recyclerView.adapter = FoodDishRecyclerViewAdapter(restaurant.dishes, dishListener)
+
+        if (restaurant.isClosed()) {
+            val emptyView = view.findViewById(R.id.restaurant_closed_view)
+            emptyView.visibility = View.VISIBLE
         }
         return view
     }

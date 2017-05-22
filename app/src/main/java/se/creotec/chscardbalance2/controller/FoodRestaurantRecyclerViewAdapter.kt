@@ -13,7 +13,13 @@ import se.creotec.chscardbalance2.R
 import se.creotec.chscardbalance2.controller.FoodRestaurantFragment.OnListFragmentInteractionListener
 import se.creotec.chscardbalance2.model.Restaurant
 
-class FoodRestaurantRecyclerViewAdapter(private val restaurants: List<Restaurant>, private val listener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<FoodRestaurantRecyclerViewAdapter.ViewHolder>() {
+class FoodRestaurantRecyclerViewAdapter(restaurants: List<Restaurant>, private val listener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<FoodRestaurantRecyclerViewAdapter.ViewHolder>() {
+
+    private val restaurants: MutableList<Restaurant>
+
+    init {
+        this.restaurants = ArrayList(restaurants)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -26,13 +32,13 @@ class FoodRestaurantRecyclerViewAdapter(private val restaurants: List<Restaurant
         holder.restaurant = restaurant
         ImageLoader.getInstance().displayImage(restaurant.imageUrl, holder.restaurantHeader)
         holder.restaurantName.text = restaurant.name
+        holder.setDishesCount(restaurant.dishes.size)
 
         // Show restaurant as closed if it has no dishes
-        if (restaurant.dishes.isNotEmpty()) {
+        if (!restaurant.isClosed()) {
             holder.restaurantClosed.visibility = View.GONE
             holder.restaurantHeaderTint.visibility = View.GONE
             holder.restaurantHeaderGradient.visibility = View.VISIBLE
-            holder.setDishesCount(restaurant.dishes.size)
         } else {
             holder.restaurantClosed.visibility = View.VISIBLE
             holder.restaurantHeaderTint.visibility = View.VISIBLE
@@ -46,6 +52,19 @@ class FoodRestaurantRecyclerViewAdapter(private val restaurants: List<Restaurant
 
     override fun getItemCount(): Int {
         return restaurants.size
+    }
+
+    fun newData(newData: List<Restaurant>) {
+        println("New menu data")
+        if (restaurants != newData) {
+            val beforeSize = restaurants.size
+            restaurants.clear()
+            notifyItemRangeRemoved(0, beforeSize)
+            for (res in newData) {
+                restaurants.add(res)
+                notifyItemInserted(restaurants.size - 1)
+            }
+        }
     }
 
     inner class ViewHolder(val holderView: View) : RecyclerView.ViewHolder(holderView) {
@@ -63,7 +82,8 @@ class FoodRestaurantRecyclerViewAdapter(private val restaurants: List<Restaurant
         }
 
         internal fun setDishesCount(count: Int) {
-            restaurantDishCount.text = holderView.resources.getString(R.string.restaurant_dishes_count, count)
+            val dishQuantity = holderView.resources.getQuantityString(R.plurals.dish, count, count)
+            restaurantDishCount.text = holderView.resources.getString(R.string.restaurant_dishes_count, dishQuantity)
         }
     }
 }

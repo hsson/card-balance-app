@@ -8,6 +8,7 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.util.Log
 import com.google.gson.Gson
 import com.nostra13.universalimageloader.core.DisplayImageOptions
 import com.nostra13.universalimageloader.core.ImageLoader
@@ -32,7 +33,11 @@ class GlobalState : Application() {
         preferences = getSharedPreferences(Constants.PREFS_FILE_NAME, Context.MODE_PRIVATE)
         loadCardData()
         loadMenuData()
-        scheduleUpdating()
+        model.cardData.cardNumber?.let {
+            if (it != "") {
+                scheduleUpdating()
+            }
+        }
         setupImageLoader()
     }
 
@@ -117,11 +122,12 @@ class GlobalState : Application() {
     }
 
     // Sets up scheduling of balance updating
-    private fun scheduleUpdating() {
+    fun scheduleUpdating() {
         val updateIntent = Intent(this, BalanceService::class.java)
         updateIntent.action = Constants.ACTION_UPDATE_CARD
 
         if (!AlarmScheduler.isAlarmExistingForIntent(this, updateIntent)) {
+            Log.i(LOG_TAG, "Scheduling alarm on startup")
             AlarmScheduler.scheduleAlarm(this, updateIntent, 0)
         }
     }
@@ -140,5 +146,9 @@ class GlobalState : Application() {
                 .defaultDisplayImageOptions(defaultOptions)
                 .build()
         ImageLoader.getInstance().init(config)
+    }
+
+    companion object {
+        private val LOG_TAG = GlobalState::class.java.name
     }
 }

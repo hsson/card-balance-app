@@ -20,8 +20,9 @@
             android:layout_height="256dp"
             android:fitsSystemWindows="true"
             app:contentScrim="@color/color_primary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:titleEnabled="false">
+            app:expandedTitleMarginBottom="52dp"
+            app:expandedTitleTextAppearance="@style/AppTheme.Restaurant.Title"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap" >
             <ImageView
                 android:id="@+id/toolbar_image"
                 android:layout_width="match_parent"

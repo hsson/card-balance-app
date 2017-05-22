@@ -1,5 +1,6 @@
 config.properties
 
+*.jks
 *.iml
 .gradle
 /local.properties

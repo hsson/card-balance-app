@@ -19,7 +19,7 @@ class MenuService : AbstractBackendService<MenuData>(MenuService::class.java.nam
 
     override fun onHandleIntent(intent: Intent?) {
         Log.i(LOG_TAG, "Received intent")
-        if (intent == null || intent.action == null) {
+        if (intent == null || intent.action == null || !hasInternet()) {
             return
         } else if (intent.action == Constants.ACTION_UPDATE_MENU) {
             try {
@@ -34,6 +34,8 @@ class MenuService : AbstractBackendService<MenuData>(MenuService::class.java.nam
                 }
             } catch (e: BackendFetchException) {
                 Log.e(LOG_TAG, e.message)
+                val global = application as GlobalState
+                global.model.notifyServiceFailed(this, e.message ?: "")
             }
 
         }

@@ -5,6 +5,8 @@
 package se.creotec.chscardbalance2.service
 
 import android.app.IntentService
+import android.content.Context
+import android.net.ConnectivityManager
 import com.google.gson.Gson
 import se.creotec.chscardbalance2.BuildConfig
 import se.creotec.chscardbalance2.Constants
@@ -50,9 +52,18 @@ abstract class AbstractBackendService<T>(name: String) : IntentService(name) {
                 val response = readResponse(conn)
                 return parseResponse(response)
             }
-            HttpURLConnection.HTTP_INTERNAL_ERROR -> throw BackendFetchException("The backend encountered an error")
-            HttpURLConnection.HTTP_NOT_FOUND -> throw BackendFetchException("The requested endpoint was not found")
-            else -> throw BackendFetchException("Backend responded with unknown error")
+            HttpURLConnection.HTTP_INTERNAL_ERROR -> {
+                conn.disconnect()
+                throw BackendFetchException("The backend encountered an error")
+            }
+            HttpURLConnection.HTTP_NOT_FOUND -> {
+                conn.disconnect()
+                throw BackendFetchException("The requested endpoint was not found")
+            }
+            else -> {
+                conn.disconnect()
+                throw BackendFetchException("Backend responded with unknown error")
+            }
         }
     }
 
@@ -94,6 +105,12 @@ abstract class AbstractBackendService<T>(name: String) : IntentService(name) {
             throw BackendFetchException(response.errorMessage)
         }
         return response
+    }
+
+    protected fun hasInternet(): Boolean {
+        val connManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = connManager.activeNetworkInfo
+        return netInfo != null && netInfo.isConnected
     }
 
     /**

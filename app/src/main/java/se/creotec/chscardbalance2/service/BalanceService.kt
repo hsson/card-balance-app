@@ -4,7 +4,9 @@
 // https://opensource.org/licenses/MIT
 package se.creotec.chscardbalance2.service
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.util.Log
 import com.google.gson.reflect.TypeToken
 import se.creotec.chscardbalance2.Constants
@@ -18,7 +20,7 @@ class BalanceService : AbstractBackendService<CardData>(BalanceService::class.ja
 
     override fun onHandleIntent(intent: Intent?) {
         Log.i(LOG_TAG, "Received intent")
-        if (intent == null || intent.action == null) {
+        if (intent == null || intent.action == null || !hasInternet()) {
             return
         } else if (intent.action == Constants.ACTION_UPDATE_CARD) {
             val global = application as GlobalState
@@ -40,6 +42,7 @@ class BalanceService : AbstractBackendService<CardData>(BalanceService::class.ja
             }
         } catch (e: BackendFetchException) {
             Log.e(LOG_TAG, e.message)
+            global.model.notifyServiceFailed(this, e.message ?: "")
         }
     }
 

@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context="se.creotec.chscardbalance2.controller.MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -17,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/toolbar_collapsing_layout"
+            app:collapsedTitleGravity="center"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways|snap">
             <TextView
                 android:layout_width="wrap_content"
@@ -24,7 +26,7 @@
                 android:id="@+id/toolbar_card_number"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="112dp"
-                android:text="@string/dummy_text" />
+                android:textColor="@android:color/white"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -32,7 +34,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="90dp"
                 android:textSize="18sp"
-                android:text="@string/dummy_text" />
+                android:textColor="@android:color/white"/>
             <android.support.v7.widget.Toolbar
                 android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
@@ -42,12 +44,17 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <fragment
-        android:name="se.creotec.chscardbalance2.controller.FoodRestaurantFragment"
-        android:id="@+id/main_food_menu_fragment"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <fragment
+            android:name="se.creotec.chscardbalance2.controller.FoodRestaurantFragment"
+            android:id="@+id/main_food_menu_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
