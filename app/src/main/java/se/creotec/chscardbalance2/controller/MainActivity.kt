@@ -131,6 +131,9 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
             R.id.drawer_menu_settings -> {
                 // TODO: Go to settings
             }
+            R.id.drawer_menu_about -> {
+                // TODO: Go to about
+            }
         }
         return true
     }
