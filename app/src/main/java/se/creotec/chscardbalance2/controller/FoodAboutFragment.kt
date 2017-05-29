@@ -53,39 +53,44 @@ class FoodAboutFragment : Fragment() {
                     .build()
             webIntent.launchUrl(context, Uri.parse(restaurant.websiteUrl))
         }
-        val openHour = OpenHour()
-        openHour.dayOfWeek = 2
-        openHour.startHour = 800
-        openHour.endHour = 2400
-        val timeStart = DateUtils.formatDateTime(activity, OpenHour.toUnixTimeStamp(openHour.startHour), DateUtils.FORMAT_SHOW_TIME)
-        val timeEnd = DateUtils.formatDateTime(activity, OpenHour.toUnixTimeStamp(openHour.endHour), DateUtils.FORMAT_SHOW_TIME)
-        Toast.makeText(activity, "$timeStart, $timeEnd", Toast.LENGTH_LONG).show()
         return view
     }
 
     private fun setOpenHours(openNow: TextView?, openHours: TextView?) {
         if (restaurant.dishes.isEmpty()) {
-            openNow?.text = getString(R.string.restaurant_about_closed_now)
-            openNow?.setTextColor(ContextCompat.getColor(activity, R.color.color_fail))
-            openHours?.text = ""
+            showClosed(openNow, openHours, false)
         } else {
             val c = Calendar.getInstance()
             c.time = Date()
-            for (openHour in restaurant.openHours) {
-                if (openHour.dayOfWeek == c.get(Calendar.DAY_OF_WEEK)) {
-                    if (Util.isBetweenHours(openHour.startHour, openHour.endHour)) {
+            restaurant.openHours.forEach { oh ->
+                if (oh.dayOfWeek == c.get(Calendar.DAY_OF_WEEK)) {
+                    if (Util.isBetweenHours(oh.startHour, oh.endHour)) {
                         openNow?.text = getString(R.string.restaurant_about_open_now)
                         openNow?.setTextColor(ContextCompat.getColor(activity, R.color.color_success))
-                        val startFormatted = DateUtils.formatDateTime(activity, OpenHour.toUnixTimeStamp(openHour.startHour), DateUtils.FORMAT_SHOW_TIME)
-                        val endFormatted = DateUtils.formatDateTime(activity, OpenHour.toUnixTimeStamp(openHour.endHour), DateUtils.FORMAT_SHOW_TIME)
+                        val startFormatted = DateUtils.formatDateTime(activity, OpenHour.toUnixTimeStamp(oh.startHour), DateUtils.FORMAT_SHOW_TIME)
+                        val endFormatted = DateUtils.formatDateTime(activity, OpenHour.toUnixTimeStamp(oh.endHour), DateUtils.FORMAT_SHOW_TIME)
                         openHours?.text = getString(R.string.restaurant_about_hours_range, startFormatted, endFormatted)
+                        return
+                    } else {
+                        showClosed(openNow, openHours, true)
                         return
                     }
                 }
             }
             openNow?.text = getString(R.string.restaurant_about_open_today)
+            openNow?.setTextColor(ContextCompat.getColor(activity, R.color.color_success))
             openHours?.text = ""
         }
+    }
+
+    private fun showClosed(openNow: TextView?, openHours: TextView?, now: Boolean) {
+        if (now) {
+            openNow?.text = getString(R.string.restaurant_about_closed_now)
+        } else {
+            openNow?.text = getString(R.string.restaurant_about_closed_today)
+        }
+        openHours?.text = ""
+        openNow?.setTextColor(ContextCompat.getColor(activity, R.color.color_fail))
     }
 
     companion object {
