@@ -44,6 +44,7 @@ class FoodAboutFragment : Fragment() {
         websiteButton = view.findViewById(R.id.restaurant_visit_website) as Button
         openNow = view.findViewById(R.id.restaurant_about_open_now) as TextView
         openHours = view.findViewById(R.id.restaurant_about_open_hours) as TextView
+        priceEstimate = view.findViewById(R.id.restaurant_about_avg_price) as TextView
 
         rating?.rating = restaurant.rating
         setOpenHours(openNow, openHours)
@@ -53,6 +54,13 @@ class FoodAboutFragment : Fragment() {
                     .build()
             webIntent.launchUrl(context, Uri.parse(restaurant.websiteUrl))
         }
+
+        if (restaurant.averagePrice != 0) {
+            priceEstimate?.text = getString(R.string.restaurant_about_avg_price, restaurant.averagePrice)
+        } else {
+            priceEstimate?.text = getString(R.string.restaurant_about_avg_no_price)
+        }
+
         return view
     }
 

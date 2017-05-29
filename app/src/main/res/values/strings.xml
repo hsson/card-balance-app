@@ -15,6 +15,8 @@
     <string name="restaurant_about_closed_now">Closed Now</string>
     <string name="restaurant_about_closed_today">Closed Today</string>
     <string name="restaurant_about_hours_range">%1$s - %2$s</string>
+    <string name="restaurant_about_avg_price">About %1$d SEK</string>
+    <string name="restaurant_about_avg_no_price">No price information</string>
 
     <string name="upgraded_slide_1_title">Welcome Back</string>
     <string name="upgraded_slide_1_desc">We have made some nice changes for you!</string>

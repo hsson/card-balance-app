@@ -97,10 +97,10 @@
                     android:src="@drawable/coin_icon"
                     android:tint="@color/color_accent"/>
                 <TextView
+                    android:id="@+id/restaurant_about_avg_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="About 65 SEK"
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
 
