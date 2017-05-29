@@ -26,7 +26,7 @@ class FoodAboutFragment : Fragment() {
     private var rating: RatingBar? = null
     private var openNow: TextView? = null
     private var openHours: TextView? = null
-    private var address: TextView? = null
+    private var location: TextView? = null
     private var priceEstimate: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +45,7 @@ class FoodAboutFragment : Fragment() {
         openNow = view.findViewById(R.id.restaurant_about_open_now) as TextView
         openHours = view.findViewById(R.id.restaurant_about_open_hours) as TextView
         priceEstimate = view.findViewById(R.id.restaurant_about_avg_price) as TextView
+        location = view.findViewById(R.id.restaurant_about_campus) as TextView
 
         rating?.rating = restaurant.rating
         setOpenHours(openNow, openHours)
@@ -60,6 +61,8 @@ class FoodAboutFragment : Fragment() {
         } else {
             priceEstimate?.text = getString(R.string.restaurant_about_avg_no_price)
         }
+
+        location?.text = getString(R.string.restaurant_about_campus, restaurant.campus)
 
         return view
     }
