@@ -11,7 +11,9 @@
     <string name="dish_copied">%1$s has been copied</string>
 
     <string name="restaurant_about_open_now">Open Now</string>
+    <string name="restaurant_about_open_today">Open Today</string>
     <string name="restaurant_about_closed_now">Closed Now</string>
+    <string name="restaurant_about_hours_range">%1$s - %2$s</string>
 
     <string name="upgraded_slide_1_title">Welcome Back</string>
     <string name="upgraded_slide_1_desc">We have made some nice changes for you!</string>

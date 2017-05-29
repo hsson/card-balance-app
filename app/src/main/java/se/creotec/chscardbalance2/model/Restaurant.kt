@@ -6,6 +6,7 @@ package se.creotec.chscardbalance2.model
 
 import com.google.gson.annotations.SerializedName
 import java.util.*
+import kotlin.collections.ArrayList
 
 class Restaurant(@SerializedName("name")
                  var name: String) : Comparable<Restaurant> {
@@ -17,6 +18,8 @@ class Restaurant(@SerializedName("name")
     var rating: Float = 0.0f
     @SerializedName("dishes")
     var dishes: List<Dish> = ArrayList()
+    @SerializedName("open_hours")
+    var openHours: List<OpenHour> = ArrayList()
 
     fun isClosed(): Boolean {
         return dishes.isEmpty()
