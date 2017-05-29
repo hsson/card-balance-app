@@ -52,5 +52,5 @@
 
     <string name="dialog_about_version_text">Version %1$s (%2$d)</string>
     <string name="dialog_about_developed_by">Developed by Alexander Håkansson</string>
-    <string name="dialog_about_feedback">If you want to give feedback, make a suggestion or report a bug; please visit the project on GitHub and  submit an issue.</string>
+    <string name="dialog_about_feedback">If you want to give feedback, make a suggestion, or report a bug; please visit the project on GitHub and  submit an issue.</string>
 </resources>
