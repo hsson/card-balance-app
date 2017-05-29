@@ -55,6 +55,8 @@
     <string name="dialog_about_feedback">If you want to give feedback, make a suggestion, or report a bug; please visit the project on GitHub and  submit an issue.</string>
 
     <string name="prefs_general_title">General</string>
-    <string name="prefs_menu_lang">Food Menu Language</string>
     <string name="prefs_card_number">Card Number</string>
+    <string name="prefs_menu_lang">Food Menu Language</string>
+    <string name="prefs_menu_lang_en">English</string>
+    <string name="prefs_menu_lang_sv">Swedish</string>
 </resources>

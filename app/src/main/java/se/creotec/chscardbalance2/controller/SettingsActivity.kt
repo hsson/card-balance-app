@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.GlobalState
 import se.creotec.chscardbalance2.R
 
@@ -29,7 +30,10 @@ class SettingsActivity : AppCompatActivity() {
 
         val global = application as GlobalState
         cardNumberText?.text = global.model.cardData.cardNumber
-        menuLangText?.text = global.model.preferredMenuLanguage
+        when (global.model.preferredMenuLanguage) {
+            Constants.ENDPOINT_MENU_LANG_EN -> menuLangText?.text = getString(R.string.prefs_menu_lang_en)
+            Constants.ENDPOINT_MENU_LANG_SV -> menuLangText?.text = getString(R.string.prefs_menu_lang_sv)
+        }
 
     }
 }

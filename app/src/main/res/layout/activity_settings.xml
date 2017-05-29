@@ -1,74 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="se.creotec.chscardbalance2.controller.SettingsActivity">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/prefs_general_title"
-        android:textColor="@color/color_accent"
-        android:textSize="@dimen/settings_value_text"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"/>
     <LinearLayout
-        android:id="@+id/settings_card_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:orientation="vertical"
-        android:focusable="true"
-        android:clickable="true">
+        android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/prefs_card_number"
-            android:textSize="@dimen/settings_title_text"/>
-        <TextView
-            android:id="@+id/settings_card_number_text"
+            android:text="@string/prefs_general_title"
+            android:textColor="@color/color_accent"
+            android:textSize="@dimen/settings_value_text"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"/>
+        <LinearLayout
+            android:id="@+id/settings_card_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/card_number_hint"
-            android:textSize="@dimen/settings_value_text"/>
+            android:layout_marginStart="8dp"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:clickable="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prefs_card_number"
+                android:textSize="@dimen/settings_title_text"/>
+            <TextView
+                android:id="@+id/settings_card_number_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/card_number_hint"
+                android:textSize="@dimen/settings_value_text"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/settings_divider_margin"
+            android:layout_marginBottom="@dimen/settings_divider_margin"
+            android:background="#d2d2d2" />
+        <LinearLayout
+            android:id="@+id/settings_menu_lang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:clickable="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prefs_menu_lang"
+                android:textSize="@dimen/settings_title_text"/>
+            <TextView
+                android:id="@+id/settings_menu_lang_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="@dimen/settings_value_text"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/settings_divider_margin"
+            android:layout_marginBottom="@dimen/settings_divider_margin"
+            android:background="#d2d2d2" />
 
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/settings_divider_margin"
-        android:layout_marginBottom="@dimen/settings_divider_margin"
-        android:background="#d2d2d2" />
-    <LinearLayout
-        android:id="@+id/settings_menu_lang"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:orientation="vertical"
-        android:focusable="true"
-        android:clickable="true">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/prefs_menu_lang"
-            android:textSize="@dimen/settings_title_text"/>
-        <TextView
-            android:id="@+id/settings_menu_lang_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="@dimen/settings_value_text"/>
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/settings_divider_margin"
-        android:layout_marginBottom="@dimen/settings_divider_margin"
-        android:background="#d2d2d2" />
-
-</LinearLayout>
+</ScrollView>
