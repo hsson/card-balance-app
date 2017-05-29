@@ -1,70 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    android:id="@+id/main_activity_parent"
+<android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    tools:context="se.creotec.chscardbalance2.controller.MainActivity">
-
-    <android.support.design.widget.AppBarLayout
-        android:layout_height="192dp"
-        android:layout_width="match_parent"
-        android:id="@+id/app_bar_layout"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/toolbar_collapsing_layout"
-            app:collapsedTitleGravity="center"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways|snap">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/toolbar_card_number"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="112dp"
-                android:textColor="@android:color/white"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/toolbar_card_name"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="90dp"
-                android:textSize="18sp"
-                android:textColor="@android:color/white"/>
-            <android.support.v7.widget.Toolbar
-                android:layout_height="?android:attr/actionBarSize"
-                android:layout_width="match_parent"
-                android:id="@+id/toolbar_main"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:layout_collapseMode="pin"/>
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_container"
+    android:fitsSystemWindows="true">
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/main_activity_parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <fragment
-            android:name="se.creotec.chscardbalance2.controller.FoodRestaurantFragment"
-            android:id="@+id/main_food_menu_fragment"
+        android:animateLayoutChanges="true"
+        tools:context="se.creotec.chscardbalance2.controller.MainActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_height="192dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:id="@+id/app_bar_layout"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/toolbar_collapsing_layout"
+                app:collapsedTitleGravity="center"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways|snap">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toolbar_card_number"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="112dp"
+                    android:textColor="@android:color/white"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toolbar_card_name"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="90dp"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"/>
+                <android.support.v7.widget.Toolbar
+                    android:layout_height="?android:attr/actionBarSize"
+                    android:layout_width="match_parent"
+                    android:id="@+id/toolbar_main"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:layout_collapseMode="pin"/>
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
 
-    <android.support.design.widget.FloatingActionButton
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <fragment
+                android:name="se.creotec.chscardbalance2.controller.FoodRestaurantFragment"
+                android:id="@+id/main_food_menu_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fab_charge_card"
+            android:layout_margin="8dp"
+            app:fabSize="normal"
+            app:borderWidth="0dp"
+            android:src="@drawable/coin_icon"
+            app:layout_anchor="@id/app_bar_layout"
+            app:layout_anchorGravity="bottom|end"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fab_charge_card"
-        android:layout_margin="8dp"
-        app:fabSize="normal"
-        app:borderWidth="0dp"
-        android:src="@drawable/coin_icon"
-        app:layout_anchor="@id/app_bar_layout"
-        app:layout_anchorGravity="bottom|end"/>
-
-</android.support.design.widget.CoordinatorLayout>
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/drawer_menu"/>
+</android.support.v4.widget.DrawerLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
+        <item
+            android:checked="true"
+            android:id="@+id/drawer_item_timeline"
+            android:icon="@drawable/home_icon"
+            android:title="@string/menu_home"/>
+        <item
+            android:id="@+id/drawer_item_reports"
+            android:icon="@drawable/clock_icon"
+            android:title="@string/menu_balance_history"/>
+    </group>
+
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/drawer_item_settings"
+            android:icon="@drawable/settings_icon"
+            android:title="@string/menu_settings" >
+        </item>
+    </group>
+</menu>

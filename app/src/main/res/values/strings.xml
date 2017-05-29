@@ -40,4 +40,8 @@
     <string name="error_no_internet">Not connected to the internet</string>
     <string name="error_card_failed">Updating the card failed</string>
     <string name="error_menu_failed">Updating the food menu failed</string>
+
+    <string name="menu_settings">Settings</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_balance_history">Balance History</string>
 </resources>
