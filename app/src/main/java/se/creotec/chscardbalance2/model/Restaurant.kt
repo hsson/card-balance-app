@@ -27,19 +27,31 @@ class Restaurant(@SerializedName("name")
 
     override fun compareTo(other: Restaurant) = compareValuesBy(this, other, {it.isClosed()})
 
+
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other == null || this::class != other::class) return false
-        val that = other as Restaurant
-        return name == that.name && imageUrl == that.imageUrl && dishes == that.dishes && websiteUrl == that.websiteUrl && rating == that.rating
+        if (other?.javaClass != javaClass) return false
+
+        other as Restaurant
+
+        if (name != other.name) return false
+        if (imageUrl != other.imageUrl) return false
+        if (websiteUrl != other.websiteUrl) return false
+        if (rating != other.rating) return false
+        if (dishes != other.dishes) return false
+        if (openHours != other.openHours) return false
+
+        return true
     }
 
     override fun hashCode(): Int {
         var result = name.hashCode()
-        result = 29 * result + (imageUrl?.hashCode() ?: 0)
-        result = 29 * result + dishes.hashCode()
-        result = 29 * result + (websiteUrl?.hashCode() ?: 0)
-        result = 29 * result + rating.toInt()
+        result = 31 * result + (imageUrl?.hashCode() ?: 0)
+        result = 31 * result + (websiteUrl?.hashCode() ?: 0)
+        result = 31 * result + rating.hashCode()
+        result = 31 * result + dishes.hashCode()
+        result = 31 * result + openHours.hashCode()
         return result
     }
 
