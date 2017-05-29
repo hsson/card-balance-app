@@ -61,7 +61,7 @@ class FoodRestaurantFragment : Fragment(), OnMenuDataChangedListener {
     }
 
     override fun menuDataChanged(newData: MenuData) {
-        activity.runOnUiThread {
+        activity?.runOnUiThread {
             recyclerView?.let {
                 if (it.adapter is FoodRestaurantRecyclerViewAdapter) {
                     (it.adapter as FoodRestaurantRecyclerViewAdapter).newData(newData.menu)
