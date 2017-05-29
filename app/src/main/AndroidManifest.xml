@@ -24,16 +24,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.MainActivity"
+        <activity
+            android:name=".controller.MainActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".controller.RestaurantPageActivity"
+        <activity
+            android:name=".controller.RestaurantPageActivity"
             android:theme="@style/AppTheme.Transparent.StatusBar" />
-        <activity android:name=".controller.AppUpgradedFromLegacyActivity"
+        <activity
+            android:name=".controller.AppUpgradedFromLegacyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity android:name=".controller.AppFirstRunActivity"
+        <activity
+            android:name=".controller.AppFirstRunActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+
+        <activity
+            android:label="@string/menu_settings"
+            android:name=".controller.SettingsActivity"
+            android:theme="@style/SettingsTheme"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".controller.MainActivity" />
 
         <receiver
             android:name=".receiver.BootReceiver"

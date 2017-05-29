@@ -133,8 +133,8 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
                 // TODO: Go to history
             }
             R.id.drawer_menu_settings -> {
-                // TODO: Go to settings
-                Toast.makeText(this, "Soooon™", Toast.LENGTH_LONG).show()
+                val settingsIntent = Intent(this, SettingsActivity::class.java)
+                startActivity(settingsIntent)
             }
             R.id.drawer_menu_about -> {
                 val dialog = MaterialDialog.Builder(this)
