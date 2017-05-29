@@ -36,4 +36,6 @@ object Constants {
     val PREFS_FILE_NAME_LEGACY = "se.creotec.chscardbalance.SHARED_PREFS_NAME"
 
     val INTENT_RESTAURANT_DATA_KEY = BuildConfig.APPLICATION_ID + ".RESTAURANT_DATA"
+
+    val GITHUB_URL = "https://github.com/hsson/card-balance-app/"
 }

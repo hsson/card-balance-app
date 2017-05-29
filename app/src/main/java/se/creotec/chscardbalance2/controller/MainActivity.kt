@@ -24,7 +24,10 @@ import android.view.View
 import android.view.ViewAnimationUtils
 import android.widget.Button
 import android.widget.TextView
+import com.afollestad.materialdialogs.DialogAction
+import com.afollestad.materialdialogs.MaterialDialog
 import com.google.gson.Gson
+import se.creotec.chscardbalance2.BuildConfig
 import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.GlobalState
 import se.creotec.chscardbalance2.R
@@ -132,7 +135,22 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
                 // TODO: Go to settings
             }
             R.id.drawer_menu_about -> {
-                // TODO: Go to about
+                val dialog = MaterialDialog.Builder(this)
+                        .customView(R.layout.dialog_about, false)
+                        .positiveText(R.string.action_close)
+                        .neutralText(R.string.action_view_on_github)
+                        .build()
+                val versionText = dialog.customView?.findViewById(R.id.dialog_about_version) as TextView
+                val gitHubButton = dialog.getActionButton(DialogAction.NEUTRAL)
+
+                versionText.text = getString(R.string.dialog_about_version_text, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
+                gitHubButton.setOnClickListener { _ ->
+                    val webIntent = CustomTabsIntent.Builder()
+                            .setToolbarColor(getColor(R.color.color_primary))
+                            .build()
+                    webIntent.launchUrl(this, Uri.parse(Constants.GITHUB_URL))
+                }
+                dialog.show()
             }
         }
         return true
