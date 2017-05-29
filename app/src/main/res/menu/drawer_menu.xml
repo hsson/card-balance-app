@@ -8,9 +8,11 @@
             android:id="@+id/drawer_menu_home"
             android:icon="@drawable/home_icon"
             android:title="@string/menu_home"/>
+
         <item
             android:id="@+id/drawer_menu_balance_history"
             android:icon="@drawable/clock_icon"
+            android:visible="false"
             android:title="@string/menu_balance_history"/>
     </group>
 
