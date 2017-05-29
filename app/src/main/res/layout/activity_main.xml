@@ -11,13 +11,14 @@
         android:id="@+id/main_activity_parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:animateLayoutChanges="true"
         tools:context="se.creotec.chscardbalance2.controller.MainActivity">
 
         <android.support.design.widget.AppBarLayout
             android:layout_height="156dp"
             android:layout_width="match_parent"
             android:id="@+id/app_bar_layout"
+            android:elevation="1dp"
+            android:animateLayoutChanges="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
             <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
@@ -31,7 +32,6 @@
                     android:id="@+id/toolbar_card_number"
                     android:layout_marginStart="34dp"
                     android:layout_marginTop="72dp"
-                    android:text="asdasd"
                     android:textColor="@android:color/white"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -39,7 +39,6 @@
                     android:id="@+id/toolbar_card_name"
                     android:layout_marginStart="34dp"
                     android:layout_marginTop="50dp"
-                    android:text="asdasd"
                     android:textSize="18sp"
                     android:textColor="@android:color/white"/>
                 <android.support.v7.widget.Toolbar
@@ -70,6 +69,7 @@
             android:layout_margin="8dp"
             app:fabSize="normal"
             app:borderWidth="0dp"
+            android:elevation="2dp"
             android:src="@drawable/coin_icon"
             app:layout_anchor="@id/app_bar_layout"
             app:layout_anchorGravity="bottom|end"/>
