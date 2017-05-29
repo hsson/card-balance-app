@@ -6,18 +6,19 @@ package se.creotec.chscardbalance2.controller
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CollapsingToolbarLayout
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
+import android.support.design.widget.*
+import android.support.v4.widget.DrawerLayout
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import com.google.gson.Gson
@@ -32,7 +33,8 @@ import se.creotec.chscardbalance2.util.Util
 import java.util.*
 
 class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentInteractionListener,
-        OnCardDataChangedListener, OnMenuDataChangedListener, IModel.OnServiceFailedListener {
+        OnCardDataChangedListener, OnMenuDataChangedListener, IModel.OnServiceFailedListener, NavigationView.OnNavigationItemSelectedListener {
+
     private var parentView: View? = null
     private var appBarLayout: AppBarLayout? = null
     private var collapsingToolbarLayout: CollapsingToolbarLayout? = null
@@ -41,6 +43,10 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
 
     private var cardOwnerName: TextView? = null
     private var cardNumber: TextView? = null
+
+    private var drawerLayout: DrawerLayout? = null
+    private var drawerView: NavigationView? = null
+    private var drawerToggle: ActionBarDrawerToggle? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,6 +113,42 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
         }
     }
 
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        drawerLayout?.closeDrawers()
+        when (item.itemId) {
+            R.id.drawer_menu_home -> {
+                item.isChecked = true
+            }
+            R.id.drawer_menu_balance_history -> {
+                item.isChecked = true
+                // TODO: Go to history
+            }
+            R.id.drawer_menu_settings -> {
+                // TODO: Go to settings
+            }
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        drawerToggle?.let {
+            if (it.onOptionsItemSelected(item)) {
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        drawerToggle?.syncState()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+        drawerToggle?.onConfigurationChanged(newConfig)
+    }
+
     // Sets up the appbar
     private fun setupAppBar() {
         val toolbar = findViewById(R.id.toolbar_main) as Toolbar
@@ -116,6 +158,36 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
         cardOwnerName = findViewById(R.id.toolbar_card_name) as TextView
         cardNumber = findViewById(R.id.toolbar_card_number) as TextView
         appBarLayout = findViewById(R.id.app_bar_layout) as AppBarLayout
+        drawerLayout = findViewById(R.id.main_drawer_layout) as DrawerLayout
+        drawerView = findViewById(R.id.main_drawer_view) as NavigationView
+
+        drawerView?.setNavigationItemSelectedListener(this)
+        drawerToggle = object : ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                R.string.action_open,
+                R.string.action_close) {
+
+            override fun onDrawerClosed(drawerView: View?) {
+                super.onDrawerClosed(drawerView)
+                invalidateOptionsMenu()
+                syncState()
+            }
+
+            override fun onDrawerOpened(drawerView: View?) {
+                super.onDrawerOpened(drawerView)
+                invalidateOptionsMenu()
+                syncState()
+            }
+        }
+        drawerToggle?.let {
+            drawerLayout?.addDrawerListener(it)
+        }
+
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setHomeButtonEnabled(true)
+        }
 
         // Fade out name and card number when app bar is being collapsed
         appBarLayout?.let {

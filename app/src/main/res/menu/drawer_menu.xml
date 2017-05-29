@@ -5,11 +5,11 @@
         android:checkableBehavior="single">
         <item
             android:checked="true"
-            android:id="@+id/drawer_item_timeline"
+            android:id="@+id/drawer_menu_home"
             android:icon="@drawable/home_icon"
             android:title="@string/menu_home"/>
         <item
-            android:id="@+id/drawer_item_reports"
+            android:id="@+id/drawer_menu_balance_history"
             android:icon="@drawable/clock_icon"
             android:title="@string/menu_balance_history"/>
     </group>
@@ -19,7 +19,7 @@
         android:checkableBehavior="none">
 
         <item
-            android:id="@+id/drawer_item_settings"
+            android:id="@+id/drawer_menu_settings"
             android:icon="@drawable/settings_icon"
             android:title="@string/menu_settings" >
         </item>

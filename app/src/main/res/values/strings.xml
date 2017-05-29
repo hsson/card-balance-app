@@ -36,6 +36,8 @@
     <string name="action_clear">Clear</string>
     <string name="action_connect">Connect</string>
     <string name="action_retry">Retry</string>
+    <string name="action_open">Open</string>
+    <string name="action_close">Close</string>
     <string name="error_not_valid_number">Not a valid card number</string>
     <string name="error_no_internet">Not connected to the internet</string>
     <string name="error_card_failed">Updating the card failed</string>
