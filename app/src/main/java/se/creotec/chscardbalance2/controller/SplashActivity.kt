@@ -29,6 +29,7 @@ class SplashActivity : AppCompatActivity() {
         when (runState) {
             SplashActivity.RunState.NORMAL -> {
                 // Do nothing special
+                completeUpgrade()
                 startMain()
             }
             SplashActivity.RunState.FIRST -> {
@@ -48,6 +49,7 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
             SplashActivity.RunState.UPGRADED -> {
+                completeUpgrade()
                 if (Constants.VERSION_SHOULD_SHOW_UPGRADE_INTRO) {
                     // Show upgrade intro
                     startMain() // TODO: Implement upgrade screen
@@ -101,7 +103,6 @@ class SplashActivity : AppCompatActivity() {
             val currentVersionCode = BuildConfig.VERSION_CODE
             val preferences = getSharedPreferences(Constants.PREFS_FILE_NAME, Context.MODE_PRIVATE)
             val savedVersionCode = preferences.getInt(Constants.PREFS_VERSION_CODE_KEY, Constants.PREFS_VERSION_CODE_NONEXISTING)
-            preferences.edit().putInt(Constants.PREFS_VERSION_CODE_KEY, currentVersionCode).apply()
 
             if (savedVersionCode == Constants.PREFS_VERSION_CODE_NONEXISTING) {
                 return RunState.FIRST
@@ -111,4 +112,9 @@ class SplashActivity : AppCompatActivity() {
                 return RunState.NORMAL
             }
         }
+
+    private fun completeUpgrade() {
+        val preferences = getSharedPreferences(Constants.PREFS_FILE_NAME, Context.MODE_PRIVATE)
+        preferences.edit().putInt(Constants.PREFS_VERSION_CODE_KEY, BuildConfig.VERSION_CODE).apply()
+    }
 }
