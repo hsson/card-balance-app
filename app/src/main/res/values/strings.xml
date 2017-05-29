@@ -10,6 +10,9 @@
     <string name="restaurant_dishes_count">%1$s to choose from</string>
     <string name="dish_copied">%1$s has been copied</string>
 
+    <string name="restaurant_about_open_now">Open Now</string>
+    <string name="restaurant_about_closed_now">Closed Now</string>
+
     <string name="upgraded_slide_1_title">Welcome Back</string>
     <string name="upgraded_slide_1_desc">We have made some nice changes for you!</string>
     <string name="upgraded_slide_2_title">Updated UI</string>
