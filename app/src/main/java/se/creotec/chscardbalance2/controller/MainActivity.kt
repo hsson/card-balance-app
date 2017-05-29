@@ -6,21 +6,29 @@ package se.creotec.chscardbalance2.controller
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CollapsingToolbarLayout
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
+import android.support.design.widget.*
+import android.support.v4.widget.DrawerLayout
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.view.ViewAnimationUtils
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import com.afollestad.materialdialogs.DialogAction
+import com.afollestad.materialdialogs.MaterialDialog
 import com.google.gson.Gson
+import se.creotec.chscardbalance2.BuildConfig
 import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.GlobalState
 import se.creotec.chscardbalance2.R
@@ -32,7 +40,8 @@ import se.creotec.chscardbalance2.util.Util
 import java.util.*
 
 class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentInteractionListener,
-        OnCardDataChangedListener, OnMenuDataChangedListener, IModel.OnServiceFailedListener {
+        OnCardDataChangedListener, OnMenuDataChangedListener, IModel.OnServiceFailedListener, NavigationView.OnNavigationItemSelectedListener {
+
     private var parentView: View? = null
     private var appBarLayout: AppBarLayout? = null
     private var collapsingToolbarLayout: CollapsingToolbarLayout? = null
@@ -41,6 +50,12 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
 
     private var cardOwnerName: TextView? = null
     private var cardNumber: TextView? = null
+
+    private var drawerLayout: DrawerLayout? = null
+    private var drawerView: NavigationView? = null
+    private var drawerToggle: ActionBarDrawerToggle? = null
+
+    private var showTextMenuButton: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,6 +122,78 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
         }
     }
 
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        drawerLayout?.closeDrawers()
+        when (item.itemId) {
+            R.id.drawer_menu_home -> {
+                item.isChecked = true
+            }
+            R.id.drawer_menu_balance_history -> {
+                item.isChecked = true
+                // TODO: Go to history
+            }
+            R.id.drawer_menu_settings -> {
+                // TODO: Go to settings
+                Toast.makeText(this, "Soooon™", Toast.LENGTH_LONG).show()
+            }
+            R.id.drawer_menu_about -> {
+                val dialog = MaterialDialog.Builder(this)
+                        .customView(R.layout.dialog_about, false)
+                        .positiveText(R.string.action_close)
+                        .neutralText(R.string.action_view_on_github)
+                        .build()
+                val versionText = dialog.customView?.findViewById(R.id.dialog_about_version) as TextView
+                val gitHubButton = dialog.getActionButton(DialogAction.NEUTRAL)
+
+                versionText.text = getString(R.string.dialog_about_version_text, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
+                gitHubButton.setOnClickListener { _ ->
+                    val webIntent = CustomTabsIntent.Builder()
+                            .setToolbarColor(getColor(R.color.color_primary))
+                            .build()
+                    webIntent.launchUrl(this, Uri.parse(Constants.GITHUB_URL))
+                }
+                dialog.show()
+            }
+        }
+        return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menu?.let {
+            val inflater = menuInflater
+            inflater.inflate(R.menu.action_menu, it)
+
+            if (!showTextMenuButton) {
+                it.findItem(R.id.action_item_charge).isVisible = false
+            }
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        drawerToggle?.let {
+            if (it.onOptionsItemSelected(item)) {
+                return true
+            }
+        }
+
+        if (item?.itemId == R.id.action_item_charge) {
+            launchChargeSite()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        drawerToggle?.syncState()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+        drawerToggle?.onConfigurationChanged(newConfig)
+    }
+
     // Sets up the appbar
     private fun setupAppBar() {
         val toolbar = findViewById(R.id.toolbar_main) as Toolbar
@@ -116,15 +203,60 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
         cardOwnerName = findViewById(R.id.toolbar_card_name) as TextView
         cardNumber = findViewById(R.id.toolbar_card_number) as TextView
         appBarLayout = findViewById(R.id.app_bar_layout) as AppBarLayout
+        drawerLayout = findViewById(R.id.main_drawer_layout) as DrawerLayout
+        drawerView = findViewById(R.id.main_drawer_view) as NavigationView
+
+        drawerView?.setNavigationItemSelectedListener(this)
+        drawerToggle = object : ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                R.string.action_open,
+                R.string.action_close) {
+
+            override fun onDrawerClosed(drawerView: View?) {
+                super.onDrawerClosed(drawerView)
+                invalidateOptionsMenu()
+                syncState()
+            }
+
+            override fun onDrawerOpened(drawerView: View?) {
+                super.onDrawerOpened(drawerView)
+                invalidateOptionsMenu()
+                syncState()
+            }
+        }
+        drawerToggle?.let {
+            drawerLayout?.addDrawerListener(it)
+        }
+
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setHomeButtonEnabled(true)
+        }
 
         // Fade out name and card number when app bar is being collapsed
         appBarLayout?.let {
             it.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
                 val percentage = Math.abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange
-                val alpha = 1 - percentage * 1.75f
+                val alpha = 1 - percentage * 3f
                 cardOwnerName?.let { it.alpha = alpha }
                 cardNumber?.let { it.alpha = alpha }
             }
+
+            it.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
+                override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
+                    when (state) {
+                        AppBarStateChangeListener.State.COLLAPSED -> {
+                            showTextMenuButton = true
+                            invalidateOptionsMenu()
+                        }
+                        else -> {
+                            showTextMenuButton = false
+                            invalidateOptionsMenu()
+                        }
+                    }
+                }
+            })
         }
 
         swipeRefresh?.let {
@@ -137,17 +269,20 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
 
     // Adds action to the FAB
     private fun setupFAB() {
-        val global = application as GlobalState
         quickChargeFAB = findViewById(R.id.fab_charge_card) as FloatingActionButton
-        val context = this
         quickChargeFAB?.let {
             it.setOnClickListener {
-                val webIntent = CustomTabsIntent.Builder()
-                        .setToolbarColor(getColor(R.color.color_primary))
-                        .build()
-                webIntent.launchUrl(context, Uri.parse(global.model.quickChargeURL))
+                launchChargeSite()
             }
         }
+    }
+
+    private fun launchChargeSite() {
+        val global = application as GlobalState
+        val webIntent = CustomTabsIntent.Builder()
+                .setToolbarColor(getColor(R.color.color_primary))
+                .build()
+        webIntent.launchUrl(this, Uri.parse(global.model.quickChargeURL))
     }
 
     private fun maybeUpdate(force: Boolean = false) {

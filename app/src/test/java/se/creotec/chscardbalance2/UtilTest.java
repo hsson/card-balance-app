@@ -2,6 +2,9 @@ package se.creotec.chscardbalance2;
 
 import org.junit.Test;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import se.creotec.chscardbalance2.util.Util;
 
 import static org.junit.Assert.*;
@@ -28,5 +31,25 @@ public class UtilTest {
         assertEquals("", Util.capitalizeAllWords(""));
         assertEquals(null, Util.capitalizeAllWords(null));
         assertEquals("Helloworld", Util.capitalizeAllWords("helloworld"));
+    }
+
+    @Test
+    public void timeBetweenHours_isCorrect() throws Exception {
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.set(Calendar.HOUR_OF_DAY, 8);
+        assertEquals(true, Util.isBetweenHours(c.getTime(), 700,900));
+        assertEquals(true, Util.isBetweenHours(c.getTime(), 800,900));
+        assertEquals(false, Util.isBetweenHours(c.getTime(), 700, 800));
+        assertEquals(false, Util.isBetweenHours(c.getTime(), 900, 1000));
+        assertEquals(false, Util.isBetweenHours(c.getTime(), 1900, 2100));
+
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 30);
+        assertEquals(true, Util.isBetweenHours(c.getTime(), 2300, 2400));
+        assertEquals(true, Util.isBetweenHours(c.getTime(), 2300, 0));
+        assertEquals(true, Util.isBetweenHours(c.getTime(), 2329,2331));
+        assertEquals(false, Util.isBetweenHours(c.getTime(), 2300, 2329));
+
     }
 }

@@ -22,11 +22,11 @@
         android:id="@+id/restaurant_closed_view"
         android:visibility="gone">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:id="@+id/restaurant_closed_view_image"
             android:contentDescription="@string/restaurant_closed_today"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/sad_face_icon"
             android:alpha="0.5"
             android:layout_marginTop="32dp"
             android:layout_centerHorizontal="true"/>

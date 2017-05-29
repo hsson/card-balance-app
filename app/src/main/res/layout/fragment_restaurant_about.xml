@@ -1,10 +1,12 @@
-<RelativeLayout
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="se.creotec.chscardbalance2.controller.FoodAboutFragment">
-
     <RatingBar
         android:id="@+id/restaurant_rating_bar"
         android:layout_width="wrap_content"
@@ -16,6 +18,7 @@
         android:stepSize="0.1" />
 
     <android.support.v7.widget.CardView
+        android:id="@+id/restaurant_detailed_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/restaurant_rating_bar"
@@ -24,7 +27,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="@dimen/about_divider_margin"
+            android:paddingTop="@dimen/about_divider_margin"
             android:orientation="vertical" >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -32,28 +38,30 @@
                 android:orientation="horizontal"
                 android:layout_gravity="center_vertical">
                 <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:layout_width="@dimen/about_icon_size"
+                    android:layout_height="@dimen/about_icon_size"
+                    android:tint="@color/color_accent"
+                    android:src="@drawable/clock_icon"/>
                 <TextView
+                    android:id="@+id/restaurant_about_open_now"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:textColor="@color/color_success"
-                    android:text="Open Now."
+                    android:textStyle="bold"
                     android:layout_gravity="center_vertical"/>
                 <TextView
+                    android:id="@+id/restaurant_about_open_hours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:text="11.00 - 13.30"/>
+                    android:layout_marginStart="8dp"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="@dimen/about_divider_margin"
+                android:layout_marginBottom="@dimen/about_divider_margin"
                 android:background="#d2d2d2" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -61,21 +69,22 @@
                 android:orientation="horizontal"
                 android:layout_gravity="center_vertical">
                 <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:layout_width="@dimen/about_icon_size"
+                    android:layout_height="@dimen/about_icon_size"
+                    android:tint="@color/color_accent"
+                    android:src="@drawable/location_icon"/>
                 <TextView
+                    android:id="@+id/restaurant_about_campus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Sven Hultins gata, 4, 412 58 Göteborg"
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="@dimen/about_divider_margin"
+                android:layout_marginBottom="@dimen/about_divider_margin"
                 android:background="#d2d2d2" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,18 +92,34 @@
                 android:orientation="horizontal"
                 android:layout_gravity="center_vertical">
                 <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="@dimen/about_icon_size"
+                    android:layout_height="@dimen/about_icon_size"
                     android:src="@drawable/coin_icon"
                     android:tint="@color/color_accent"/>
                 <TextView
+                    android:id="@+id/restaurant_about_avg_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="About 65 SEK"
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
+    <Button
+        android:id="@+id/restaurant_visit_website"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/restaurant_detailed_container"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="@color/color_accent"
+        android:padding="4dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="@string/action_visit_website"/>
 </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>
