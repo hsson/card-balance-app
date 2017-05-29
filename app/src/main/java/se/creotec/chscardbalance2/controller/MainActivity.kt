@@ -18,8 +18,11 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewAnimationUtils
+import android.widget.Button
 import android.widget.TextView
 import com.google.gson.Gson
 import se.creotec.chscardbalance2.Constants
@@ -47,6 +50,8 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
     private var drawerLayout: DrawerLayout? = null
     private var drawerView: NavigationView? = null
     private var drawerToggle: ActionBarDrawerToggle? = null
+
+    private var showTextMenuButton: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -130,11 +135,28 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
         return true
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menu?.let {
+            val inflater = menuInflater
+            inflater.inflate(R.menu.action_menu, it)
+
+            if (!showTextMenuButton) {
+                it.findItem(R.id.action_item_charge).isVisible = false
+            }
+        }
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         drawerToggle?.let {
             if (it.onOptionsItemSelected(item)) {
                 return true
             }
+        }
+
+        if (item?.itemId == R.id.action_item_charge) {
+            launchChargeSite()
+            return true
         }
         return super.onOptionsItemSelected(item)
     }
@@ -197,6 +219,21 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
                 cardOwnerName?.let { it.alpha = alpha }
                 cardNumber?.let { it.alpha = alpha }
             }
+
+            it.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
+                override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
+                    when (state) {
+                        AppBarStateChangeListener.State.COLLAPSED -> {
+                            showTextMenuButton = true
+                            invalidateOptionsMenu()
+                        }
+                        else -> {
+                            showTextMenuButton = false
+                            invalidateOptionsMenu()
+                        }
+                    }
+                }
+            })
         }
 
         swipeRefresh?.let {
@@ -209,17 +246,20 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
 
     // Adds action to the FAB
     private fun setupFAB() {
-        val global = application as GlobalState
         quickChargeFAB = findViewById(R.id.fab_charge_card) as FloatingActionButton
-        val context = this
         quickChargeFAB?.let {
             it.setOnClickListener {
-                val webIntent = CustomTabsIntent.Builder()
-                        .setToolbarColor(getColor(R.color.color_primary))
-                        .build()
-                webIntent.launchUrl(context, Uri.parse(global.model.quickChargeURL))
+                launchChargeSite()
             }
         }
+    }
+
+    private fun launchChargeSite() {
+        val global = application as GlobalState
+        val webIntent = CustomTabsIntent.Builder()
+                .setToolbarColor(getColor(R.color.color_primary))
+                .build()
+        webIntent.launchUrl(this, Uri.parse(global.model.quickChargeURL))
     }
 
     private fun maybeUpdate(force: Boolean = false) {
