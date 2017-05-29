@@ -193,7 +193,7 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
         appBarLayout?.let {
             it.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
                 val percentage = Math.abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange
-                val alpha = 1 - percentage * 1.75f
+                val alpha = 1 - percentage * 3f
                 cardOwnerName?.let { it.alpha = alpha }
                 cardNumber?.let { it.alpha = alpha }
             }
