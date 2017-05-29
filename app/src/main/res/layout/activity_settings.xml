@@ -17,15 +17,18 @@
             android:textColor="@color/color_accent"
             android:textSize="@dimen/settings_value_text"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"/>
         <LinearLayout
             android:id="@+id/settings_card_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:paddingTop="@dimen/settings_top_padding"
+            android:paddingBottom="@dimen/settings_top_padding"
+            android:paddingStart="@dimen/settings_side_padding"
+            android:paddingEnd="@dimen/settings_side_padding"
             android:orientation="vertical"
             android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true">
             <TextView
                 android:layout_width="match_parent"
@@ -50,10 +53,14 @@
             android:id="@+id/settings_menu_lang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:paddingTop="@dimen/settings_top_padding"
+            android:paddingBottom="@dimen/settings_top_padding"
+            android:paddingStart="@dimen/settings_side_padding"
+            android:paddingEnd="@dimen/settings_side_padding"
             android:orientation="vertical"
             android:focusable="true"
-            android:clickable="true">
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
