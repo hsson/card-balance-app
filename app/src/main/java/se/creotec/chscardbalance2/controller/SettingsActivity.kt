@@ -15,6 +15,7 @@ import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.GlobalState
 import se.creotec.chscardbalance2.R
 import se.creotec.chscardbalance2.service.BalanceService
+import se.creotec.chscardbalance2.service.MenuService
 import se.creotec.chscardbalance2.util.CardNumberMask
 import se.creotec.chscardbalance2.util.Util
 
@@ -118,6 +119,9 @@ class SettingsActivity : AppCompatActivity() {
             val global = application as GlobalState
             global.model.preferredMenuLanguage = lang
             global.saveMenuData()
+            val updateMenuIntent = Intent(this, MenuService::class.java)
+            updateMenuIntent.action = Constants.ACTION_UPDATE_MENU
+            startService(updateMenuIntent)
         }
     }
 
