@@ -67,6 +67,11 @@ class FoodAboutFragment : Fragment() {
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        setOpenHours(openNow, openHours)
+    }
+
     private fun setOpenHours(openNow: TextView?, openHours: TextView?) {
         if (restaurant.dishes.isEmpty()) {
             showClosed(openNow, openHours, false)
