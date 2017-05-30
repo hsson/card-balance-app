@@ -5,6 +5,7 @@
 package se.creotec.chscardbalance2.util
 
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextUtils
 import android.text.TextWatcher
 
@@ -26,7 +27,10 @@ class CardNumberMask : TextWatcher {
             val c: Char = s[s.length - 1]
             // Only if its a digit where there should be a space we insert a space
             if (Character.isDigit(c) && TextUtils.split(s.toString(), space.toString()).size <= 3) {
+                val filters = s.filters
+                s.filters = arrayOf<InputFilter>()
                 s.insert(s.length - 1, space.toString())
+                s.filters = filters
             }
         }
     }

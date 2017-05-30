@@ -34,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/prefs_card_number"
+                android:textColor="@android:color/black"
                 android:textSize="@dimen/settings_title_text"/>
             <TextView
                 android:id="@+id/settings_card_number_text"
@@ -65,6 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/prefs_menu_lang"
+                android:textColor="@android:color/black"
                 android:textSize="@dimen/settings_title_text"/>
             <TextView
                 android:id="@+id/settings_menu_lang_text"

@@ -1,14 +1,21 @@
 package se.creotec.chscardbalance2.controller
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputFilter
+import android.text.InputType
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.GlobalState
 import se.creotec.chscardbalance2.R
+import se.creotec.chscardbalance2.service.BalanceService
+import se.creotec.chscardbalance2.util.CardNumberMask
 import se.creotec.chscardbalance2.util.Util
 
 class SettingsActivity : AppCompatActivity() {
@@ -23,10 +30,35 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         val global = application as GlobalState
+        var formattedNumber = Util.formatCardNumber(global.model.cardData.cardNumber)
 
         cardNumberContainer = findViewById(R.id.settings_card_number)
         cardNumberContainer?.setOnClickListener {
-            Toast.makeText(this, "YO", Toast.LENGTH_LONG).show()
+            val dialog = MaterialDialog.Builder(this)
+                    .title(R.string.prefs_card_number)
+                    .inputType(InputType.TYPE_CLASS_NUMBER)
+                    .input(getString(R.string.card_number_hint), formattedNumber, {dialog, input ->
+                        if (input.toString().replace(" ", "").length == Constants.CARD_NUMBER_LENGTH) {
+                            dialog.getActionButton(DialogAction.POSITIVE).isEnabled = true
+                            formattedNumber = input.toString()
+                        } else {
+                            dialog.getActionButton(DialogAction.POSITIVE).isEnabled = false
+                        }
+                    })
+                    .onPositive({_,_ ->
+                        setCardNumber(formattedNumber.replace(" ", ""), true)
+                    })
+                    .alwaysCallInputCallback()
+                    .negativeText(R.string.action_cancel)
+                    .positiveText(R.string.action_save)
+                    .build()
+
+            dialog.inputEditText?.let {
+                val filters = Array<InputFilter>(1, { _ -> InputFilter.LengthFilter(Constants.CARD_NUMBER_LENGTH + 3) })
+                it.filters = filters
+                it.addTextChangedListener(CardNumberMask())
+            }
+            dialog.show()
         }
 
         cardNumberText = findViewById(R.id.settings_card_number_text) as TextView
@@ -64,7 +96,12 @@ class SettingsActivity : AppCompatActivity() {
         val number = Util.formatCardNumber(cardNumber)
         cardNumberText?.text = number
         if (savePreference) {
-            // TODO: Save preference
+            val global = application as GlobalState
+            global.model.cardData.cardNumber = cardNumber
+            global.saveCardData()
+            val updateCardIntent = Intent(this, BalanceService::class.java)
+            updateCardIntent.action = Constants.ACTION_UPDATE_CARD
+            startService(updateCardIntent)
         }
     }
 
