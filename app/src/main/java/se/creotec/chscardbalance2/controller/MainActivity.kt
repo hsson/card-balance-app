@@ -245,15 +245,13 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
 
             it.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
                 override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
-                    when (state) {
-                        AppBarStateChangeListener.State.COLLAPSED -> {
-                            showTextMenuButton = true
-                            invalidateOptionsMenu()
-                        }
-                        else -> {
-                            showTextMenuButton = false
-                            invalidateOptionsMenu()
-                        }
+                    if (state == AppBarStateChangeListener.State.COLLAPSED) {
+                        showTextMenuButton = true
+                        invalidateOptionsMenu()
+                    }
+                    else if (state == AppBarStateChangeListener.State.EXPANDED) {
+                        showTextMenuButton = false
+                        invalidateOptionsMenu()
                     }
                 }
             })
