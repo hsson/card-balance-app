@@ -53,6 +53,9 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".receiver.CopyCardNumberReceiver"
+            android:enabled="true" />
 
         <service
             android:name=".service.BalanceService"

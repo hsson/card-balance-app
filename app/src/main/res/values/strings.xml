@@ -33,6 +33,7 @@
     <string name="card_number_hint" translatable="false">3819 1234 1234 1234</string>
     <string name="card_number_prompt">Enter card number</string>
 
+    <string name="action_copy_card_number">Copy Card Number</string>
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_view_on_github">View on GitHub</string>
@@ -43,6 +44,7 @@
     <string name="action_open">Open</string>
     <string name="action_close">Close</string>
     <string name="action_charge">Charge Card</string>
+    <string name="card_number_copied">Card number %1$s copied</string>
     <string name="error_not_valid_number">Not a valid card number</string>
     <string name="error_no_internet">Not connected to the internet</string>
     <string name="error_card_failed">Updating the card failed</string>

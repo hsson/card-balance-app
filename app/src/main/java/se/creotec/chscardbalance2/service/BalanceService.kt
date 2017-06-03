@@ -4,9 +4,7 @@
 // https://opensource.org/licenses/MIT
 package se.creotec.chscardbalance2.service
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.util.Log
 import com.google.gson.reflect.TypeToken
 import se.creotec.chscardbalance2.Constants

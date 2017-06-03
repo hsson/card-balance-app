@@ -4,9 +4,11 @@
 // https://opensource.org/licenses/MIT
 package se.creotec.chscardbalance2.controller
 
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.BitmapFactory
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
@@ -21,10 +23,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewAnimationUtils
-import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import com.google.gson.Gson
@@ -33,6 +32,7 @@ import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.GlobalState
 import se.creotec.chscardbalance2.R
 import se.creotec.chscardbalance2.model.*
+import se.creotec.chscardbalance2.receiver.CopyCardNumberReceiver
 import se.creotec.chscardbalance2.service.AbstractBackendService
 import se.creotec.chscardbalance2.service.BalanceService
 import se.creotec.chscardbalance2.service.MenuService
@@ -279,8 +279,17 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
 
     private fun launchChargeSite() {
         val global = application as GlobalState
+
+        val copyCardNumberIntent = Intent(this, CopyCardNumberReceiver::class.java)
+        copyCardNumberIntent.action = Constants.ACTION_COPY_CARD_NUMBER
+        copyCardNumberIntent.putExtra(Constants.EXTRAS_CARD_NUMBER_KEY, global.model.cardData.cardNumber)
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, copyCardNumberIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val icon = BitmapFactory.decodeResource(resources, R.drawable.chrome_icon_copy)
+
         val webIntent = CustomTabsIntent.Builder()
                 .setToolbarColor(getColor(R.color.color_primary))
+                .addMenuItem(getString(R.string.action_copy_card_number), pendingIntent)
+                .setActionButton(icon, getString(R.string.action_copy_card_number), pendingIntent, true)
                 .build()
         webIntent.launchUrl(this, Uri.parse(global.model.quickChargeURL))
     }

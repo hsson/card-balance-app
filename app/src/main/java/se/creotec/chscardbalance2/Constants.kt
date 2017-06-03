@@ -21,7 +21,10 @@ object Constants {
 
     val ACTION_UPDATE_CARD = BuildConfig.APPLICATION_ID + ".ACTION_UPDATE_CARD"
     val ACTION_UPDATE_MENU = BuildConfig.APPLICATION_ID + ".ACTION_UPDATE_MENU"
+    val ACTION_COPY_CARD_NUMBER = BuildConfig.APPLICATION_ID + ".ACTION_COPY_CARD_NUMBER"
     val ACTION_BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED"
+
+    val EXTRAS_CARD_NUMBER_KEY = BuildConfig.APPLICATION_ID + ".EXTRAS_CARD_NUMBER_KEY"
 
     val PREFS_FILE_NAME = "PreferenceConfig"
     val PREFS_VERSION_CODE_KEY = "version_code"
