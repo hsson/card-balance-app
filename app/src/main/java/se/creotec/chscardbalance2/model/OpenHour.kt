@@ -77,5 +77,26 @@ class OpenHour {
                 return c.timeInMillis
             }
         }
+
+        fun isBefore(time: Int): Boolean {
+            if (time !in 0..2400) {
+                return false
+            }
+            val c = Calendar.getInstance()
+            c.time = Date()
+            val timeStr = time.toString()
+            if (timeStr.length <= 2) {
+                return c.get(Calendar.HOUR_OF_DAY) == 0 && c.get(Calendar.MINUTE) < time
+            }
+            val hour = time/100
+
+            if (timeStr.length == 3) {
+                val minute = timeStr.substring(1).toInt()
+                return c.get(Calendar.HOUR_OF_DAY) < hour || (c.get(Calendar.HOUR_OF_DAY) <= hour && c.get(Calendar.MINUTE) < minute)
+            } else {
+                val minute = timeStr.substring(2).toInt()
+                return c.get(Calendar.HOUR_OF_DAY) < hour || (c.get(Calendar.HOUR_OF_DAY) <= hour && c.get(Calendar.MINUTE) < minute)
+            }
+        }
     }
 }

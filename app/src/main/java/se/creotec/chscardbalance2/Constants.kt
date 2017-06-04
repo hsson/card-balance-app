@@ -21,7 +21,10 @@ object Constants {
 
     val ACTION_UPDATE_CARD = BuildConfig.APPLICATION_ID + ".ACTION_UPDATE_CARD"
     val ACTION_UPDATE_MENU = BuildConfig.APPLICATION_ID + ".ACTION_UPDATE_MENU"
+    val ACTION_COPY_CARD_NUMBER = BuildConfig.APPLICATION_ID + ".ACTION_COPY_CARD_NUMBER"
     val ACTION_BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED"
+
+    val EXTRAS_CARD_NUMBER_KEY = BuildConfig.APPLICATION_ID + ".EXTRAS_CARD_NUMBER_KEY"
 
     val PREFS_FILE_NAME = "PreferenceConfig"
     val PREFS_VERSION_CODE_KEY = "version_code"
@@ -31,6 +34,11 @@ object Constants {
     val PREFS_MENU_LANGUAGE_KEY = "menu_preferred_language"
     val PREFS_MENU_LANGUAGE_DEFAULT = ENDPOINT_MENU_LANG_EN
     val PREFS_MENU_DATA_KEY = "menu_data"
+    val PREFS_NOTIFICATIONS_DATA_KEY = "notifications_data"
+    val PREFS_NOTIFICATION_LOW_BALANCE_ENABLED_DEFAULT = true
+    val PREFS_NOTIFICATION_LOW_BALANCE_LIMIT_DEFAULT: Int = 50
+    val PREFS_NOTIFICATION_LOW_BALANCE_LIMIT_MIN: Int = 10
+    val PREFS_NOTIFICATION_LOW_BALANCE_LIMIT_MAX: Int = 200
     val PREFS_MENU_LAST_UPDATED_KEY = "menu_last_updated"
     val PREFS_CARD_NUMBER_LEGACY_KEY = "se.creotec.chscardbalance.PREFS_CARD_NUMBER"
     val PREFS_FILE_NAME_LEGACY = "se.creotec.chscardbalance.SHARED_PREFS_NAME"

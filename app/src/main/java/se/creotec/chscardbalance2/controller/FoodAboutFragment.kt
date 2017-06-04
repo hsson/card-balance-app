@@ -1,3 +1,7 @@
+// Copyright (c) 2017 Alexander Håkansson
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
 package se.creotec.chscardbalance2.controller
 
 import android.net.Uri
@@ -67,6 +71,11 @@ class FoodAboutFragment : Fragment() {
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        setOpenHours(openNow, openHours)
+    }
+
     private fun setOpenHours(openNow: TextView?, openHours: TextView?) {
         if (restaurant.dishes.isEmpty()) {
             showClosed(openNow, openHours, false)
@@ -83,7 +92,7 @@ class FoodAboutFragment : Fragment() {
                         openHours?.text = getString(R.string.restaurant_about_hours_range, startFormatted, endFormatted)
                         return
                     } else {
-                        showClosed(openNow, openHours, true)
+                        showClosed(openNow, openHours, true, before = OpenHour.isBefore(oh.startHour), openHour = oh)
                         return
                     }
                 }
@@ -94,13 +103,19 @@ class FoodAboutFragment : Fragment() {
         }
     }
 
-    private fun showClosed(openNow: TextView?, openHours: TextView?, now: Boolean) {
+    private fun showClosed(openNow: TextView?, openHours: TextView?, now: Boolean, before: Boolean = false, openHour: OpenHour? = null) {
         if (now) {
             openNow?.text = getString(R.string.restaurant_about_closed_now)
+            if (before && openHour != null) {
+                val startFormatted = DateUtils.formatDateTime(activity, OpenHour.toUnixTimeStamp(openHour.startHour), DateUtils.FORMAT_SHOW_TIME)
+                openHours?.text = getString(R.string.restaurant_about_opens_at, startFormatted)
+            } else {
+                openHours?.text = ""
+            }
         } else {
             openNow?.text = getString(R.string.restaurant_about_closed_today)
+            openHours?.text = ""
         }
-        openHours?.text = ""
         openNow?.setTextColor(ContextCompat.getColor(activity, R.color.color_fail))
     }
 

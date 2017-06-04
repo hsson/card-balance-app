@@ -7,11 +7,12 @@ package se.creotec.chscardbalance2.model
 import se.creotec.chscardbalance2.BuildConfig
 import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.service.AbstractBackendService
+import se.creotec.chscardbalance2.util.NotificationsHelper
 import java.util.*
 
 class Model : IModel {
-
     override val quickChargeURL: String
+    override var notifications: NotificationData = NotificationData()
     private val cardDataChangedListeners: MutableSet<OnCardDataChangedListener>
     private val menuDataChangedListeners: MutableSet<OnMenuDataChangedListener>
     private val serviceFailedListeners: MutableSet<IModel.OnServiceFailedListener>

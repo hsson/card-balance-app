@@ -13,6 +13,7 @@
     <string name="restaurant_about_open_now">Open Now</string>
     <string name="restaurant_about_open_today">Open Today</string>
     <string name="restaurant_about_closed_now">Closed Now</string>
+    <string name="restaurant_about_opens_at">Opens at %1$s</string>
     <string name="restaurant_about_closed_today">Closed Today</string>
     <string name="restaurant_about_hours_range">%1$s - %2$s</string>
     <string name="restaurant_about_avg_price">About %1$d SEK</string>
@@ -32,6 +33,14 @@
     <string name="card_number_hint" translatable="false">3819 1234 1234 1234</string>
     <string name="card_number_prompt">Enter card number</string>
 
+    <string name="notification_title">Low Balance</string>
+    <string name="notification_text">Your card balance is only %1$s SEK</string>
+
+    <string name="currency_suffix">%1$s SEK</string>
+    <string name="currency_kronor">SEK</string>
+    <string name="action_copy_card_number">Copy Card Number</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
     <string name="action_view_on_github">View on GitHub</string>
     <string name="action_visit_website">Visit Website</string>
     <string name="action_clear">Clear</string>
@@ -40,6 +49,7 @@
     <string name="action_open">Open</string>
     <string name="action_close">Close</string>
     <string name="action_charge">Charge Card</string>
+    <string name="card_number_copied">Card number %1$s copied</string>
     <string name="error_not_valid_number">Not a valid card number</string>
     <string name="error_no_internet">Not connected to the internet</string>
     <string name="error_card_failed">Updating the card failed</string>
@@ -53,4 +63,17 @@
     <string name="dialog_about_version_text">Version %1$s (%2$d)</string>
     <string name="dialog_about_developed_by">Developed by Alexander Håkansson</string>
     <string name="dialog_about_feedback">If you want to give feedback, make a suggestion, or report a bug; please visit the project on GitHub and  submit an issue.</string>
+
+    <string name="prefs_general_title">General</string>
+    <string name="prefs_notifications_title">Notifications</string>
+    <string name="prefs_card_number">Card Number</string>
+    <string name="prefs_menu_lang">Food Menu Language</string>
+    <string name="prefs_notifications_enable_notifications">Enable Notifications</string>
+    <string name="prefs_notifications_low_balance_label">Low Balance Warning Limit</string>
+    <string name="prefs_menu_lang_en">English</string>
+    <string name="prefs_menu_lang_sv">Swedish</string>
+    <string-array name="prefs_menu_lang_list">
+        <item>@string/prefs_menu_lang_en</item>
+        <item>@string/prefs_menu_lang_sv</item>
+    </string-array>
 </resources>

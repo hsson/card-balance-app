@@ -4,15 +4,14 @@
 // https://opensource.org/licenses/MIT
 package se.creotec.chscardbalance2.service
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.util.Log
 import com.google.gson.reflect.TypeToken
 import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.GlobalState
 import se.creotec.chscardbalance2.model.BackendResponse
 import se.creotec.chscardbalance2.model.CardData
+import se.creotec.chscardbalance2.util.NotificationsHelper
 
 class BalanceService : AbstractBackendService<CardData>(BalanceService::class.java.name) {
     private val LOG_TAG = BalanceService::class.java.name
@@ -38,6 +37,7 @@ class BalanceService : AbstractBackendService<CardData>(BalanceService::class.ja
                 global.model.cardData = response.data ?: CardData()
                 global.model.cardLastTimeUpdated = System.currentTimeMillis()
                 global.saveCardData()
+                NotificationsHelper.maybeNotify(this, global)
                 Log.i(LOG_TAG, "Got response: " + response.toString())
             }
         } catch (e: BackendFetchException) {
