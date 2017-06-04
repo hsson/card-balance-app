@@ -87,7 +87,11 @@ class FoodRestaurantRecyclerViewAdapter(restaurants: List<Restaurant>, private v
 
         internal fun setDishesCount(count: Int) {
             val dishQuantity = holderView.resources.getQuantityString(R.plurals.dish, count, count)
-            restaurantDishCount.text = holderView.resources.getString(R.string.restaurant_dishes_count, dishQuantity)
+            if (count > 0) {
+                restaurantDishCount.text = holderView.resources.getString(R.string.restaurant_dishes_count, dishQuantity)
+            } else {
+                restaurantDishCount.text = holderView.resources.getString(R.string.restaurant_dishes_count_zero)
+            }
         }
     }
 }
