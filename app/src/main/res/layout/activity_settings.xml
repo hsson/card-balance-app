@@ -74,7 +74,6 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textSize="@dimen/settings_value_text"/>
-
         </LinearLayout>
         <View
             android:layout_width="match_parent"
@@ -82,6 +81,75 @@
             android:layout_marginTop="@dimen/settings_divider_margin"
             android:layout_marginBottom="@dimen/settings_divider_margin"
             android:background="#d2d2d2" />
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prefs_notifications_title"
+            android:textColor="@color/color_accent"
+            android:textSize="@dimen/settings_value_text"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"/>
+        <RelativeLayout
+            android:id="@+id/settings_enable_low_balance_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/settings_top_padding"
+            android:paddingBottom="@dimen/settings_top_padding"
+            android:paddingStart="@dimen/settings_side_padding"
+            android:paddingEnd="@dimen/settings_side_padding"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prefs_notifications_enable_notifications"
+                android:textColor="@android:color/black"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/settings_title_text"/>
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/settings_enable_low_balance_switch"
+                android:layout_width="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/settings_divider_margin"
+            android:layout_marginBottom="@dimen/settings_divider_margin"
+            android:background="#d2d2d2" />
+        <LinearLayout
+            android:id="@+id/settings_low_balance_limit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/settings_top_padding"
+            android:paddingBottom="@dimen/settings_top_padding"
+            android:paddingStart="@dimen/settings_side_padding"
+            android:paddingEnd="@dimen/settings_side_padding"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prefs_notifications_low_balance_label"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/settings_title_text"/>
+            <TextView
+                android:id="@+id/settings_low_balance_limit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="@dimen/settings_value_text"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/settings_divider_margin"
+            android:layout_marginBottom="@dimen/settings_divider_margin"
+            android:background="#d2d2d2" />
     </LinearLayout>
 </ScrollView>

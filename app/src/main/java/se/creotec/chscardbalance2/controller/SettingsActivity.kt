@@ -1,14 +1,13 @@
 package se.creotec.chscardbalance2.controller
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.SwitchCompat
 import android.text.InputFilter
 import android.text.InputType
 import android.view.View
-import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import se.creotec.chscardbalance2.Constants
@@ -26,6 +25,11 @@ class SettingsActivity : AppCompatActivity() {
 
     var menuLangContainer: View? = null
     var menuLangText: TextView? = null
+
+    var toggleLowBalanceContainer: View? = null
+    var toggleLowBalanceNotifications: SwitchCompat? = null
+    var lowBalanceLimitContainer: View? = null
+    var lowBalanceLimitText: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,11 +87,38 @@ class SettingsActivity : AppCompatActivity() {
         menuLangText = findViewById(R.id.settings_menu_lang_text) as TextView
 
 
+        lowBalanceLimitContainer = findViewById(R.id.settings_low_balance_limit)
+        toggleLowBalanceContainer = findViewById(R.id.settings_enable_low_balance_parent)
+        toggleLowBalanceNotifications = findViewById(R.id.settings_enable_low_balance_switch) as SwitchCompat
+        lowBalanceLimitText = findViewById(R.id.settings_low_balance_limit_text) as TextView
+
+
+        val lowBalanceLimitString = getString(R.string.currency_suffix, global.model.notifications.lowBalanceNotificationLimit.toString())
+        lowBalanceLimitText?.text = lowBalanceLimitString
+        toggleLowBalanceNotifications?.let {
+            it.isChecked = global.model.notifications.isLowBalanceNotificationsEnabled
+            notificationsEnabledToggled(it.isChecked)
+            it.setOnCheckedChangeListener { _, checked -> notificationsEnabledToggled(checked, saveState = true) }
+        }
+        toggleLowBalanceContainer?.setOnClickListener { toggleLowBalanceNotifications?.toggle() }
+
 
         setCardNumber(global.model.cardData.cardNumber)
         setMenuLang(global.model.preferredMenuLanguage)
 
 
+    }
+
+    private fun notificationsEnabledToggled(enabled: Boolean, saveState: Boolean = false) {
+        lowBalanceLimitContainer?.let {
+            it.isClickable = enabled
+            it.isFocusable = enabled
+            if (enabled) {
+                it.alpha = 1f
+            } else {
+                it.alpha = 0.2f
+            }
+        }
     }
 
     private fun setCardNumber(cardNumber: String?, savePreference: Boolean = false) {
