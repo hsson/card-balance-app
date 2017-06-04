@@ -21,6 +21,7 @@ import se.creotec.chscardbalance2.R
 import se.creotec.chscardbalance2.service.BalanceService
 import se.creotec.chscardbalance2.service.MenuService
 import se.creotec.chscardbalance2.util.CardNumberMask
+import se.creotec.chscardbalance2.util.NotificationsHelper
 import se.creotec.chscardbalance2.util.Util
 
 class SettingsActivity : AppCompatActivity() {
@@ -163,6 +164,9 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         if (savePreference) {
+            if (!enabled) {
+                NotificationsHelper.cancellAll(this)
+            }
             val global = application as GlobalState
             global.model.notifications.isLowBalanceNotificationsEnabled = enabled
             global.saveNotificationData()

@@ -7,6 +7,7 @@ package se.creotec.chscardbalance2.model
 import se.creotec.chscardbalance2.BuildConfig
 import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.service.AbstractBackendService
+import se.creotec.chscardbalance2.util.NotificationsHelper
 import java.util.*
 
 class Model : IModel {
