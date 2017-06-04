@@ -23,14 +23,14 @@ object NotificationsHelper {
         val lastNotifiedBalance = global.model.notifications.lowBalanceLastNotifiedBalance
         val enabled = global.model.notifications.isLowBalanceNotificationsEnabled
 
-        if (enabled && roundedBalance < limit && roundedBalance != lastNotifiedBalance) {
+        if (enabled && roundedBalance <= limit && roundedBalance != lastNotifiedBalance) {
             global.model.notifications.lowBalanceLastNotifiedBalance = roundedBalance
             global.saveNotificationData()
             showLowBalanceNotification(context, roundedBalance)
         }
     }
 
-    fun cancellAll(context: Context) {
+    fun cancelAll(context: Context) {
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         manager.cancelAll()
     }
@@ -44,7 +44,7 @@ object NotificationsHelper {
 
         val wearableExtended = NotificationCompat.WearableExtender().setBackground(wearableBkg)
         val notificationBuilder = NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.coin_icon) //TODO: IC STATUS
+                .setSmallIcon(R.drawable.app_icon_bw)
                 .setLargeIcon(largeIcon)
                 .setContentTitle(context.getString(R.string.notification_title))
                 .setContentText(contentText)

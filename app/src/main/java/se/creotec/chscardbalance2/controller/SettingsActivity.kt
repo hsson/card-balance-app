@@ -165,7 +165,7 @@ class SettingsActivity : AppCompatActivity() {
 
         if (savePreference) {
             if (!enabled) {
-                NotificationsHelper.cancellAll(this)
+                NotificationsHelper.cancelAll(this)
             }
             val global = application as GlobalState
             global.model.notifications.isLowBalanceNotificationsEnabled = enabled
