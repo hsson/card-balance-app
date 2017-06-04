@@ -1,5 +1,5 @@
 <resources>
-    <string name="dummy_text">Dummy text</string>
+    <string name="dummy_text" translatable="false">Dummy text</string>
     <string name="app_name">Chalmers Card Balance</string>
 
     <string name="restaurant_image_desc">Restaurant\'s Image</string>
@@ -15,7 +15,7 @@
     <string name="restaurant_about_closed_now">Closed Now</string>
     <string name="restaurant_about_opens_at">Opens at %1$s</string>
     <string name="restaurant_about_closed_today">Closed Today</string>
-    <string name="restaurant_about_hours_range">%1$s - %2$s</string>
+    <string name="restaurant_about_hours_range" translatable="false">%1$s - %2$s</string>
     <string name="restaurant_about_avg_price">About %1$d SEK</string>
     <string name="restaurant_about_avg_no_price">No price information</string>
     <string name="restaurant_about_campus">Campus %1$s</string>
@@ -28,7 +28,7 @@
     <string name="upgraded_slide_3_desc">More detailed information about restaurants!</string>
 
     <string name="first_time_tite">Welcome</string>
-    <string name="first_time_desc">This app lets you quickly charge your card. But first, you must add your card number.</string>
+    <string name="first_time_desc">This app lets you easily manage your card. But first, you must add your card number.</string>
 
     <string name="card_number_hint" translatable="false">3819 1234 1234 1234</string>
     <string name="card_number_prompt">Enter card number</string>
@@ -76,4 +76,10 @@
         <item>@string/prefs_menu_lang_en</item>
         <item>@string/prefs_menu_lang_sv</item>
     </string-array>
+
+    <plurals name="dish">
+        <item quantity="zero">No dishes</item>
+        <item quantity="one">1 dish</item>
+        <item quantity="other">%d dishes</item>
+    </plurals>
 </resources>
