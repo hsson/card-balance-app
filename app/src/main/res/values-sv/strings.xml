@@ -65,4 +65,5 @@
         <item quantity="one">1 rätt</item>
         <item quantity="other">%d rätter</item>
     </plurals>
+    <string name="restaurant_dishes_count_zero">Inga rätter att välja mellan</string>
 </resources>
