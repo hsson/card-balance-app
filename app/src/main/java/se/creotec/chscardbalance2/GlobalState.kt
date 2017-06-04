@@ -13,10 +13,7 @@ import com.google.gson.Gson
 import com.nostra13.universalimageloader.core.DisplayImageOptions
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
-import se.creotec.chscardbalance2.model.CardData
-import se.creotec.chscardbalance2.model.IModel
-import se.creotec.chscardbalance2.model.MenuData
-import se.creotec.chscardbalance2.model.Model
+import se.creotec.chscardbalance2.model.*
 import se.creotec.chscardbalance2.service.BalanceService
 import se.creotec.chscardbalance2.util.AlarmScheduler
 import java.util.*
@@ -33,6 +30,7 @@ class GlobalState : Application() {
         preferences = getSharedPreferences(Constants.PREFS_FILE_NAME, Context.MODE_PRIVATE)
         loadCardData()
         loadMenuData()
+        loadNotificationData()
         model.cardData.cardNumber?.let {
             if (it != "") {
                 scheduleUpdating()
@@ -106,6 +104,31 @@ class GlobalState : Application() {
             val editor = it.edit()
             editor.putString(Constants.PREFS_CARD_DATA_KEY, cardJson)
             editor.putLong(Constants.PREFS_CARD_LAST_UPDATED_KEY, model.cardLastTimeUpdated)
+            editor.apply()
+        }
+    }
+
+    /**
+     * Load data about notifications from persistent storage
+     */
+    fun loadNotificationData() {
+        preferences?.let {
+            val notificationsJson = it.getString(Constants.PREFS_NOTIFICATIONS_DATA_KEY, "")
+            if (notificationsJson != "") {
+                val data = gson.fromJson(notificationsJson, NotificationData::class.java)
+                model.notifications = data
+            }
+        }
+    }
+
+    /**
+     * Save data about notifications to persistent storage
+     */
+    @Synchronized fun saveNotificationData() {
+        val notificationsJson = gson.toJson(model.notifications, NotificationData::class.java)
+        preferences?.let {
+            val editor = it.edit()
+            editor.putString(Constants.PREFS_NOTIFICATIONS_DATA_KEY, notificationsJson)
             editor.apply()
         }
     }

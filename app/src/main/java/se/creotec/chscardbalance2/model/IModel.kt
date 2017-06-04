@@ -21,6 +21,8 @@ interface IModel {
 
     val quickChargeURL: String
 
+    var notifications: NotificationData
+
     fun addServiceFailedListener(listener: OnServiceFailedListener)
     fun notifyServiceFailed(service: AbstractBackendService<*>, error: String)
 

@@ -335,10 +335,11 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
 
     companion object {
         private val LOG_TAG = MainActivity::class.java.name
+        private val HOUR: Long = 1000 * 60 * 60 // 1 hour in ms
 
-        private val HALF_HOUR_AGO: Long = 1000 * 60 * 30
+        private val HALF_HOUR_AGO: Long = HOUR/2
             get() = System.currentTimeMillis() - field
-        private val THREE_HOURS_AGO:Long = 1000 * 60 * 60 * 3
+        private val THREE_HOURS_AGO:Long = HOUR * 3
             get() = System.currentTimeMillis() - field
 
         private fun isDateToday(timeInMillis: Long): Boolean {

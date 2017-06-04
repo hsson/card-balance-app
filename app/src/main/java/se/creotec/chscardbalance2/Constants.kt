@@ -34,6 +34,9 @@ object Constants {
     val PREFS_MENU_LANGUAGE_KEY = "menu_preferred_language"
     val PREFS_MENU_LANGUAGE_DEFAULT = ENDPOINT_MENU_LANG_EN
     val PREFS_MENU_DATA_KEY = "menu_data"
+    val PREFS_NOTIFICATIONS_DATA_KEY = "notifications_data"
+    val PREFS_NOTIFICATION_LOW_BALANCE_ENABLED_DEFAULT = false
+    val PREFS_NOTIFICATION_LOW_BALANCE_LIMIT_DEFAULT: Int = 50
     val PREFS_MENU_LAST_UPDATED_KEY = "menu_last_updated"
     val PREFS_CARD_NUMBER_LEGACY_KEY = "se.creotec.chscardbalance.PREFS_CARD_NUMBER"
     val PREFS_FILE_NAME_LEGACY = "se.creotec.chscardbalance.SHARED_PREFS_NAME"
