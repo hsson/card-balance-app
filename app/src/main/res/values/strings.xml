@@ -34,7 +34,7 @@
     <string name="card_number_prompt">Enter card number</string>
 
     <string name="currency_suffix">%1$s SEK</string>
-
+    <string name="currency_kronor">SEK</string>
     <string name="action_copy_card_number">Copy Card Number</string>
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>

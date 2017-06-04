@@ -7,6 +7,7 @@ import android.support.v7.widget.SwitchCompat
 import android.text.InputFilter
 import android.text.InputType
 import android.view.View
+import android.widget.NumberPicker
 import android.widget.TextView
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
@@ -98,18 +99,55 @@ class SettingsActivity : AppCompatActivity() {
         toggleLowBalanceNotifications?.let {
             it.isChecked = global.model.notifications.isLowBalanceNotificationsEnabled
             notificationsEnabledToggled(it.isChecked)
-            it.setOnCheckedChangeListener { _, checked -> notificationsEnabledToggled(checked, saveState = true) }
+            it.setOnCheckedChangeListener { _, checked -> notificationsEnabledToggled(checked, savePreference = true) }
         }
         toggleLowBalanceContainer?.setOnClickListener { toggleLowBalanceNotifications?.toggle() }
+
+        lowBalanceLimitContainer?.setOnClickListener {
+            val dialog = MaterialDialog.Builder(this)
+                    .title(R.string.prefs_notifications_low_balance_label)
+                    .customView(R.layout.dialog_number_picker, false)
+                    .negativeText(R.string.action_cancel)
+                    .positiveText(R.string.action_save)
+                    .onPositive { dialog, action->
+                        if (action == DialogAction.POSITIVE) {
+                            val numberPicker = dialog.customView?.findViewById(R.id.dialog_notify_number_picker) as NumberPicker
+                            setLowBalanceLimit(numberPicker.value, savePreference = true)
+                        }
+                    }
+                    .build()
+            val numberPicker = dialog.customView?.findViewById(R.id.dialog_notify_number_picker) as NumberPicker
+            numberPicker.minValue = Constants.PREFS_NOTIFICATION_LOW_BALANCE_LIMIT_MIN
+            numberPicker.maxValue = Constants.PREFS_NOTIFICATION_LOW_BALANCE_LIMIT_MAX
+            numberPicker.wrapSelectorWheel = false
+            numberPicker.value = global.model.notifications.lowBalanceNotificationLimit
+            dialog.show()
+        }
 
 
         setCardNumber(global.model.cardData.cardNumber)
         setMenuLang(global.model.preferredMenuLanguage)
-
-
     }
 
-    private fun notificationsEnabledToggled(enabled: Boolean, saveState: Boolean = false) {
+    private fun setLowBalanceLimit(limit: Int, savePreference: Boolean = false) {
+        val limitToSet: Int
+        if (limit < Constants.PREFS_NOTIFICATION_LOW_BALANCE_LIMIT_MIN ||
+                limit > Constants.PREFS_NOTIFICATION_LOW_BALANCE_LIMIT_MAX) {
+            limitToSet = Constants.PREFS_NOTIFICATION_LOW_BALANCE_LIMIT_DEFAULT
+        } else {
+            limitToSet = limit
+        }
+
+        val lowBalanceLimitString = getString(R.string.currency_suffix, limitToSet.toString())
+        lowBalanceLimitText?.text = lowBalanceLimitString
+        if (savePreference) {
+            val global = application as GlobalState
+            global.model.notifications.lowBalanceNotificationLimit = limitToSet
+            global.saveNotificationData()
+        }
+    }
+
+    private fun notificationsEnabledToggled(enabled: Boolean, savePreference: Boolean = false) {
         lowBalanceLimitContainer?.let {
             it.isClickable = enabled
             it.isFocusable = enabled
@@ -118,6 +156,12 @@ class SettingsActivity : AppCompatActivity() {
             } else {
                 it.alpha = 0.2f
             }
+        }
+
+        if (savePreference) {
+            val global = application as GlobalState
+            global.model.notifications.isLowBalanceNotificationsEnabled = enabled
+            global.saveNotificationData()
         }
     }
 
