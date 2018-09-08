@@ -24,6 +24,8 @@ class AppFirstRunActivity : AppIntro() {
 
         addSlide(AppFirstRunAddCardFragment())
 
+        addSlide(AppIntroFragment.newInstance(getString(R.string.slide_login_title), getString(R.string.slide_login_desc), R.drawable.img_slide_card, bkgColor))
+
         skipButtonEnabled = false
         setSeparatorColor(bkgColor)
     }

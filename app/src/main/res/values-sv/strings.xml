@@ -74,6 +74,8 @@
     <string name="dialog_main_login_title">Ej inloggad!</string>
     <string name="dialog_main_login_desc">Det verkar som att du inte är inloggad i korttjänsten. Du kommer inte kunna få saldo-uppdateringar. Vill du logga in?</string>
     <string name="action_login">Logga In</string>
+    <string name="slide_login_title">Ett sista steg…</string>
+    <string name="slide_login_desc">För att kunna få saldouppdateringar så måste du logga in i korttjänsten. Du behöver bara göra detta en gång och du kommer att kunna göra det i nästa skärm.</string>
 
     <plurals name="dish">
         <item quantity="one">1 rätt</item>
