@@ -37,8 +37,10 @@ class Model : IModel {
 
     override var userInfo: String = ""
         set(value) {
-            field = value
-            notifyUserInfoChangedListeners()
+            if (field != value) {
+                field = value
+                notifyUserInfoChangedListeners()
+            }
         }
 
     override fun addOnUserInfoChangedListener(listener: OnUserInfoChangedListener) {

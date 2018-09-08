@@ -69,6 +69,11 @@
     <string name="dialog_user_info_finish_desc">Det verkar som att du inte har loggat in ännu, är du säker på att du vill gå tillbaka?</string>
     <string name="dialog_user_info_ready_title">Du är färdig!</string>
     <string name="dialog_user_info_ready_desc">Det verkar som att du har loggat in, vill du gå tillbaka?</string>
+    <string name="dialog_user_info_instruction_title">Inloggning:</string>
+    <string name="dialog_user_info_instruction_desc">1. Skriv in ditt kortnummer\n<i>(testa kopiera-knappen)</i>\n\n2. Logga in med dina uppgifter\n\n<b>3. VIKTIGT:</b> Kryssa i \"kom ihåg mig\"</string>
+    <string name="dialog_main_login_title">Ej inloggad!</string>
+    <string name="dialog_main_login_desc">Det verkar som att du inte är inloggad i korttjänsten. Du kommer inte kunna få saldo-uppdateringar. Vill du logga in?</string>
+    <string name="action_login">Logga In</string>
 
     <plurals name="dish">
         <item quantity="one">1 rätt</item>

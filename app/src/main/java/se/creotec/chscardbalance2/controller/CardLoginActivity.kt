@@ -46,6 +46,8 @@ class CardLoginActivity : AppCompatActivity(), OnUserInfoChangedListener {
 
         webView.webViewClient = LoginWebClient(Uri.parse(targetURL))
         webView.loadUrl(targetURL)
+
+        showInstructions()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -70,6 +72,14 @@ class CardLoginActivity : AppCompatActivity(), OnUserInfoChangedListener {
             Toast.makeText(this, toastString, Toast.LENGTH_LONG).show()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showInstructions() {
+        AlertDialog.Builder(this)
+                .setTitle(R.string.dialog_user_info_instruction_title)
+                .setMessage(R.string.dialog_user_info_instruction_desc)
+                .setPositiveButton(R.string.action_close, null)
+                .show()
     }
 
     private fun maybeFinish() {

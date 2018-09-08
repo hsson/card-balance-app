@@ -61,6 +61,7 @@
     <string name="error_card_failed">Updating the card failed</string>
     <string name="error_menu_failed">Updating the food menu failed</string>
     <string name="action_continue">Continue</string>
+    <string name="action_login">Login</string>
 
     <string name="menu_about">About</string>
     <string name="menu_settings">Settings</string>
@@ -75,6 +76,11 @@
     <string name="dialog_user_info_finish_desc">It seems you haven\'t completed the login process yet, are you sure you want to go back?</string>
     <string name="dialog_user_info_ready_title">You\'re all set!</string>
     <string name="dialog_user_info_ready_desc">It seems you\'ve completed the login, would you like to go back?</string>
+    <string name="dialog_user_info_instruction_title">Login Instructions:</string>
+    <string name="dialog_user_info_instruction_desc">1. Submit your card number\n<i>(try the copy button)</i>\n\n2. Login using your credentials\n\n<b>3. IMPORTANT:</b> Check \"remember me\"</string>
+
+    <string name="dialog_main_login_title">Not logged in!</string>
+    <string name="dialog_main_login_desc">It seems you\'re not logged in to the card balance service. You will not be able to get balance updates. Do you wish to login?</string>
 
     <string name="prefs_general_title">General</string>
     <string name="prefs_notifications_title">Notifications</string>

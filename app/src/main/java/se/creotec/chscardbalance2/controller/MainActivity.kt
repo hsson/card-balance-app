@@ -17,6 +17,7 @@ import android.support.design.widget.*
 import android.support.v4.widget.DrawerLayout
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
@@ -76,6 +77,19 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
     override fun onResume() {
         super.onResume()
         maybeUpdate()
+
+        if ((application as GlobalState).model.userInfo.isBlank()) {
+            AlertDialog.Builder(this)
+                    .setTitle(R.string.dialog_main_login_title)
+                    .setMessage(R.string.dialog_main_login_desc)
+                    .setPositiveButton(R.string.action_login) { _, _ ->
+                        Intent(this, CardLoginActivity::class.java).apply {
+                            startActivity(this)
+                        }
+                    }
+                    .setNegativeButton(R.string.action_cancel, null)
+                    .show()
+        }
     }
 
     // Restaurant was clicked
