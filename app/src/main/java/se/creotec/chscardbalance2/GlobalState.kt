@@ -17,6 +17,9 @@ import se.creotec.chscardbalance2.model.*
 import se.creotec.chscardbalance2.service.BalanceService
 import se.creotec.chscardbalance2.util.AlarmScheduler
 import java.util.*
+import android.app.NotificationManager
+import android.app.NotificationChannel
+import android.os.Build
 
 class GlobalState : Application() {
 
@@ -28,6 +31,7 @@ class GlobalState : Application() {
     override fun onCreate() {
         super.onCreate()
         preferences = getSharedPreferences(Constants.PREFS_FILE_NAME, Context.MODE_PRIVATE)
+        createNotificationChannels()
         loadCardData()
         loadMenuData()
         loadNotificationData()
@@ -37,6 +41,17 @@ class GlobalState : Application() {
             }
         }
         setupImageLoader()
+    }
+
+    private fun createNotificationChannels() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.notifications_title_balance)
+            val description = getString(R.string.notifications_desc_balance)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(Constants.NOTIFICATION_CHANNEL_BALANCE, name, importance)
+            channel.description = description
+            getSystemService(NotificationManager::class.java)?.createNotificationChannel(channel)
+        }
     }
 
     /**

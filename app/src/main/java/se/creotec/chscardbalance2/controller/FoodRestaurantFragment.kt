@@ -14,10 +14,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import se.creotec.chscardbalance2.GlobalState
 import se.creotec.chscardbalance2.R
-import se.creotec.chscardbalance2.model.IModel
 import se.creotec.chscardbalance2.model.MenuData
 import se.creotec.chscardbalance2.model.OnMenuDataChangedListener
 import se.creotec.chscardbalance2.model.Restaurant

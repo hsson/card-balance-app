@@ -48,17 +48,17 @@ class SettingsActivity : AppCompatActivity() {
             val dialog = MaterialDialog.Builder(this)
                     .title(R.string.prefs_card_number)
                     .inputType(InputType.TYPE_CLASS_NUMBER)
-                    .input(getString(R.string.card_number_hint), formattedNumber, {dialog, input ->
+                    .input(getString(R.string.card_number_hint), formattedNumber) { dialog, input ->
                         if (input.toString().replace(" ", "").length == Constants.CARD_NUMBER_LENGTH) {
                             dialog.getActionButton(DialogAction.POSITIVE).isEnabled = true
                             formattedNumber = input.toString()
                         } else {
                             dialog.getActionButton(DialogAction.POSITIVE).isEnabled = false
                         }
-                    })
-                    .onPositive({_,_ ->
+                    }
+                    .onPositive { _, _ ->
                         setCardNumber(formattedNumber.replace(" ", ""), true)
-                    })
+                    }
                     .alwaysCallInputCallback()
                     .negativeText(R.string.action_cancel)
                     .positiveText(R.string.action_save)
@@ -79,13 +79,13 @@ class SettingsActivity : AppCompatActivity() {
             MaterialDialog.Builder(this)
                     .title(R.string.prefs_menu_lang)
                     .items(R.array.prefs_menu_lang_list)
-                    .itemsCallbackSingleChoice(getDefaultLangIndex(global.model.preferredMenuLanguage), {_, _, which, _ ->
+                    .itemsCallbackSingleChoice(getDefaultLangIndex(global.model.preferredMenuLanguage)) { _, _, which, _ ->
                         when (which) {
                             0 -> setMenuLang(Constants.ENDPOINT_MENU_LANG_EN, true)
                             1 -> setMenuLang(Constants.ENDPOINT_MENU_LANG_SV, true)
                         }
                         true
-                    })
+                    }
                     .negativeText(R.string.action_cancel)
                     .show()
 

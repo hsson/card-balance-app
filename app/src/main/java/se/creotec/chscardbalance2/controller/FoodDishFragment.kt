@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.fragment_dish_list.*
 import se.creotec.chscardbalance2.R
 import se.creotec.chscardbalance2.model.Dish
 import se.creotec.chscardbalance2.model.Restaurant
@@ -43,8 +44,7 @@ class FoodDishFragment : Fragment() {
         recyclerView.adapter = FoodDishRecyclerViewAdapter(restaurant.dishes, dishListener)
 
         if (restaurant.isClosed()) {
-            val emptyView = view.findViewById(R.id.restaurant_closed_view)
-            emptyView.visibility = View.VISIBLE
+            restaurant_closed_view.visibility = View.VISIBLE
         }
         return view
     }
@@ -53,7 +53,7 @@ class FoodDishFragment : Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         if (context is OnListFragmentInteractionListener) {
-            dishListener = context as OnListFragmentInteractionListener?
+            dishListener = context
         } else {
             throw RuntimeException(context!!.toString() + " must implement OnListFragmentInteractionListener")
         }
@@ -69,7 +69,7 @@ class FoodDishFragment : Fragment() {
     }
 
     companion object {
-        private val ARG_RESTAURANT = "dish_restaurant"
+        private const val ARG_RESTAURANT = "dish_restaurant"
 
         fun newInstance(restaurant: Restaurant): FoodDishFragment {
             val fragment = FoodDishFragment()

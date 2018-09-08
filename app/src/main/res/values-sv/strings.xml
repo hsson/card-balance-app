@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="notifications_title_balance">Lågt saldo</string>
+    <string name="notifications_desc_balance">Få en notis när ditt saldo är lågt</string>
     <string name="app_name">Chalmers Kårkort</string>
     <string name="restaurant_image_desc">Restaurangbild</string>
     <string name="restaurant_closed_today">Stängd</string>

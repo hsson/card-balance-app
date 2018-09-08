@@ -7,16 +7,15 @@ package se.creotec.chscardbalance2.controller
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-
-import java.util.ArrayList
+import java.util.*
 
 class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     private val fragmentList: MutableList<Fragment>
     private val fragmentTitleList: MutableList<String>
 
     init {
-        fragmentList = ArrayList<Fragment>()
-        fragmentTitleList = ArrayList<String>()
+        fragmentList = ArrayList()
+        fragmentTitleList = ArrayList()
     }
 
     override fun getItem(position: Int): Fragment {

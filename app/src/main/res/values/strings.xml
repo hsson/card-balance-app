@@ -2,6 +2,10 @@
     <string name="dummy_text" translatable="false">Dummy text</string>
     <string name="app_name">Chalmers Card Balance</string>
 
+    <string name="notifications_title_balance">Low balance</string>
+    <string name="notifications_desc_balance">Get notified when balance is low</string>
+    
+
     <string name="restaurant_image_desc">Restaurant\'s Image</string>
     <string name="restaurant_closed_today">Closed Today</string>
     <string name="restaurant_closed_today_detailed">This restaurant is closed today</string>

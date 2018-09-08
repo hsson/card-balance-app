@@ -9,6 +9,8 @@ object Constants {
     // Don't forget to set to false again for next release.
     val VERSION_SHOULD_SHOW_UPGRADE_INTRO = false
 
+    val NOTIFICATION_CHANNEL_BALANCE = "balance_channel_id"
+
     val ENDPOINT_BALANCE = "/balance"
     val ENDPOINT_MENU = "/menu"
     val ENDPOINT_CHARGE = "/charge"

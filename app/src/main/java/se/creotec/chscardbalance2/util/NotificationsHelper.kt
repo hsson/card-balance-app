@@ -12,6 +12,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.TaskStackBuilder
+import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.GlobalState
 import se.creotec.chscardbalance2.R
 import se.creotec.chscardbalance2.controller.MainActivity
@@ -43,7 +44,7 @@ object NotificationsHelper {
         val contentText = context.getString(R.string.notification_text, roundedBalance.toString())
 
         val wearableExtended = NotificationCompat.WearableExtender().setBackground(wearableBkg)
-        val notificationBuilder = NotificationCompat.Builder(context)
+        val notificationBuilder = NotificationCompat.Builder(context, Constants.NOTIFICATION_CHANNEL_BALANCE)
                 .setSmallIcon(R.drawable.app_icon_bw)
                 .setLargeIcon(largeIcon)
                 .setContentTitle(context.getString(R.string.notification_title))

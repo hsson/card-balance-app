@@ -27,6 +27,7 @@ import android.widget.TextView
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_main.*
 import se.creotec.chscardbalance2.BuildConfig
 import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.GlobalState
@@ -105,18 +106,18 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
             parentView?.let {
                 if (service is BalanceService) {
                     Snackbar.make(it, R.string.error_card_failed, Snackbar.LENGTH_LONG)
-                            .setAction(R.string.action_retry, { _ ->
+                            .setAction(R.string.action_retry) { _ ->
                                 val updateBalance = Intent(this, BalanceService::class.java)
                                 updateBalance.action = Constants.ACTION_UPDATE_CARD
                                 sendUpdateRequest(updateBalance)
-                            }).show()
+                            }.show()
                 } else if (service is MenuService) {
                     Snackbar.make(it, R.string.error_menu_failed, Snackbar.LENGTH_LONG)
-                            .setAction(R.string.action_retry, { _ ->
+                            .setAction(R.string.action_retry) { _ ->
                                 val updateMenu = Intent(this, MenuService::class.java)
                                 updateMenu.action = Constants.ACTION_UPDATE_MENU
                                 sendUpdateRequest(updateMenu)
-                            }).show()
+                            }.show()
                 }
             }
         }
@@ -196,15 +197,15 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
 
     // Sets up the appbar
     private fun setupAppBar() {
-        val toolbar = findViewById(R.id.toolbar_main) as Toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar_main)
         setSupportActionBar(toolbar)
-        collapsingToolbarLayout = findViewById(R.id.toolbar_collapsing_layout) as CollapsingToolbarLayout
-        swipeRefresh = findViewById(R.id.swipe_refresh_container) as SwipeRefreshLayout
-        cardOwnerName = findViewById(R.id.toolbar_card_name) as TextView
-        cardNumber = findViewById(R.id.toolbar_card_number) as TextView
-        appBarLayout = findViewById(R.id.app_bar_layout) as AppBarLayout
-        drawerLayout = findViewById(R.id.main_drawer_layout) as DrawerLayout
-        drawerView = findViewById(R.id.main_drawer_view) as NavigationView
+        collapsingToolbarLayout = findViewById(R.id.toolbar_collapsing_layout)
+        swipeRefresh = findViewById(R.id.swipe_refresh_container)
+        cardOwnerName = findViewById(R.id.toolbar_card_name)
+        cardNumber = findViewById(R.id.toolbar_card_number)
+        appBarLayout = findViewById(R.id.app_bar_layout)
+        drawerLayout = findViewById(R.id.main_drawer_layout)
+        drawerView = findViewById(R.id.main_drawer_view)
 
         drawerView?.setNavigationItemSelectedListener(this)
         drawerToggle = object : ActionBarDrawerToggle(
@@ -212,15 +213,14 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
                 drawerLayout,
                 R.string.action_open,
                 R.string.action_close) {
-
-            override fun onDrawerClosed(drawerView: View?) {
-                super.onDrawerClosed(drawerView)
+            override fun onDrawerClosed(drawerView: View) {
+                super.onDrawerClosed(main_drawer_view)
                 invalidateOptionsMenu()
                 syncState()
             }
 
-            override fun onDrawerOpened(drawerView: View?) {
-                super.onDrawerOpened(drawerView)
+            override fun onDrawerOpened(drawerView: View) {
+                super.onDrawerOpened(main_drawer_view)
                 invalidateOptionsMenu()
                 syncState()
             }
@@ -267,7 +267,7 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
 
     // Adds action to the FAB
     private fun setupFAB() {
-        quickChargeFAB = findViewById(R.id.fab_charge_card) as FloatingActionButton
+        quickChargeFAB = findViewById<FloatingActionButton>(R.id.fab_charge_card)
         quickChargeFAB?.let {
             it.setOnClickListener {
                 launchChargeSite()
@@ -318,9 +318,9 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
             swipeRefresh?.isRefreshing = false
             parentView?.let {
                 Snackbar.make(it, R.string.error_no_internet, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.action_connect, { _ ->
+                        .setAction(R.string.action_connect) { _ ->
                             startActivity(Intent(android.provider.Settings.ACTION_WIFI_SETTINGS))
-                        }).show()
+                        }.show()
             }
         }
     }
@@ -335,7 +335,7 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
 
     companion object {
         private val LOG_TAG = MainActivity::class.java.name
-        private val HOUR: Long = 1000 * 60 * 60 // 1 hour in ms
+        private const val HOUR: Long = 1000 * 60 * 60 // 1 hour in ms
 
         private val HALF_HOUR_AGO: Long = HOUR/2
             get() = System.currentTimeMillis() - field

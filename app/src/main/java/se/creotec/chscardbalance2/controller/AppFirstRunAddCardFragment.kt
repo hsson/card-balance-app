@@ -32,10 +32,6 @@ class AppFirstRunAddCardFragment : Fragment(), ISlidePolicy {
     private var cardNumberEdit: EditText? = null
     private var introParent: AppIntro? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -45,18 +41,17 @@ class AppFirstRunAddCardFragment : Fragment(), ISlidePolicy {
         cardNumberEdit?.addTextChangedListener(TextEmptyWatcher(clearButton))
         cardNumberEdit?.addTextChangedListener(CardNumberMask())
         // Make max length = total number of digits in card number + spaces between with good formatting
-        val filters = Array<InputFilter>(1, { _ -> InputFilter.LengthFilter(Constants.CARD_NUMBER_LENGTH + 3) })
+        val filters = Array<InputFilter>(1) { _ -> InputFilter.LengthFilter(Constants.CARD_NUMBER_LENGTH + 3) }
         cardNumberEdit?.filters = filters
         clearButton.setOnClickListener { cardNumberEdit?.text?.clear() }
-        cardNumberEdit?.setOnEditorActionListener({view,actionID,_  ->
+        cardNumberEdit?.setOnEditorActionListener { _, actionID, _  ->
             if (actionID == EditorInfo.IME_ACTION_DONE) {
-                val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.applicationWindowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+                (activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(view.applicationWindowToken, InputMethodManager.HIDE_NOT_ALWAYS)
                 true
             } else {
                 false
             }
-        })
+        }
         return view
     }
 
@@ -65,7 +60,7 @@ class AppFirstRunAddCardFragment : Fragment(), ISlidePolicy {
             val cardNumber: String = cardNumberEdit?.text.toString().replace(" ", "")
             val cardData = CardData()
             cardData.cardNumber = cardNumber
-            val global = activity.application as GlobalState
+            val global = requireActivity().application as GlobalState
             global.model.cardData = cardData
             global.saveCardData()
             global.scheduleUpdating()

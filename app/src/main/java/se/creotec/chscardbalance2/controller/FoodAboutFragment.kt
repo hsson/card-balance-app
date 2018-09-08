@@ -13,9 +13,9 @@ import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.TextView
 import com.google.gson.Gson
-import org.w3c.dom.Text
+import kotlinx.android.synthetic.main.fragment_restaurant_about.*
 import se.creotec.chscardbalance2.R
 import se.creotec.chscardbalance2.model.OpenHour
 import se.creotec.chscardbalance2.model.Restaurant
@@ -25,13 +25,6 @@ import java.util.*
 class FoodAboutFragment : Fragment() {
 
     private var restaurant: Restaurant = Restaurant("")
-
-    private var websiteButton: Button? = null
-    private var rating: RatingBar? = null
-    private var openNow: TextView? = null
-    private var openHours: TextView? = null
-    private var location: TextView? = null
-    private var priceEstimate: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,52 +37,46 @@ class FoodAboutFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_restaurant_about, container, false)
-        rating = view.findViewById(R.id.restaurant_rating_bar) as RatingBar
-        websiteButton = view.findViewById(R.id.restaurant_visit_website) as Button
-        openNow = view.findViewById(R.id.restaurant_about_open_now) as TextView
-        openHours = view.findViewById(R.id.restaurant_about_open_hours) as TextView
-        priceEstimate = view.findViewById(R.id.restaurant_about_avg_price) as TextView
-        location = view.findViewById(R.id.restaurant_about_campus) as TextView
 
-        rating?.rating = restaurant.rating
-        setOpenHours(openNow, openHours)
-        websiteButton?.setOnClickListener {
+        restaurant_rating_bar.rating = restaurant.rating
+        setOpenHours(restaurant_about_open_now, restaurant_about_open_hours)
+        restaurant_visit_website.setOnClickListener {
             val webIntent = CustomTabsIntent.Builder()
-                    .setToolbarColor(activity.getColor(R.color.color_primary))
+                    .setToolbarColor(ContextCompat.getColor(requireContext(), R.color.color_primary))
                     .build()
             webIntent.launchUrl(context, Uri.parse(restaurant.websiteUrl))
         }
 
         if (restaurant.averagePrice != 0) {
-            priceEstimate?.text = getString(R.string.restaurant_about_avg_price, restaurant.averagePrice)
+            restaurant_about_avg_price.text = getString(R.string.restaurant_about_avg_price, restaurant.averagePrice)
         } else {
-            priceEstimate?.text = getString(R.string.restaurant_about_avg_no_price)
+            restaurant_about_avg_price.text = getString(R.string.restaurant_about_avg_no_price)
         }
 
-        location?.text = getString(R.string.restaurant_about_campus, restaurant.campus)
+        restaurant_about_campus.text = getString(R.string.restaurant_about_campus, restaurant.campus)
 
         return view
     }
 
     override fun onResume() {
         super.onResume()
-        setOpenHours(openNow, openHours)
+        setOpenHours(restaurant_about_open_now, restaurant_about_open_hours)
     }
 
-    private fun setOpenHours(openNow: TextView?, openHours: TextView?) {
+    private fun setOpenHours(openNow: TextView, openHours: TextView) {
         if (restaurant.dishes.isEmpty()) {
-            showClosed(openNow, openHours, false)
+            showClosed(restaurant_about_open_now, openHours, false)
         } else {
             val c = Calendar.getInstance()
             c.time = Date()
             restaurant.openHours.forEach { oh ->
                 if (oh.dayOfWeek == c.get(Calendar.DAY_OF_WEEK)) {
                     if (Util.isBetweenHours(oh.startHour, oh.endHour)) {
-                        openNow?.text = getString(R.string.restaurant_about_open_now)
-                        openNow?.setTextColor(ContextCompat.getColor(activity, R.color.color_success))
+                        openNow.text = getString(R.string.restaurant_about_open_now)
+                        openNow.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_success))
                         val startFormatted = DateUtils.formatDateTime(activity, OpenHour.toUnixTimeStamp(oh.startHour), DateUtils.FORMAT_SHOW_TIME)
                         val endFormatted = DateUtils.formatDateTime(activity, OpenHour.toUnixTimeStamp(oh.endHour), DateUtils.FORMAT_SHOW_TIME)
-                        openHours?.text = getString(R.string.restaurant_about_hours_range, startFormatted, endFormatted)
+                        openHours.text = getString(R.string.restaurant_about_hours_range, startFormatted, endFormatted)
                         return
                     } else {
                         showClosed(openNow, openHours, true, before = OpenHour.isBefore(oh.startHour), openHour = oh)
@@ -97,15 +84,15 @@ class FoodAboutFragment : Fragment() {
                     }
                 }
             }
-            openNow?.text = getString(R.string.restaurant_about_open_today)
-            openNow?.setTextColor(ContextCompat.getColor(activity, R.color.color_success))
-            openHours?.text = ""
+            openNow.text = getString(R.string.restaurant_about_open_today)
+            openNow.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_success))
+            openHours.text = ""
         }
     }
 
-    private fun showClosed(openNow: TextView?, openHours: TextView?, now: Boolean, before: Boolean = false, openHour: OpenHour? = null) {
+    private fun showClosed(openNow: TextView, openHours: TextView?, now: Boolean, before: Boolean = false, openHour: OpenHour? = null) {
         if (now) {
-            openNow?.text = getString(R.string.restaurant_about_closed_now)
+            openNow.text = getString(R.string.restaurant_about_closed_now)
             if (before && openHour != null) {
                 val startFormatted = DateUtils.formatDateTime(activity, OpenHour.toUnixTimeStamp(openHour.startHour), DateUtils.FORMAT_SHOW_TIME)
                 openHours?.text = getString(R.string.restaurant_about_opens_at, startFormatted)
@@ -113,10 +100,10 @@ class FoodAboutFragment : Fragment() {
                 openHours?.text = ""
             }
         } else {
-            openNow?.text = getString(R.string.restaurant_about_closed_today)
+            openNow.text = getString(R.string.restaurant_about_closed_today)
             openHours?.text = ""
         }
-        openNow?.setTextColor(ContextCompat.getColor(activity, R.color.color_fail))
+        openNow.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_fail))
     }
 
     companion object {

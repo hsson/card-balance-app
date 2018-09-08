@@ -37,9 +37,9 @@ class Model : IModel {
         }
 
     init {
-        cardDataChangedListeners = HashSet<OnCardDataChangedListener>()
-        menuDataChangedListeners = HashSet<OnMenuDataChangedListener>()
-        serviceFailedListeners = HashSet<IModel.OnServiceFailedListener>()
+        cardDataChangedListeners = HashSet()
+        menuDataChangedListeners = HashSet()
+        serviceFailedListeners = HashSet()
         quickChargeURL = BuildConfig.BACKEND_URL + Constants.ENDPOINT_CHARGE
     }
 

@@ -57,7 +57,6 @@ class SplashActivity : AppCompatActivity() {
                     startMain()
                 }
             }
-            else -> startMain() // Should never happen
         }
     }
 
