@@ -64,6 +64,11 @@
     <string name="prefs_menu_lang_en">Engelska</string>
     <string name="prefs_menu_lang_sv">Svenska</string>
     <string name="login_title">Kortinloggning</string>
+    <string name="action_continue">Fortsätt</string>
+    <string name="dialog_user_info_finish_title">Är du säker?</string>
+    <string name="dialog_user_info_finish_desc">Det verkar som att du inte har loggat in ännu, är du säker på att du vill gå tillbaka?</string>
+    <string name="dialog_user_info_ready_title">Du är färdig!</string>
+    <string name="dialog_user_info_ready_desc">Det verkar som att du har loggat in, vill du gå tillbaka?</string>
 
     <plurals name="dish">
         <item quantity="one">1 rätt</item>

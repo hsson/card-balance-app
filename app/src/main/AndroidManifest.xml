@@ -28,7 +28,8 @@
         </activity>
         <activity
             android:name=".controller.MainActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:launchMode="singleInstance"/>
         <activity
             android:name=".controller.RestaurantPageActivity"
             android:theme="@style/AppTheme.Transparent.StatusBar" />
@@ -40,14 +41,12 @@
             android:name=".controller.AppFirstRunActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
         <activity
             android:label="@string/menu_settings"
             android:name=".controller.SettingsActivity"
             android:theme="@style/SettingsTheme"
             android:screenOrientation="portrait"
             android:parentActivityName=".controller.MainActivity" />
-
         <activity android:label="@string/login_title"
             android:name=".controller.CardLoginActivity"
             android:launchMode="singleInstance"

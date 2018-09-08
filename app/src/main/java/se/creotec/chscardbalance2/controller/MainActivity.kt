@@ -41,8 +41,7 @@ import se.creotec.chscardbalance2.util.Util
 import java.util.*
 
 class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentInteractionListener,
-        OnCardDataChangedListener, OnMenuDataChangedListener, IModel.OnServiceFailedListener, NavigationView.OnNavigationItemSelectedListener {
-
+        OnCardDataChangedListener, OnMenuDataChangedListener, IModel.OnServiceFailedListener, NavigationView.OnNavigationItemSelectedListener, OnUserInfoChangedListener {
     private var parentView: View? = null
     private var appBarLayout: AppBarLayout? = null
     private var collapsingToolbarLayout: CollapsingToolbarLayout? = null
@@ -66,6 +65,7 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
         global.model.addCardDataListener(this)
         global.model.addMenuDataListener(this)
         global.model.addServiceFailedListener(this)
+        global.model.addOnUserInfoChangedListener(this)
 
         setupAppBar()
         setupFAB()
@@ -98,6 +98,12 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
     override fun menuDataChanged(newData: MenuData) {
         Log.i(LOG_TAG, "Menu data was updated")
         runOnUiThread { swipeRefresh?.isRefreshing = false }
+    }
+
+    override fun onUserInfoChanged(newUserInfo: String) {
+        if (newUserInfo.isNotBlank()) {
+            maybeUpdate(force = true)
+        }
     }
 
     override fun serviceFailed(service: AbstractBackendService<*>, error: String) {

@@ -11,6 +11,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -22,15 +23,17 @@ import android.widget.Toast
 import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.GlobalState
 import se.creotec.chscardbalance2.R
+import se.creotec.chscardbalance2.model.OnUserInfoChangedListener
 import se.creotec.chscardbalance2.util.Util
 
-class CardLoginActivity : AppCompatActivity() {
+class CardLoginActivity : AppCompatActivity(), OnUserInfoChangedListener {
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         CookieManager.getInstance().setAcceptCookie(true)
         val global = application as GlobalState
+        global.model.addOnUserInfoChangedListener(this)
         val webView = WebView(application)
         setContentView(webView)
         val targetURL = global.model.quickChargeURL
@@ -54,9 +57,7 @@ class CardLoginActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_item_finished) {
-            // User is finished, go back
-            // TODO: GO back to main activity and force a card update
-            // TODO: return true
+            maybeFinish()
         } else if (item?.itemId == R.id.action_item_copy_number) {
             val global = application as GlobalState
 
@@ -69,6 +70,41 @@ class CardLoginActivity : AppCompatActivity() {
             Toast.makeText(this, toastString, Toast.LENGTH_LONG).show()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun maybeFinish() {
+        // User is finished, go back
+        val global = application as GlobalState
+        if (global.model.userInfo.isNotBlank()) {
+            goToMain()
+        } else {
+            // Ask user
+            AlertDialog.Builder(this)
+                    .setTitle(R.string.dialog_user_info_finish_title)
+                    .setMessage(R.string.dialog_user_info_finish_desc)
+                    .setNegativeButton(R.string.action_cancel, null)
+                    .setPositiveButton(R.string.action_continue) { _, _ ->
+                        goToMain()
+                    }
+                    .show()
+        }
+    }
+
+    override fun onUserInfoChanged(newUserInfo: String) {
+        AlertDialog.Builder(this)
+                .setTitle(R.string.dialog_user_info_ready_title)
+                .setMessage(R.string.dialog_user_info_ready_desc)
+                .setNegativeButton(R.string.action_cancel, null)
+                .setPositiveButton(R.string.action_continue) { _, _ ->
+                    goToMain()
+                }
+                .show()
+    }
+
+    private fun goToMain() {
+        Intent(this, MainActivity::class.java).apply {
+            startActivity(this)
+        }
     }
 
     inner class LoginWebClient(private val hostURL: Uri) : WebViewClient() {

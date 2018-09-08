@@ -149,6 +149,9 @@ class GlobalState : Application() {
         }
     }
 
+    /**
+     * Load data about user info needed for card balance
+     */
     fun loadUserInfoData() {
         preferences?.let {
             val userInfo = it.getString(Constants.PREFS_COOKIE_USERINFO_KEY, "")
@@ -156,6 +159,9 @@ class GlobalState : Application() {
         }
     }
 
+    /**
+     * Save user info data to persistent storage
+     */
     @Synchronized fun saveUserInfoData() {
         preferences?.let {
             val editor = it.edit()
