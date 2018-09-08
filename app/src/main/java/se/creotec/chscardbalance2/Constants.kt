@@ -11,7 +11,7 @@ object Constants {
 
     val NOTIFICATION_CHANNEL_BALANCE = "balance_channel_id"
 
-    val ENDPOINT_BALANCE = "/balance"
+    val ENDPOINT_BALANCE = "/balance/v2"
     val ENDPOINT_MENU = "/menu"
     val ENDPOINT_CHARGE = "/charge"
     val ENDPOINT_MENU_LANG_EN = "en"

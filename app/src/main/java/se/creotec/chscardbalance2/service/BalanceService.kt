@@ -24,15 +24,16 @@ class BalanceService : AbstractBackendService<CardData>(BalanceService::class.ja
         } else if (intent.action == Constants.ACTION_UPDATE_CARD) {
             val global = application as GlobalState
             val cardNumber = global.model.cardData.cardNumber
-            cardNumber?.let {
-                updateCard(it, global)
+            val userInfo = global.model.userInfo
+            if (cardNumber != null && userInfo.isNotBlank()) {
+                updateCard(cardNumber, global, userInfo)
             }
         }
     }
 
-    private fun updateCard(cardNumber: String, global: GlobalState) {
+    private fun updateCard(cardNumber: String, global: GlobalState, userInfo: String) {
         try {
-            val response = getBackendData(Constants.ENDPOINT_BALANCE, cardNumber)
+            val response = getBackendData(Constants.ENDPOINT_BALANCE, "$cardNumber/$userInfo")
             if (response.isSuccess) {
                 global.model.cardData = response.data ?: CardData()
                 global.model.cardLastTimeUpdated = System.currentTimeMillis()
@@ -47,9 +48,11 @@ class BalanceService : AbstractBackendService<CardData>(BalanceService::class.ja
     }
 
     override fun isVariableValid(variable: String): Boolean {
-        if (variable.length != Constants.CARD_NUMBER_LENGTH) {
+        val parts = variable.split("/")
+        val cardNumber = parts[0]
+        if (cardNumber.length != Constants.CARD_NUMBER_LENGTH) {
             return false
         }
-        return variable.matches("[0-9]+".toRegex())
+        return cardNumber.matches("[0-9]+".toRegex()) && parts.getOrNull(1)?.isNotBlank() ?: false
     }
 }
