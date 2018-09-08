@@ -46,6 +46,7 @@
     <string name="action_copy_card_number">Copy Card Number</string>
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
+    <string name="action_finish">Finish</string>
     <string name="action_view_on_github">View on GitHub</string>
     <string name="action_visit_website">Visit Website</string>
     <string name="action_clear">Clear</string>
@@ -81,6 +82,8 @@
         <item>@string/prefs_menu_lang_en</item>
         <item>@string/prefs_menu_lang_sv</item>
     </string-array>
+
+    <string name="login_title">Card Login</string>
 
     <plurals name="dish">
         <item quantity="zero">No dishes</item>

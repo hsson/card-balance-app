@@ -5,9 +5,12 @@
 package se.creotec.chscardbalance2
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.util.Log
 import com.google.gson.Gson
 import com.nostra13.universalimageloader.core.DisplayImageOptions
@@ -17,9 +20,6 @@ import se.creotec.chscardbalance2.model.*
 import se.creotec.chscardbalance2.service.BalanceService
 import se.creotec.chscardbalance2.util.AlarmScheduler
 import java.util.*
-import android.app.NotificationManager
-import android.app.NotificationChannel
-import android.os.Build
 
 class GlobalState : Application() {
 
@@ -35,6 +35,7 @@ class GlobalState : Application() {
         loadCardData()
         loadMenuData()
         loadNotificationData()
+        loadUserInfoData()
         model.cardData.cardNumber?.let {
             if (it != "") {
                 scheduleUpdating()
@@ -144,6 +145,21 @@ class GlobalState : Application() {
         preferences?.let {
             val editor = it.edit()
             editor.putString(Constants.PREFS_NOTIFICATIONS_DATA_KEY, notificationsJson)
+            editor.apply()
+        }
+    }
+
+    fun loadUserInfoData() {
+        preferences?.let {
+            val userInfo = it.getString(Constants.PREFS_COOKIE_USERINFO_KEY, "")
+            model.userInfo = userInfo
+        }
+    }
+
+    @Synchronized fun saveUserInfoData() {
+        preferences?.let {
+            val editor = it.edit()
+            editor.putString(Constants.PREFS_COOKIE_USERINFO_KEY, model.userInfo)
             editor.apply()
         }
     }

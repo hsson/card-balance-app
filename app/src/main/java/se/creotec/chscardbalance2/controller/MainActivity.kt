@@ -133,6 +133,10 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
                 item.isChecked = true
                 // TODO: Go to history
             }
+            R.id.drawer_menu_card_login -> {
+                val cardLoginIntent = Intent(this, CardLoginActivity::class.java)
+                startActivity(cardLoginIntent)
+            }
             R.id.drawer_menu_settings -> {
                 val settingsIntent = Intent(this, SettingsActivity::class.java)
                 startActivity(settingsIntent)

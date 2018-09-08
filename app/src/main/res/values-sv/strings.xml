@@ -34,6 +34,7 @@
     <string name="action_copy_card_number">Kopiera Kortnummer</string>
     <string name="action_save">Spara</string>
     <string name="action_cancel">Avbryt</string>
+    <string name="action_finish">Färdig</string>
     <string name="action_view_on_github">Öppna på GitHub</string>
     <string name="action_visit_website">Besök Hemsida</string>
     <string name="action_clear">Rensa</string>
@@ -62,6 +63,7 @@
     <string name="prefs_notifications_low_balance_label">Varningsgräns för lågt saldo</string>
     <string name="prefs_menu_lang_en">Engelska</string>
     <string name="prefs_menu_lang_sv">Svenska</string>
+    <string name="login_title">Kortinloggning</string>
 
     <plurals name="dish">
         <item quantity="one">1 rätt</item>

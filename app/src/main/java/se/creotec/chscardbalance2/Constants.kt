@@ -37,6 +37,7 @@ object Constants {
     val PREFS_MENU_LANGUAGE_DEFAULT = ENDPOINT_MENU_LANG_EN
     val PREFS_MENU_DATA_KEY = "menu_data"
     val PREFS_NOTIFICATIONS_DATA_KEY = "notifications_data"
+    val PREFS_COOKIE_USERINFO_KEY = "card_login_user_info"
     val PREFS_NOTIFICATION_LOW_BALANCE_ENABLED_DEFAULT = true
     val PREFS_NOTIFICATION_LOW_BALANCE_LIMIT_DEFAULT: Int = 50
     val PREFS_NOTIFICATION_LOW_BALANCE_LIMIT_MIN: Int = 10
@@ -48,4 +49,6 @@ object Constants {
     val INTENT_RESTAURANT_DATA_KEY = BuildConfig.APPLICATION_ID + ".RESTAURANT_DATA"
 
     val GITHUB_URL = "https://github.com/hsson/card-balance-app/"
+
+    val COOKIE_USERINFO = "userInfo"
 }

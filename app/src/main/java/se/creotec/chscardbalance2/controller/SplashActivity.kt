@@ -103,12 +103,10 @@ class SplashActivity : AppCompatActivity() {
             val preferences = getSharedPreferences(Constants.PREFS_FILE_NAME, Context.MODE_PRIVATE)
             val savedVersionCode = preferences.getInt(Constants.PREFS_VERSION_CODE_KEY, Constants.PREFS_VERSION_CODE_NONEXISTING)
 
-            if (savedVersionCode == Constants.PREFS_VERSION_CODE_NONEXISTING) {
-                return RunState.FIRST
-            } else if (currentVersionCode > savedVersionCode) {
-                return RunState.UPGRADED
-            } else {
-                return RunState.NORMAL
+            return when {
+                savedVersionCode == Constants.PREFS_VERSION_CODE_NONEXISTING -> RunState.FIRST
+                currentVersionCode > savedVersionCode -> RunState.UPGRADED
+                else -> RunState.NORMAL
             }
         }
 

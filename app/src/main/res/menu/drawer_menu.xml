@@ -10,10 +10,17 @@
             android:title="@string/menu_home"/>
 
         <item
+            android:checkable="false"
             android:id="@+id/drawer_menu_balance_history"
             android:icon="@drawable/clock_icon"
             android:visible="false"
             android:title="@string/menu_balance_history"/>
+
+        <item
+            android:checkable="false"
+            android:id="@+id/drawer_menu_card_login"
+            android:icon="@drawable/ic_card_icon"
+            android:title="@string/login_title" />
     </group>
 
     <group

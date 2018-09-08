@@ -23,6 +23,10 @@ interface IModel {
 
     var notifications: NotificationData
 
+    var userInfo: String
+    fun addOnUserInfoChangedListener(listener: OnUserInfoChangedListener)
+    fun notifyUserInfoChangedListeners()
+
     fun addServiceFailedListener(listener: OnServiceFailedListener)
     fun notifyServiceFailed(service: AbstractBackendService<*>, error: String)
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_item_finished"
+        android:title="@string/action_finish"
+        app:showAsAction="always|withText" />
+
+    <item android:id="@+id/action_item_copy_number"
+        android:title="@string/action_copy_card_number"
+        android:icon="@drawable/chrome_icon_copy"
+        app:showAsAction="ifRoom"/>
+</menu>

@@ -7,15 +7,14 @@ package se.creotec.chscardbalance2.model
 import se.creotec.chscardbalance2.BuildConfig
 import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.service.AbstractBackendService
-import se.creotec.chscardbalance2.util.NotificationsHelper
-import java.util.*
 
 class Model : IModel {
-    override val quickChargeURL: String
+    override val quickChargeURL: String = BuildConfig.BACKEND_URL + Constants.ENDPOINT_CHARGE
     override var notifications: NotificationData = NotificationData()
-    private val cardDataChangedListeners: MutableSet<OnCardDataChangedListener>
-    private val menuDataChangedListeners: MutableSet<OnMenuDataChangedListener>
-    private val serviceFailedListeners: MutableSet<IModel.OnServiceFailedListener>
+    private val cardDataChangedListeners: MutableSet<OnCardDataChangedListener> = HashSet()
+    private val menuDataChangedListeners: MutableSet<OnMenuDataChangedListener> = HashSet()
+    private val serviceFailedListeners: MutableSet<IModel.OnServiceFailedListener> = HashSet()
+    private val userInfoChangedListeners: MutableSet<OnUserInfoChangedListener> = HashSet()
 
     override var cardData: CardData = CardData()
         set(value) {
@@ -36,11 +35,18 @@ class Model : IModel {
             if (isOKLang(value)) field = value
         }
 
-    init {
-        cardDataChangedListeners = HashSet()
-        menuDataChangedListeners = HashSet()
-        serviceFailedListeners = HashSet()
-        quickChargeURL = BuildConfig.BACKEND_URL + Constants.ENDPOINT_CHARGE
+    override var userInfo: String = ""
+        set(value) {
+            field = value
+            notifyUserInfoChangedListeners()
+        }
+
+    override fun addOnUserInfoChangedListener(listener: OnUserInfoChangedListener) {
+        userInfoChangedListeners.add(listener)
+    }
+
+    override fun notifyUserInfoChangedListeners() {
+        userInfoChangedListeners.forEach { it.onUserInfoChanged(this.userInfo) }
     }
 
     override fun addCardDataListener(listener: OnCardDataChangedListener) {
