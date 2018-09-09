@@ -65,7 +65,7 @@ class SettingsActivity : AppCompatActivity() {
                     .build()
 
             dialog.inputEditText?.let {
-                val filters = Array<InputFilter>(1, { _ -> InputFilter.LengthFilter(Constants.CARD_NUMBER_LENGTH + 3) })
+                val filters = Array<InputFilter>(1) { _ -> InputFilter.LengthFilter(Constants.CARD_NUMBER_LENGTH + 3) }
                 it.filters = filters
                 it.addTextChangedListener(CardNumberMask())
             }
