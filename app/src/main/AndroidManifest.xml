@@ -41,6 +41,9 @@
             android:name=".controller.AppFirstRunActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <activity android:name=".controller.AppUserInfoUpgrade"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:label="@string/menu_settings"
             android:name=".controller.SettingsActivity"
