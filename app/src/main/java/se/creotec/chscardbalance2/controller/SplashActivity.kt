@@ -52,7 +52,10 @@ class SplashActivity : AppCompatActivity() {
                 val savedVersionCode = getSavedVersionCode()
                 if (savedVersionCode <= 44) {
                     // Upgraded to using the userInfo cookie in balance
-                    // TODO: Show special slide and save new code
+                    Intent(this, AppUserInfoUpgrade::class.java).also {
+                        startActivity(it)
+                        finish()
+                    }
                 } else {
                     completeUpgrade()
                     startMain()
