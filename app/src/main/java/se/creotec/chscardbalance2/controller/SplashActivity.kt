@@ -49,11 +49,12 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
             SplashActivity.RunState.UPGRADED -> {
-                completeUpgrade()
-                if (Constants.VERSION_SHOULD_SHOW_UPGRADE_INTRO) {
-                    // Show upgrade intro
-                    startMain() // TODO: Implement upgrade screen
+                val savedVersionCode = getSavedVersionCode()
+                if (savedVersionCode <= 44) {
+                    // Upgraded to using the userInfo cookie in balance
+                    // TODO: Show special slide and save new code
                 } else {
+                    completeUpgrade()
                     startMain()
                 }
             }
@@ -95,13 +96,17 @@ class SplashActivity : AppCompatActivity() {
         this.startService(updateBalanceIntent)
     }
 
+    private fun getSavedVersionCode(): Int {
+        val preferences = getSharedPreferences(Constants.PREFS_FILE_NAME, Context.MODE_PRIVATE)
+        return preferences.getInt(Constants.PREFS_VERSION_CODE_KEY, Constants.PREFS_VERSION_CODE_NONEXISTING)
+    }
+
     // Determines if the application was started normally, was just upgraded, or if it's the
     // first time the app is ran.
     private val runState: RunState
         get() {
             val currentVersionCode = BuildConfig.VERSION_CODE
-            val preferences = getSharedPreferences(Constants.PREFS_FILE_NAME, Context.MODE_PRIVATE)
-            val savedVersionCode = preferences.getInt(Constants.PREFS_VERSION_CODE_KEY, Constants.PREFS_VERSION_CODE_NONEXISTING)
+            val savedVersionCode = getSavedVersionCode()
 
             return when {
                 savedVersionCode == Constants.PREFS_VERSION_CODE_NONEXISTING -> RunState.FIRST

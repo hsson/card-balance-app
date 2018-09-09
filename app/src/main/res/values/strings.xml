@@ -37,6 +37,10 @@
 
     <string name="slide_login_title">One last step…</string>
     <string name="slide_login_desc">In order to get card balance updates, you will have to login to the card service. You only have to do this once and you will be prompted in the next screen.</string>
+    <string name="slide_login_sorry_title">Sorry</string>
+    <string name="slide_login_sorry_desc">As you probably noticed, your card balance hasn\'t updated all summer, and I have been slow at addressing the problem.</string>
+    <string name="slide_login_back_title">Back to normal</string>
+    <string name="slide_login_back_desc">The problem has now been resolved, and you can continue using the app as always.</string>
 
     <string name="card_number_hint" translatable="false">3819 1234 1234 1234</string>
     <string name="card_number_prompt">Enter card number</string>

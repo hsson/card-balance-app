@@ -76,6 +76,10 @@
     <string name="action_login">Logga In</string>
     <string name="slide_login_title">Ett sista steg…</string>
     <string name="slide_login_desc">För att kunna få saldouppdateringar så måste du logga in i korttjänsten. Du behöver bara göra detta en gång och du kommer att kunna göra det i nästa skärm.</string>
+    <string name="slide_login_sorry_title">Ursäkta</string>
+    <string name="slide_login_sorry_desc">Som du säkert har märkt så har ditt kortsaldo inte uppdaterats under hela sommaren, och jag har varit långsam i att lösa problemt.</string>
+    <string name="slide_login_back_title">Fungerande igen</string>
+    <string name="slide_login_back_desc">Problemet är nu löst, och du kan fortsätta använda appen som vanligt.</string>
 
     <plurals name="dish">
         <item quantity="one">1 rätt</item>
