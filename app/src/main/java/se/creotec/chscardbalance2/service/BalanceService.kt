@@ -22,11 +22,15 @@ class BalanceService : AbstractBackendService<CardData>(BalanceService::class.ja
         if (intent == null || intent.action == null || !hasInternet()) {
             return
         } else if (intent.action == Constants.ACTION_UPDATE_CARD) {
-            val global = application as GlobalState
-            val cardNumber = global.model.cardData.cardNumber
-            val userInfo = global.model.userInfo
-            if (cardNumber != null && userInfo.isNotBlank()) {
-                updateCard(cardNumber, global, userInfo)
+            try {
+                val global = application as GlobalState
+                val cardNumber = global.model.cardData.cardNumber
+                val userInfo = global.model.userInfo
+                if (cardNumber != null && userInfo.isNotBlank()) {
+                    updateCard(cardNumber, global, userInfo)
+                }
+            } catch (e: ClassCastException) {
+                Log.e(this::class.java.simpleName, "Couldn't cast application class: $e")
             }
         }
     }

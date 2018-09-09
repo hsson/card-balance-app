@@ -33,11 +33,12 @@ class FoodAboutFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_restaurant_about, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_restaurant_about, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         restaurant_rating_bar.rating = restaurant.rating
         setOpenHours(restaurant_about_open_now, restaurant_about_open_hours)
         restaurant_visit_website.setOnClickListener {
@@ -54,8 +55,6 @@ class FoodAboutFragment : Fragment() {
         }
 
         restaurant_about_campus.text = getString(R.string.restaurant_about_campus, restaurant.campus)
-
-        return view
     }
 
     override fun onResume() {

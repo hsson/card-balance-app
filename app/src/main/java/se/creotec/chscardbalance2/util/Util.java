@@ -38,7 +38,7 @@ public final class Util {
      * @return The input string with all first letters capitalized
      */
     public static String capitalizeAllWords(String in) {
-        if (in == null  || in.equals("")) {
+        if (in == null  || in.trim().equals("")) {
             return in;
         }
 
@@ -47,9 +47,10 @@ public final class Util {
         String[] strArr = in.split(" ");
         for (String str : strArr) {
             char[] stringArray = str.trim().toCharArray();
-            stringArray[0] = Character.toUpperCase(stringArray[0]);
-            str = new String(stringArray);
-
+            if (stringArray.length > 0) {
+                stringArray[0] = Character.toUpperCase(stringArray[0]);
+                str = new String(stringArray);
+            }
             res.append(str).append(" ");
         }
         return res.toString().trim();
