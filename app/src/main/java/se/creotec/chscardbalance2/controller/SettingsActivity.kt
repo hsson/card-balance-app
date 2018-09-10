@@ -72,7 +72,7 @@ class SettingsActivity : AppCompatActivity() {
             dialog.show()
         }
 
-        cardNumberText = findViewById(R.id.settings_card_number_text) as TextView
+        cardNumberText = findViewById<TextView>(R.id.settings_card_number_text)
 
         menuLangContainer = findViewById(R.id.settings_menu_lang)
         menuLangContainer?.setOnClickListener {
@@ -90,13 +90,13 @@ class SettingsActivity : AppCompatActivity() {
                     .show()
 
         }
-        menuLangText = findViewById(R.id.settings_menu_lang_text) as TextView
+        menuLangText = findViewById<TextView>(R.id.settings_menu_lang_text)
 
 
         lowBalanceLimitContainer = findViewById(R.id.settings_low_balance_limit)
         toggleLowBalanceContainer = findViewById(R.id.settings_enable_low_balance_parent)
-        toggleLowBalanceNotifications = findViewById(R.id.settings_enable_low_balance_switch) as SwitchCompat
-        lowBalanceLimitText = findViewById(R.id.settings_low_balance_limit_text) as TextView
+        toggleLowBalanceNotifications = findViewById<SwitchCompat>(R.id.settings_enable_low_balance_switch)
+        lowBalanceLimitText = findViewById<TextView>(R.id.settings_low_balance_limit_text)
 
 
         val lowBalanceLimitString = getString(R.string.currency_suffix, global.model.notifications.lowBalanceNotificationLimit.toString())
@@ -181,11 +181,13 @@ class SettingsActivity : AppCompatActivity() {
         cardNumberText?.text = number
         if (savePreference) {
             val global = application as GlobalState
-            global.model.cardData.cardNumber = cardNumber
-            global.saveCardData()
-            val updateCardIntent = Intent(this, BalanceService::class.java)
-            updateCardIntent.action = Constants.ACTION_UPDATE_CARD
-            startService(updateCardIntent)
+            if (number != global.model.cardData.cardNumber) {
+                global.model.cardData.cardNumber = cardNumber
+                global.saveCardData()
+
+                global.model.userInfo = ""
+                global.saveUserInfoData()
+            }
         }
     }
 
