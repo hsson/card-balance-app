@@ -10,8 +10,8 @@ android {
         applicationId "se.creotec.chscardbalance2"
         minSdkVersion 23
         targetSdkVersion 27
-        versionCode 49
-        versionName "3.1.4"
+        versionCode 50
+        versionName "3.1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
