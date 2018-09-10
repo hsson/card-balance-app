@@ -45,7 +45,7 @@ object NotificationsHelper {
 
         val wearableExtended = NotificationCompat.WearableExtender().setBackground(wearableBkg)
         val notificationBuilder = NotificationCompat.Builder(context, Constants.NOTIFICATION_CHANNEL_BALANCE)
-                .setSmallIcon(R.drawable.app_icon_bw)
+                .setSmallIcon(R.drawable.ic_app_notification)
                 .setLargeIcon(largeIcon)
                 .setContentTitle(context.getString(R.string.notification_title))
                 .setContentText(contentText)
