@@ -47,6 +47,10 @@ class Model : IModel {
         userInfoChangedListeners.add(listener)
     }
 
+    override fun removeOnUserInfoChangedListener(listener: OnUserInfoChangedListener) {
+        userInfoChangedListeners.remove(listener)
+    }
+
     override fun notifyUserInfoChangedListeners() {
         userInfoChangedListeners.forEach { it.onUserInfoChanged(this.userInfo) }
     }

@@ -13,8 +13,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.WindowManager
 import android.webkit.CookieManager
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
@@ -55,6 +57,18 @@ class CardLoginActivity : AppCompatActivity(), OnUserInfoChangedListener {
             menuInflater.inflate(R.menu.action_menu_login, it)
         }
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val global = application as GlobalState
+        global.model.addOnUserInfoChangedListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val global = application as GlobalState
+        global.model.removeOnUserInfoChangedListener(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -101,14 +115,20 @@ class CardLoginActivity : AppCompatActivity(), OnUserInfoChangedListener {
     }
 
     override fun onUserInfoChanged(newUserInfo: String) {
-        AlertDialog.Builder(this)
-                .setTitle(R.string.dialog_user_info_ready_title)
-                .setMessage(R.string.dialog_user_info_ready_desc)
-                .setNegativeButton(R.string.action_cancel, null)
-                .setPositiveButton(R.string.action_continue) { _, _ ->
-                    goToMain()
-                }
-                .show()
+        if (!isFinishing) {
+            try {
+                AlertDialog.Builder(this)
+                        .setTitle(R.string.dialog_user_info_ready_title)
+                        .setMessage(R.string.dialog_user_info_ready_desc)
+                        .setNegativeButton(R.string.action_cancel, null)
+                        .setPositiveButton(R.string.action_continue) { _, _ ->
+                            goToMain()
+                        }
+                        .show()
+            } catch (e: WindowManager.BadTokenException) {
+                Log.e(this::class.java.simpleName, "Tried to show alert dialog when activity was finished: $e")
+            }
+        }
     }
 
     private fun goToMain() {

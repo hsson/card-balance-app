@@ -25,6 +25,7 @@ interface IModel {
 
     var userInfo: String
     fun addOnUserInfoChangedListener(listener: OnUserInfoChangedListener)
+    fun removeOnUserInfoChangedListener(listener: OnUserInfoChangedListener)
     fun notifyUserInfoChangedListeners()
 
     fun addServiceFailedListener(listener: OnServiceFailedListener)

@@ -92,6 +92,12 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        val global = application as GlobalState
+        global.model.removeOnUserInfoChangedListener(this)
+    }
+
     // Restaurant was clicked
     override fun onListFragmentInteraction(item: Restaurant) {
         Log.i(LOG_TAG, "${item.name} was clicked")
