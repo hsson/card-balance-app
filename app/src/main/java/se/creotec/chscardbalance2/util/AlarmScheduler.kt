@@ -8,7 +8,6 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.SystemClock
 import android.util.Log
 
 class AlarmScheduler private constructor() {
@@ -23,11 +22,12 @@ class AlarmScheduler private constructor() {
          */
         @Synchronized fun scheduleAlarm(context: Context, intent: Intent, flag: Int) {
             val alarmMgr = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            val alarmIntent = PendingIntent.getService(context.applicationContext, 0, intent, flag)
+            val alarmIntent = PendingIntent.getBroadcast(context, 0, intent, flag)
             if (alarmIntent != null) {
                 Log.d(LOG_TAG, "Scheduling alarm for intent " + intent.toString())
-                alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                        SystemClock.elapsedRealtime(),
+                alarmMgr.setInexactRepeating(
+                        AlarmManager.RTC_WAKEUP,
+                        System.currentTimeMillis(),
                         AlarmManager.INTERVAL_HALF_HOUR,
                         alarmIntent)
             }

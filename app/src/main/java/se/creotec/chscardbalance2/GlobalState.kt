@@ -7,6 +7,7 @@ package se.creotec.chscardbalance2
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -185,11 +186,8 @@ class GlobalState : Application() {
     fun scheduleUpdating() {
         val updateIntent = Intent(this, BalanceService::class.java)
         updateIntent.action = Constants.ACTION_UPDATE_CARD
-
-        if (!AlarmScheduler.isAlarmExistingForIntent(this, updateIntent)) {
-            Log.i(LOG_TAG, "Scheduling alarm on startup")
-            AlarmScheduler.scheduleAlarm(this, updateIntent, 0)
-        }
+        Log.i(LOG_TAG, "Scheduling alarm on startup")
+        AlarmScheduler.scheduleAlarm(this, updateIntent, PendingIntent.FLAG_CANCEL_CURRENT)
     }
 
     // Configure the image loader
