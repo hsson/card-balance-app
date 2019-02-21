@@ -266,13 +266,13 @@ class MainActivity : AppCompatActivity(), FoodRestaurantFragment.OnListFragmentI
 
         // Fade out name and card number when app bar is being collapsed
         appBarLayout?.let {
-            it.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val listener = AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
                 val percentage = Math.abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange
                 val alpha = 1 - percentage * 3f
-                cardOwnerName?.let { it.alpha = alpha }
-                cardNumber?.let { it.alpha = alpha }
+                cardOwnerName?.apply { this.alpha = alpha }
+                cardNumber?.apply { this.alpha = alpha }
             }
-
+            it.addOnOffsetChangedListener(listener)
             it.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
                 override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
                     if (state == AppBarStateChangeListener.State.COLLAPSED) {

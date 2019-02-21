@@ -7,19 +7,15 @@ package se.creotec.chscardbalance2
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
-import android.util.Log
 import com.google.gson.Gson
 import com.nostra13.universalimageloader.core.DisplayImageOptions
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 import se.creotec.chscardbalance2.model.*
-import se.creotec.chscardbalance2.service.BalanceService
-import se.creotec.chscardbalance2.util.AlarmScheduler
+import se.creotec.chscardbalance2.service.BalanceWork
 import java.util.*
 
 class GlobalState : Application() {
@@ -37,11 +33,7 @@ class GlobalState : Application() {
         loadMenuData()
         loadNotificationData()
         loadUserInfoData()
-        model.cardData.cardNumber?.let {
-            if (it != "") {
-                scheduleUpdating()
-            }
-        }
+        BalanceWork.scheduleRepeating()
         setupImageLoader()
     }
 
@@ -182,14 +174,6 @@ class GlobalState : Application() {
         }
     }
 
-    // Sets up scheduling of balance updating
-    fun scheduleUpdating() {
-        val updateIntent = Intent(this, BalanceService::class.java)
-        updateIntent.action = Constants.ACTION_UPDATE_CARD
-        Log.i(LOG_TAG, "Scheduling alarm on startup")
-        AlarmScheduler.scheduleAlarm(this, updateIntent, PendingIntent.FLAG_CANCEL_CURRENT)
-    }
-
     // Configure the image loader
     private fun setupImageLoader() {
         val defaultOptions = DisplayImageOptions.Builder()
@@ -204,9 +188,5 @@ class GlobalState : Application() {
                 .defaultDisplayImageOptions(defaultOptions)
                 .build()
         ImageLoader.getInstance().init(config)
-    }
-
-    companion object {
-        private val LOG_TAG = GlobalState::class.java.name
     }
 }

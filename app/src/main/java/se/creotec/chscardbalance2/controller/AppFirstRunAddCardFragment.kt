@@ -24,6 +24,7 @@ import se.creotec.chscardbalance2.Constants
 import se.creotec.chscardbalance2.GlobalState
 import se.creotec.chscardbalance2.R
 import se.creotec.chscardbalance2.model.CardData
+import se.creotec.chscardbalance2.service.BalanceWork
 import se.creotec.chscardbalance2.util.CardNumberMask
 
 
@@ -63,7 +64,7 @@ class AppFirstRunAddCardFragment : Fragment(), ISlidePolicy {
             val global = requireActivity().application as GlobalState
             global.model.cardData = cardData
             global.saveCardData()
-            global.scheduleUpdating()
+            BalanceWork.scheduleRepeating()
             return true
         }
         return false
